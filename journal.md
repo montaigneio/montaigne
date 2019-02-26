@@ -215,9 +215,9 @@ tags: #{technology, medium}
 
 ### readings
 
-from       | to         | locations
----------- | ---------- | -------------
-2016-12-04 | 2016-12-10 | San Francisco
+from      | to         | locations
+----------| ---------- | -------------
+2016-12-04| 2016-12-10 | San Francisco
 
 ### review
 

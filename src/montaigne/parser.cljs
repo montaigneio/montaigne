@@ -73,12 +73,12 @@
 
      entity-table-attr-val = row <delimiter-row> row*
      row = column (<'|'> column)+ <newline>
-     delimiter-column = space? '-'+ space?
+     delimiter-column = space* '-'+ space*
      delimiter-row = delimiter-column (<'|'> delimiter-column)+ <newline>
-     column = date | 
+     column = <space>* (date |
               places-list | 
               people-list | 
-              #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+'
+              #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+') <space>*
 
 
      people-list = <'@{'> #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+' <'}'>
