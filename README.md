@@ -9,10 +9,10 @@ Montaigne is a document system developed for keeping personal journals and wikis
  - [ ] support for date types
  - [ ] support for people, places, tags types
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
- - [ ] support for multiline code
  - [ ] define dynamic columns
  - [ ] eval `templates`
  - [ ] define cli commands
+ - [ ] `parse` should only parse, `eval` should eval code blocks
 
 ## Dev
 

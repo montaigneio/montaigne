@@ -1,11 +1,13 @@
 (ns montaigne.parser
+  (:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [instaparse.core :as insta :refer-macros [defparser]]
             [cljs-node-io.core :as io :refer [slurp spit]]
             [cljs.tools.reader :refer [read-string]]
             [cljs.js :refer [empty-state eval js-eval]]
             [cljs.env :refer [*compiler*]]
             [cljs.pprint :refer [pprint]]
-            [cuerdas.core :as cue]))
+            [cuerdas.core :as cue]
+            ))
 
 (println "parser start...")
 
@@ -32,15 +34,15 @@
      collection-body = collection-attrs entity-def-attrs entities
      
      collection-attr = (collection-inline-attr | collection-multiline-attr)
-     collection-attrs = collection-attr*{collection-attr}
+     collection-attrs = collection-attr*
      entity-def-attrs = entity-inline-def-attr*
-     entities = entity*{entity}
+     entities = entity*
      
      entity-inline-def-attr = <entity-inline-attr-mark> entity-inline-def-attr-name <semicolon> <space> entity-inline-def-attr-val <newline>+
      entity-inline-def-attr-name = attribute-name
      entity-inline-def-attr-val = inline-code
      
-     inline-code = <'`('> #'[a-zA-Z0-9 :%./]+' <')`'>
+     inline-code = <'`'> '(' #'[a-zA-Z0-9 :%./]+' ')' <'`'>
 
      collection-attr-name = attribute-name
 
@@ -52,6 +54,7 @@
      <collection-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\(\\)\\[\\]\\{\\}\\-’\\'.?!\\:;, %`\t]+' '\n'+
      collection-multiline-attr-val = collection-attr-val-line+
      
+
      entity = entity-header entity-body <newline>+
      
      <entity-header> = <entity-header-mark> <space> entity-name <blankline>
@@ -121,17 +124,31 @@
 (defn transform-collection-attr [el]
       (println "transform collection attr")
       (pprint el)
-      (let [attr-name (->> el :content first :content first :content first)
-            attr-value (->> el :content first :content last :content first)]
-           {:name  attr-name
-            :value attr-value}))
+      (pprint (->> el :content first :content last :content))
+      (let [value-lines-list (->> el :content first :content last :content)
+            value-as-str (cue/trim (cue/join value-lines-list))
+            attr-name (->> el :content first :content first :content first)]
+           (if (and
+                  (cue/starts-with? value-as-str "```clojure")
+                  (cue/ends-with? value-as-str "```"))
+            (let [val_ (cue/strip-prefix value-as-str "```clojure")
+                  attr-value (cue/strip-suffix val_ "```")]
+                  {:name  attr-name
+                   :type "code" 
+                   :value attr-value}
+                  )
+            {:name  attr-name
+             :value value-as-str}
+           ) 
+           ))
 
 
 (defn transform-entity-def-attr [el]
       (let [attr-name (->> el :content first :content first :content first)
-            attr-value (->> el :content first :content last :content first :content first)]
+            attr-value (->> el :content first :content last :content first :content cue/join)]
            {:name  attr-name
-            :value (str "(" attr-value ")")}))
+            :type "code"
+            :value attr-value}))
 
 (defn transform-table-value [table-el]
       (let [header-row (first table-el)
@@ -185,10 +202,9 @@
            {:name  entity-name
             :attrs attrs}))
 
-(defn parse [filename]
-      (let [sample (slurp filename)
-            original-parsed (mntgn-parser sample)
-            parsed (insta/transform
+(defn parse-doc [doc]
+  (let [original-parsed (mntgn-parser doc)
+      parsed (insta/transform
                      {
                       :date
                       (fn [hello]
@@ -207,50 +223,57 @@
                       (fn [value]
                           (map cue/trim
                                (cue/split value ",")))}
-                     original-parsed)
-            transformed
-            (map
-              (fn [collection]
-                  (let [content (->> collection :content second :content)
-                        attrs (map transform-collection-attr (get-collection-attributes content))
-                        entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
-                        plain-entities (map transform-entity (get-entities content))
-                        entities
-                        (map
+                     original-parsed)]
+    (println doc)
+    (pprint original-parsed)
+    parsed                     
+                     )
+)
+
+(defn evaluate-def-attribute-for-each-entity [plain-entities]
+  (map
                           (fn [entity]
                               (reduce
                                 (fn [ent ent-def-attr]
                                     (let [attr-name (keyword (:name ent-def-attr))
                                           code-to-eval
                                           (str "(let [% " (prn-str (dissoc ent :attrs)) "]" (:value ent-def-attr) ")")
-                                          attr-val (:value (eval-str code-to-eval))]
+                                          attr-val (:value (eval-str code-to-eval))
+                                          new-attr {:name attr-name :value attr-val}]
                                          ; (println "code to eval" code-to-eval)
                                          ; (println (eval-str code-to-eval))
                                          ; (println "done eval")
-                                         (assoc ent attr-name attr-val :attrs
-                                                (concat (:attrs ent)
-                                                        [{
-                                                          :name  attr-name
-                                                          :value attr-val
-                                                          }])))
+                                         (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
                                     )
                                 entity entity-def-attrs))
-                          plain-entities)]
+                          plain-entities)
+)
+
+(defn evaluate [parsed-output]
+  (map
+              (fn [collection]
+                  (let [content (->> collection :content second :content)
+                        attrs (map transform-collection-attr (get-collection-attributes content))
+                        entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
+                        plain-entities (map transform-entity (get-entities content))
+                        entities (evaluate-def-attribute-for-each-entity plain-entities)]
                        {:name             (->> collection :content first :content first)
                         :attrs            attrs
                         :entity-def-attrs entity-def-attrs
-                        :entities         entities}
-                       ))
-              parsed)]
-           (println sample)
-           (pprint original-parsed)
+                        :entities         entities}))
+              parsed-output)
+)
+
+(defn parse [filename]
+      (let [doc (slurp filename)
+            parsed (parse-doc doc)
+            transformed (evaluate parsed)]
            (pprint transformed)
-           transformed
-           ))
+           transformed))
 
 
-(defn -main [& args]
+ (defn -main [& args]
       (println "start")
-      (-> args first parse))
+       (-> args first parse))
 
-(set! *main-cli-fn* -main)
+ (set! *main-cli-fn* -main)

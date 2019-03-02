@@ -5,10 +5,11 @@ description: Books I've read
 ### template
 
 ```clojure
-    (map 
-        (fn [entity]
-            [:div (:name entity)])
-        (:entities %))
+(html 
+    [:ul.readings
+        (map (fn [reading]
+            [:li.reading (:title reading)]
+        ) %)])
 ```
 
 @id: `(montaigne.parser/slug :name %)`
@@ -231,6 +232,19 @@ However, what I liked about this book is that he tries to stay optimistic. He re
 # trips
 
 @id: `(montaigne.parser/slug :name %)`
+
+## Temecula Feb 2019
+
+from: San Francisco
+to: Temecula, CA
+
+### itinerary
+
+from | to   | date       | type
+---- | ---- | ---------- | -----
+SFO  | SAN  | 2019-02-24 | flight
+SAN  | SFO  | 2019-03-01 |f light
+
 
 ## Vail Feb 2019
 
