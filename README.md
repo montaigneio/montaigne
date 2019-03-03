@@ -10,7 +10,7 @@ Montaigne is a document system developed for keeping personal journals and wikis
  - [ ] support for people, places, tags types
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [ ] define dynamic columns
- - [ ] eval `templates`: 
+ - [ ] eval entitity `templates`: 
     ```clojure
     (html 
         [:ul.readings
@@ -20,6 +20,7 @@ Montaigne is a document system developed for keeping personal journals and wikis
     ```
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks
+ - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props
 
 ## Dev
 
