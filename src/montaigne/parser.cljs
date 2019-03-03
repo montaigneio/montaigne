@@ -2,11 +2,13 @@
   (:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [instaparse.core :as insta :refer-macros [defparser]]
             [cljs-node-io.core :as io :refer [slurp spit]]
+            [cljs-node-io.fs :as fs :refer [mkdir rm-r]]
             [cljs.tools.reader :refer [read-string]]
             [cljs.js :refer [empty-state eval js-eval]]
             [cljs.env :refer [*compiler*]]
             [cljs.pprint :refer [pprint]]
             [cuerdas.core :as cue]
+            [eval-soup.core :as eval-soup]
             ))
 
 (println "parser start...")
@@ -19,9 +21,16 @@
         (empty-state)
         (read-string s)
         {:eval       js-eval
+        ;  :load (fn [_ cb] (cb {:lang :clj :source "(ns foo.core) (defn add [a b] (+ a b))"}))
          :source-map false
-         :context    :expr}
-        (fn [result] result)))
+         :verbose    true
+         :context    :expr
+        ;  :ns 'foo.core
+         :load-macros true}
+        (fn [result] 
+          (println "result>>" result)
+          result
+        )))
 
 
 (def mntgn-parser
@@ -50,8 +59,8 @@
      collection-inline-attr-val = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\'.?!\\:;, ]+'
 
      collection-multiline-attr = collection-multiline-attr-header collection-multiline-attr-val <newline>*
-     collection-multiline-attr-header = <multiline-attr-header-mark> <space> collection-attr-name <blankline>
-     <collection-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\(\\)\\[\\]\\{\\}\\-’\\'.?!\\:;, %`\t]+' '\n'+
+     <collection-multiline-attr-header> = <multiline-attr-header-mark> <space> collection-attr-name <blankline>
+     <collection-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ<>\\(\\)\\[\\]\\{\\}\\-’\"\\'.?!\\:;, /%`\t]+' '\n'+
      collection-multiline-attr-val = collection-attr-val-line+
      
 
@@ -230,38 +239,91 @@
                      )
 )
 
-(defn evaluate-def-attribute-for-each-entity [plain-entities]
+(defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
   (map
-                          (fn [entity]
-                              (reduce
-                                (fn [ent ent-def-attr]
-                                    (let [attr-name (keyword (:name ent-def-attr))
-                                          code-to-eval
-                                          (str "(let [% " (prn-str (dissoc ent :attrs)) "]" (:value ent-def-attr) ")")
-                                          attr-val (:value (eval-str code-to-eval))
-                                          new-attr {:name attr-name :value attr-val}]
-                                         ; (println "code to eval" code-to-eval)
-                                         ; (println (eval-str code-to-eval))
-                                         ; (println "done eval")
-                                         (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
-                                    )
-                                entity entity-def-attrs))
-                          plain-entities)
-)
+    (fn [entity]
+        (reduce
+          (fn [ent ent-def-attr]
+              (println "evaluate ent attr")
+              (pprint ent)
+              (pprint ent-def-attr)
+              (let [attr-name (keyword (:name ent-def-attr))
+                    code-to-eval
+                      (str "(let [% " (prn-str (dissoc ent :attrs)) "]" (:value ent-def-attr) ")")
+                    attr-val (:value (eval-str code-to-eval))
+                    new-attr {:name attr-name :value attr-val}]
+                    ; (println "code to eval" code-to-eval)
+                    ; (println (eval-str code-to-eval))
+                    ; (println "done eval")
+                    (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
+              )
+          entity entity-def-attrs))
+    plain-entities))
+
+; TODO here we need to update collection attributes
+(defn evaluate-collection-attributes [collection]
+  (println "eval collec attrs")
+  (pprint collection)
+  (reduce
+    (fn [collection collection-attr]
+        (if (= "code" (:type collection-attr))
+          (let [attr-name (keyword (:name collection-attr))
+                ents (map #(dissoc % :attrs) (:entities collection))
+                code-to-eval
+                  (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
+                attr-val (:value (eval-str code-to-eval))
+                new-attr {:name attr-name :value attr-val}]
+                (println "coll attr. code to eval" code-to-eval attr-name)
+                (println attr-val)
+                (println "done eval")
+                (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
+          ; put back original attribute
+          (assoc collection :attrs (concat (:attrs collection) [collection-attr]))      
+          ))
+    (assoc collection :attrs []) ; reset :attrs
+    (:attrs collection)
+    ))
 
 (defn evaluate [parsed-output]
   (map
-              (fn [collection]
-                  (let [content (->> collection :content second :content)
-                        attrs (map transform-collection-attr (get-collection-attributes content))
-                        entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
-                        plain-entities (map transform-entity (get-entities content))
-                        entities (evaluate-def-attribute-for-each-entity plain-entities)]
-                       {:name             (->> collection :content first :content first)
-                        :attrs            attrs
-                        :entity-def-attrs entity-def-attrs
-                        :entities         entities}))
-              parsed-output)
+    (fn [collection]
+        (let [content (->> collection :content second :content)
+              collection-attrs (map transform-collection-attr (get-collection-attributes content))
+              entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
+              plain-entities (map transform-entity (get-entities content))
+              entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
+              collection_ {:name             (->> collection :content first :content first)
+               :attrs            collection-attrs
+               :entity-def-attrs entity-def-attrs
+               :entities         entities_}
+              collection (evaluate-collection-attributes collection_)]
+              collection
+              ))
+    parsed-output)
+)
+
+(defn render [collections]
+  ; (rm-r "public/*")
+  ; (mkdir "public")
+  (doall
+    (map 
+    (fn [collection]
+      ; (println "wrote:" (str (:name collection) ".html"))
+      (mkdir (str "public/" (:name collection)))
+      (spit (str "public/" (:name collection) "/index.html") 
+        (:template collection)
+      )
+      (doall
+        (map (fn [entity]
+          (mkdir (str "public/" (:id entity)))
+          (spit (str "public/" (:id entity) "/index.html") (prn-str entity))
+        )
+        (:entities collection))
+      )
+    )
+    collections
+  )
+  )
 )
 
 (defn parse [filename]
@@ -269,6 +331,7 @@
             parsed (parse-doc doc)
             transformed (evaluate parsed)]
            (pprint transformed)
+           (render transformed)
            transformed))
 
 

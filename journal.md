@@ -5,11 +5,7 @@ description: Books I've read
 ### template
 
 ```clojure
-(html 
-    [:ul.readings
-        (map (fn [reading]
-            [:li.reading (:title reading)]
-        ) %)])
+(str "<ul>" (clojure.string/join "" (map (fn [entity](str "<li>" (:name entity) "</li>")) %)) "</ul>")
 ```
 
 @id: `(montaigne.parser/slug :name %)`

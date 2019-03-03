@@ -10,7 +10,14 @@ Montaigne is a document system developed for keeping personal journals and wikis
  - [ ] support for people, places, tags types
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [ ] define dynamic columns
- - [ ] eval `templates`
+ - [ ] eval `templates`: 
+    ```clojure
+    (html 
+        [:ul.readings
+            (map (fn [reading]
+                [:li.reading (:title reading)]
+            ) %)])
+    ```
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks
 
