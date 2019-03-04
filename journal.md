@@ -5,10 +5,16 @@ description: Books I've read
 ### template
 
 ```clojure
-(str "<ul>" (clojure.string/join "" (map (fn [entity](str "<li>" (:name entity) "</li>")) %)) "</ul>")
+(str "<ul>" (clojure.string/join "" (map (fn [entity](str "<li><a href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) "</ul>")
 ```
 
 @id: `(montaigne.parser/slug :name %)`
+
+### @template
+
+```clojure
+(str "<div><h1>" (:name %) "</h1></div>")
+```
 
 ## Amusing Ourselves to Death
 
@@ -19,7 +25,7 @@ isbn: 9780143036531
 year: 1985
 pages: 208
 rating: 5
-tags: #{media, entertainment}
+tags: @{media, entertainment}
 
 ### readings
 
@@ -129,7 +135,7 @@ isbn: 978-0-307-38845-2
 year: 2006
 pages: 383
 rating: 5
-tags: #{Eastern Europe, politics}
+tags: @{Eastern Europe, politics}
 
 ### readings
 
@@ -167,7 +173,7 @@ isbn: 978-0-307-38983-1
 year: 2008
 pages: 194
 rating: 5
-tags: #{running}
+tags: @{running}
 
 ### readings
 
@@ -208,7 +214,7 @@ isbn: 978-0-679-73421-5
 year: 1988
 pages: 201
 rating: 5
-tags: #{technology, medium}
+tags: @{technology, medium}
 
 ### readings
 
@@ -226,6 +232,8 @@ His essays and observations draw a picture of quite sad future. A lot of this pr
 However, what I liked about this book is that he tries to stay optimistic. He reminds us that civilized society is very vulnerable and we should pay attention to dangers. And he tries to provide us with a mindset how to do just that.
 
 # trips
+
+description: My trips
 
 @id: `(montaigne.parser/slug :name %)`
 
@@ -272,7 +280,7 @@ airplane  | dwr  | sfo
 ## Summer 2018
 
 from: San Francisco
-to: ${Kyiv, Barcelona, Santorini, Athens, Copenhaghen}
+to: @{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}
 type: family
 
 ### itinerary
@@ -305,7 +313,7 @@ description: My collection of quotes
 ## Havel on critizing
 
 authors: @{Václav Havel}
-tags: #{politics, criticizing}
+tags: @{politics, criticizing}
 
 ### sources
 
@@ -321,7 +329,7 @@ you can't spend your whole life criticizing something and then, when you have th
 ## Postman on promotion of fast technological solutions
 
 authors: @{Neil Postman}
-tags: #{technology, television commercials, utopia}
+tags: @{technology, television commercials, utopia}
 
 ### quote
 
