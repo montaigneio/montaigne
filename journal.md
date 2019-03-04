@@ -18,14 +18,14 @@ description: Books I've read
 
 ## Amusing Ourselves to Death
 
-title: Amusing Ourselves to Death
-subtitle: Public Discourse in the Age of Show Business
-authors: @{Neil Postman}
-isbn: 9780143036531
-year: 1985
-pages: 208
-rating: 5
-tags: @{media, entertainment}
+title: Amusing Ourselves to Death  
+subtitle: Public Discourse in the Age of Show Business  
+authors: @{Neil Postman}  
+isbn: 9780143036531  
+year: 1985  
+pages: 208  
+rating: 5  
+tags: @{media, entertainment}  
 
 ### readings
 
