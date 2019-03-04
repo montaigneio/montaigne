@@ -22,6 +22,12 @@ Run locally:
     clj -m cljs.main --repl-env node -m montaigne.parser PATH_TO_FILE
 ```
 
+or 
+
+```
+clj scripts/repl.clj
+```
+
 Compile
 
 ```
@@ -35,3 +41,4 @@ and run `node main.js`
 
  - https://wiki.xxiivv.com/#oscean
  - https://orgmode.org/
+ - https://github.com/renerocksai/sublime_zk
