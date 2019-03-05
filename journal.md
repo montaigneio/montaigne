@@ -8,7 +8,7 @@ description: Books I've read
 (str "<ul>" (clojure.string/join "" (map (fn [entity](str "<li><a href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) "</ul>")
 ```
 
-@id: `(montaigne.parser/slug :name %)`
+@id: `(montaigne.parser/slug (:name %))`
 
 ### @template
 
@@ -44,11 +44,11 @@ instant deliveries etc.
 
 ## Homage to Catalonia
 
-title: Homage to Catalonia
-authors: @{George Orwell}
-isbn: 978-1-84902-597-3
-year: 1938
-rating: 4
+title: Homage to Catalonia  
+authors: @{George Orwell}  
+isbn: 978-1-84902-597-3  
+year: 1938  
+rating: 4  
 
 ### readings
 
@@ -75,11 +75,11 @@ He was wounded, needed to leave country, but at the end he still believed in hum
 
 ## The Animal Farm
 
-title: The Animal Farm
-authors: @{George Orwell}
-isbn: 978-1-943138-42-5
-year: 1945
-rating: 5
+title: The Animal Farm  
+authors: @{George Orwell}  
+isbn: 978-1-943138-42-5  
+year: 1945  
+rating: 5  
 
 ### readings
 
@@ -102,11 +102,11 @@ And what kind of people typically end-up on top in any system regarding of the t
 
 ## The Little Prince
 
-title: The Little Prince
-authors: @{Antoine de Saint-Exupéry}
-isbn: 978-0-15-601219-5
-year: 1943
-rating: 5
+title: The Little Prince  
+authors: @{Antoine de Saint-Exupéry}  
+isbn: 978-0-15-601219-5  
+year: 1943  
+rating: 5  
 
 ### readings
 
@@ -129,13 +129,13 @@ It's a pure beauty. Just in few pages it shows what is important in life and wha
 
 ## To the Castle and Back
 
-title: To the Castle and Back
-authors: @{Václav Havel}
-isbn: 978-0-307-38845-2
-year: 2006
-pages: 383
-rating: 5
-tags: @{Eastern Europe, politics}
+title: To the Castle and Back  
+authors: @{Václav Havel}  
+isbn: 978-0-307-38845-2  
+year: 2006  
+pages: 383  
+rating: 5  
+tags: @{Eastern Europe, politics}  
 
 ### readings
 
@@ -167,13 +167,13 @@ If society is uneducated, politicians are profane.
 
 ## What I Talk About When I Talk About Running
 
-title: What I Talk About When I Talk About Running
-authors: @{Haruki Murakami}
-isbn: 978-0-307-38983-1
-year: 2008
-pages: 194
-rating: 5
-tags: @{running}
+title: What I Talk About When I Talk About Running  
+authors: @{Haruki Murakami}  
+isbn: 978-0-307-38983-1  
+year: 2008  
+pages: 194  
+rating: 5  
+tags: @{running}  
 
 ### readings
 
@@ -207,14 +207,14 @@ Few interesting things that I noticed:
 
 ## Conscientious Objections
 
-title: Conscientious Objections
-subtitle: Stirring Up Trouble About Language, Technology and Education
-authors: @{Neil Postman}
-isbn: 978-0-679-73421-5
-year: 1988
-pages: 201
-rating: 5
-tags: @{technology, medium}
+title: Conscientious Objections  
+subtitle: Stirring Up Trouble About Language, Technology and Education  
+authors: @{Neil Postman}  
+isbn: 978-0-679-73421-5  
+year: 1988  
+pages: 201  
+rating: 5  
+tags: @{technology, medium}  
 
 ### readings
 
@@ -231,16 +231,37 @@ His essays and observations draw a picture of quite sad future. A lot of this pr
 
 However, what I liked about this book is that he tries to stay optimistic. He reminds us that civilized society is very vulnerable and we should pay attention to dangers. And he tries to provide us with a mindset how to do just that.
 
+## Treatise on Modern Stimulants
+
+title: Treatise on Modern Stimulants  
+authors: @{Honoré de Balzac}  
+isbn: 978-1-939663-38-2  
+year: 1839  
+pages: 80  
+rating: 3  
+
+### readings
+
+from      | to         | locations
+----------| ---------- | -------------
+2019-10-02| 2019-03-03 | San Francisco
+
+### reviews
+
+Very short and simple book. Didn't find a lot of interesting things when read.
+However, I think it's an interesting book to be written at 1839.
+Also the topic is as relevant as always and insights are true and common knowledge now.
+
 # trips
 
-description: My trips
+description: My trips  
 
-@id: `(montaigne.parser/slug :name %)`
+@id: `(montaigne.parser/slug (:name %))`
 
 ## Temecula Feb 2019
 
-from: San Francisco
-to: Temecula, CA
+from: San Francisco  
+to: Temecula, CA  
 
 ### itinerary
 
@@ -252,9 +273,8 @@ SAN  | SFO  | 2019-03-01 |f light
 
 ## Vail Feb 2019
 
-from: San Francisco
-to: Vail
-hello: world
+from: San Francisco  
+to: Vail  
 
 ### itinerary
 
@@ -266,9 +286,9 @@ v21  | v22  | v23
 
 ## Buenos Aires And Paris 2018
 
-from: San Francisco
-to: Buenos Aires
-type: friends
+from: San Francisco  
+to: Buenos Aires  
+type: friends  
 
 ### itinerary
 
@@ -279,9 +299,9 @@ airplane  | dwr  | sfo
 
 ## Summer 2018
 
-from: San Francisco
-to: @{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}
-type: family
+from: San Francisco  
+to: @{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}  
+type: family  
 
 ### itinerary
 
@@ -308,12 +328,12 @@ airplane  | lax   | sfo
 
 description: My collection of quotes
 
-@id: `(montaigne.parser/slug :name %)`
+@id: `(montaigne.parser/slug (:name %))`
 
 ## Havel on critizing
 
-authors: @{Václav Havel}
-tags: @{politics, criticizing}
+authors: @{Václav Havel}  
+tags: @{politics, criticizing}  
 
 ### sources
 
@@ -328,10 +348,31 @@ you can't spend your whole life criticizing something and then, when you have th
 
 ## Postman on promotion of fast technological solutions
 
-authors: @{Neil Postman}
-tags: @{technology, television commercials, utopia}
+authors: @{Neil Postman}  
+tags: @{technology, television commercials, utopia}  
 
 ### quote
 
 Television screens saturated with commercials promote the Utopian and childish idea that all problems have fast, simple, and technological solutions.
+
+# activities
+
+description: My activities
+
+@id: `(montaigne.parser/slug (:name %))`
+
+## week 1
+
+start: 2019-03-03  
+end: 2019-03-09  
+
+### activities
+
+Activity   | S | M | T | W | T | F | S
+-----------|---|---|---|---|---|---|---
+dance      | ✓ |   |   |   |   |   |   
+football   | ✓ |   |   |   |   |   |   
+reading    | ✓ |   |   |   |   |   |   
+spanish    |   |   |   |   |   |   |   
+no alcohol | ✓ | ✓ |   |   |   |   |    
 

@@ -1,6 +1,6 @@
 # Montaigne
 
-This is a prototype.
+This is a _prototype_.
 
 Montaigne is a document system developed for keeping personal journals and wikis.
 
@@ -13,6 +13,7 @@ Montaigne is a document system developed for keeping personal journals and wikis
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks
  - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props
+ - [ ] multiline support for template properties. Only one works now
 
 ## Dev
 

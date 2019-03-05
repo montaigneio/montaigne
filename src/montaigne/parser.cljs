@@ -42,8 +42,8 @@
 ;; end cuerdas
 
 
-(defn slug [prop-name entity]
-      (cue/slug (get entity prop-name)))
+(defn slug [prop-value]
+      (cue/slug prop-value))
 
 (defn eval-str [s]
       (eval
@@ -79,7 +79,7 @@
      entities = entity*
 
      def-attr-name = attribute-name
-     <inline-code> = <'`'> '(' #'[a-zA-Z0-9 :%./]+' ')' <'`'>
+     <inline-code> = <'`'> #'[a-zA-Z0-9 :%./\\(\\)]+' <'`'>
 
      entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <semicolon> <space> entity-inline-def-attr-val <newline>+
      entity-inline-def-attr-val = inline-code
@@ -91,7 +91,7 @@
 
      collection-attr-name = attribute-name
 
-     collection-inline-attr = collection-attr-name <semicolon> <space> collection-inline-attr-val <newline>+
+     collection-inline-attr = collection-attr-name <semicolon> <space> collection-inline-attr-val <space*> <newline>+
      collection-inline-attr-val = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\'.?!\\:;, ]+'
 
      collection-multiline-attr = collection-multiline-attr-header collection-multiline-attr-val <newline>*
@@ -107,7 +107,7 @@
      entity-body = (entity-inline-attr | entity-multiline-attr)+
 
      entity-attr-name = attribute-name
-     entity-inline-attr = entity-attr-name <semicolon> <space> entity-inline-attr-val <newline>+
+     entity-inline-attr = entity-attr-name <semicolon> <space> entity-inline-attr-val <space*> <newline>+
      entity-inline-attr-val =
         people-list |
         tags-list |
@@ -116,7 +116,7 @@
 
      entity-multiline-attr = entity-multiline-attr-header (entity-table-attr-val | entity-multiline-attr-val) <newline>*
      <entity-multiline-attr-header> = <multiline-attr-header-mark> <space> entity-attr-name <blankline>
-     <entity-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\(\\)\\[\\]\\{\\}\\-’\\'.?!\\:;, ]+' '\n'+
+     <entity-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ✓\\(\\)\\[\\]\\{\\}\\-’\\'.?!\\:;, ]+' '\n'+
      entity-multiline-attr-val = entity-attr-val-line+
 
      entity-table-attr-val = row <delimiter-row> row*
@@ -126,7 +126,7 @@
      column = <space>* (date |
               places-list |
               people-list |
-              #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+') <space>*
+              #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ✓\\-’\\', ]+') <space>*
 
 
      people-list = <'@{'> #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+' <'}'>
@@ -401,6 +401,7 @@
             transformed (evaluate parsed)
             ]
            ;  parsed
+           (println parsed)
            (pprint transformed)
            (render transformed)
            ;  transformed
