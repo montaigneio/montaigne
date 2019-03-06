@@ -268,7 +268,7 @@ to: Temecula, CA
 from | to   | date       | type
 ---- | ---- | ---------- | -----
 SFO  | SAN  | 2019-02-24 | flight
-SAN  | SFO  | 2019-03-01 |f light
+SAN  | SFO  | 2019-03-01 | flight
 
 
 ## Vail Feb 2019
@@ -355,6 +355,23 @@ tags: @{technology, television commercials, utopia}
 
 Television screens saturated with commercials promote the Utopian and childish idea that all problems have fast, simple, and technological solutions.
 
+## Balzac on consumption
+
+authors: @{Honoré de Balzac}
+tags: @{consumption, coffee, alcholhol, drugs}
+
+### sources
+
+book                           | pages | chapter
+------------------------------ | ----  | ---------------------
+Treatise on Modern Stimulants  | 6     | I The Subject at Hand
+
+### quote
+
+Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an 
+early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become 
+abnormally enlarged, damanged and corrupt the machine, which succumbs.
+
 # activities
 
 description: My activities
@@ -374,5 +391,12 @@ dance      | ✓ |   |   |   |   |   |
 football   | ✓ |   |   |   |   |   |   
 reading    | ✓ |   |   |   |   |   |   
 spanish    |   |   |   |   |   |   |   
-no alcohol | ✓ | ✓ |   |   |   |   |    
+no alcohol | ✓ | ✓ |   |   |   |   |   
+no coffee  |   |   |   |   |   |   |    
+pushups    | ✓ | ✓ | ✓ |   |   |   |   
+
+## week 2
+
+start: 2019-03-09
+end: 2019-03-16
 

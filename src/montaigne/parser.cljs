@@ -79,9 +79,9 @@
      entities = entity*
 
      def-attr-name = attribute-name
-     <inline-code> = <'`'> #'[a-zA-Z0-9 :%./\\(\\)]+' <'`'>
+     <inline-code> = <'`'> #'[^`]+' <'`'>
 
-     entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <semicolon> <space> entity-inline-def-attr-val <newline>+
+     entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <colon> <space> entity-inline-def-attr-val <newline>+
      entity-inline-def-attr-val = inline-code
 
      entity-multiline-def-attr = entity-multiline-def-attr-header entity-multiline-def-attr-val <newline>*
@@ -91,7 +91,7 @@
 
      collection-attr-name = attribute-name
 
-     collection-inline-attr = collection-attr-name <semicolon> <space> collection-inline-attr-val <space*> <newline>+
+     collection-inline-attr = collection-attr-name <colon> <space> collection-inline-attr-val <space*> <newline>+
      collection-inline-attr-val = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\'.?!\\:;, ]+'
 
      collection-multiline-attr = collection-multiline-attr-header collection-multiline-attr-val <newline>*
@@ -107,7 +107,7 @@
      entity-body = (entity-inline-attr | entity-multiline-attr)+
 
      entity-attr-name = attribute-name
-     entity-inline-attr = entity-attr-name <semicolon> <space> entity-inline-attr-val <space*> <newline>+
+     entity-inline-attr = entity-attr-name <colon> <spaces> entity-inline-attr-val <space>* <newline>+
      entity-inline-attr-val =
         people-list |
         tags-list |
@@ -123,15 +123,12 @@
      row = column (<'|'> column)+ <newline>
      delimiter-column = space* '-'+ space*
      delimiter-row = delimiter-column (<'|'> delimiter-column)+ <newline>
-     column = <space>* (date |
-              places-list |
-              people-list |
-              #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ✓\\-’\\', ]+') <space>*
+     column = <space>* (date | places-list | people-list | #'[^|^\n]+') <space>*
 
 
-     people-list = <'@{'> #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+' <'}'>
-     tags-list = <'#{'> #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+' <'}'>
-     places-list = <'${'> #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ\\-’\\', ]+' <'}'>
+     people-list = <'@{'> #'[^}]+' <'}'>
+     tags-list = <'#{'> #'[^}]+' <'}'>
+     places-list = <'${'> #'[^}]+' <'}'>
 
      <attribute-name> = #'[a-zA-Z0-9]+'
      collection-header-mark = '#'
@@ -140,8 +137,9 @@
      entity-inline-attr-mark = '@'
      <text> = #'[^`#*\n{2}]+'
      indentation = (space space) | '\t'
-     semicolon = ':'
+     colon = ':'
      space = ' '
+     spaces = space+
 
      comma = ','
      date = #'[0-9]' #'[0-9]' #'[0-9]' #'[0-9]' '-' #'[0-9]' #'[0-9]' '-' #'[0-9]' #'[0-9]'
