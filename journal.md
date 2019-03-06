@@ -385,15 +385,15 @@ end: 2019-03-09
 
 ### activities
 
-Activity   | S | M | T | W | T | F | S
------------|---|---|---|---|---|---|---
-dance      | ✓ |   |   |   |   |   |   
-football   | ✓ |   |   |   |   |   |   
-reading    | ✓ |   |   |   |   |   |   
-spanish    |   |   |   |   |   |   |   
-no alcohol | ✓ | ✓ |   |   |   |   |   
-no coffee  |   |   |   |   |   |   |    
-pushups    | ✓ | ✓ | ✓ |   |   |   |   
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |  ✓  |     |     |     |     |     |   
+football   |  ✓  |     |     |     |     |     |   
+reading    |  ✓  |     |     |     |     |     |   
+spanish    |     |     |     |     |     |     |   
+no alcohol |  ✓  |  ✓  |     |     |     |     |   
+no coffee  |     |     |     |     |     |     |    
+pushups    |  ✓  |  ✓  |  ✓  |     |     |     |   
 
 ## week 2
 
