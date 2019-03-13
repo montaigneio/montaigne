@@ -86,7 +86,7 @@
 
      entity-multiline-def-attr = entity-multiline-def-attr-header entity-multiline-def-attr-val <newline>*
      <entity-multiline-def-attr-header> = <multiline-attr-header-mark> <space> <'@'> def-attr-name <blankline>
-     <entity-def-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ<>\\(\\)\\[\\]\\{\\}\\-’\"\\'.?!\\:;, /%`\t]+' '\n'+
+     <entity-def-attr-val-line> = #'[^\n]+' '\n'+
      entity-multiline-def-attr-val = entity-def-attr-val-line+
 
      collection-attr-name = attribute-name
@@ -96,7 +96,7 @@
 
      collection-multiline-attr = collection-multiline-attr-header collection-multiline-attr-val <newline>*
      <collection-multiline-attr-header> = <multiline-attr-header-mark> <space> collection-attr-name <blankline>
-     <collection-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ<>\\(\\)\\[\\]\\{\\}\\-’\"\\'.?!\\:;,= /%`\t]+' '\n'+
+     <collection-attr-val-line> = #'[^\n]+' '\n'+
      collection-multiline-attr-val = collection-attr-val-line+
 
 
@@ -108,15 +108,11 @@
 
      entity-attr-name = attribute-name
      entity-inline-attr = entity-attr-name <colon> <spaces> entity-inline-attr-val <space>* <newline>+
-     entity-inline-attr-val =
-        (people-list |
-         tags-list |
-         places-list |
-         #'[^\n]+')
+     entity-inline-attr-val = (people-list | tags-list | places-list | date | #'[^\n]+')
 
      entity-multiline-attr = entity-multiline-attr-header (entity-table-attr-val | entity-multiline-attr-val) <newline>*
      <entity-multiline-attr-header> = <multiline-attr-header-mark> <space> entity-attr-name <blankline>
-     <entity-attr-val-line> = #'[a-zA-Z0-9àèìòùÀÈÌÒÙáéíóúýÁÉÍÓÚÝâêîôûÂÊÎÔÛãñõÃÑÕäëïöüÿÄËÏÖÜŸçÇßØøÅåÆæœ✓\\(\\)\\[\\]\\{\\}\\-’\\'.?!\\:;, ]+' '\n'+
+     <entity-attr-val-line> = #'[^\n]+' '\n'+
      entity-multiline-attr-val = entity-attr-val-line+
 
      entity-table-attr-val = row <delimiter-row> row*

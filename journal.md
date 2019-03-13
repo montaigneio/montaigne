@@ -387,16 +387,54 @@ end: 2019-03-09
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |  ✓  |     |     |     |     |     |   
-football   |  ✓  |     |     |     |     |     |   
+dance      |  ✓  |     |     |  ✓  |     |     |   
+football   |  ✓  |     |     |  ✓  |     |     |   
 reading    |  ✓  |     |     |     |     |     |   
-spanish    |     |     |     |     |     |     |   
-no alcohol |  ✓  |  ✓  |     |     |     |     |   
-no coffee  |     |     |     |     |     |     |    
+spanish    |     |     |     |     |  ✓  |     |   
 pushups    |  ✓  |  ✓  |  ✓  |     |     |     |   
+edu event  |     |     |     |     |     |  ✓  |   
+ent event  |     |     |     |     |     |     |  ✓ 
+cul event  |     |     |     |     |     |     |   
+cycling    |     |     |     |     |     |     |   
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |  ✓
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
 
 ## week 2
 
-start: 2019-03-09
+start: 2019-03-10
 end: 2019-03-16
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |  ✓  |     |     |     |     |     |   
+football   |     |     |     |     |     |     |   
+reading    |     |     |  ✓  |     |     |     |   
+spanish    |     |  ✓  |     |     |     |     |   
+pushups    |     |     |     |     |     |     |   
+edu event  |     |     |     |     |     |     |   
+ent event  |     |     |     |     |     |     |    
+cul event  |     |     |     |     |     |     |   
+cycling    |     |     |     |     |     |     |   
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |   
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |   
+
+## week 3
+
+start: 2019-03-17
+end: 2019-03-23
 
