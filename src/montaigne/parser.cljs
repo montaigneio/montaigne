@@ -108,23 +108,18 @@
 
      entity-attr-name = attribute-name
      entity-inline-attr = entity-attr-name <colon> <spaces> entity-inline-attr-val <space>* <newline>+
-     entity-inline-attr-val = (people-list | tags-list | places-list | date | #'[^\n]+')
+     entity-inline-attr-val = #'[^\n]+'
 
      entity-multiline-attr = entity-multiline-attr-header (entity-table-attr-val | entity-multiline-attr-val) <newline>*
      <entity-multiline-attr-header> = <multiline-attr-header-mark> <space> entity-attr-name <blankline>
-     <entity-attr-val-line> = #'[^\n]+' '\n'+
+     <entity-attr-val-line> = #'[^|^\n]+' '\n'+
      entity-multiline-attr-val = entity-attr-val-line+
 
      entity-table-attr-val = row <delimiter-row> row*
      row = column (<'|'> column)+ <newline>
      delimiter-column = space* '-'+ space*
      delimiter-row = delimiter-column (<'|'> delimiter-column)+ <newline>
-     column = <space>* (date | places-list | people-list | #'[^|^\n]+') <space>*
-
-
-     people-list = <'@{'> #'[^}]+' <'}'>
-     tags-list = <'#{'> #'[^}]+' <'}'>
-     places-list = <'${'> #'[^}]+' <'}'>
+     column = <space>* #'[^|^\n]+' <space>*
 
      <attribute-name> = #'[a-zA-Z0-9]+'
      collection-header-mark = '#'
@@ -138,8 +133,6 @@
      spaces = space+
 
      comma = ','
-     date = #'[0-9]' #'[0-9]' #'[0-9]' #'[0-9]' '-' #'[0-9]' #'[0-9]' '-' #'[0-9]' #'[0-9]'
-     punctuation = '.' | '?' | '!' | ':' | ';'
      newline = #'\n'
      blankline = #'\n\n'" :output-format :enlive))
 
@@ -280,23 +273,30 @@
       (let [original-parsed (mntgn-parser doc)
             parsed (insta/transform
                      {
-                      :date
-                      (fn [hello]
-                          (println ">>>" hello)
-                          "")
+                      ; :date
+                      ; (fn [hello]
+                      ;     (println ">>>" hello)
+                      ;     "")
                       ;  :column cue/trim
-                      :people-list
-                      (fn [value]
-                          (map clojure.string/trim
-                               (clojure.string/split value ",")))
-                      :tags-list
-                      (fn [value]
-                          (map clojure.string
-                               (clojure.string/split value ",")))
-                      :places-list
-                      (fn [value]
-                          (map clojure.string
-                               (clojure.string/split value ",")))}
+                      ; :entity-inline-attr-val 
+                      ; (fn [val]
+                      ;   ;;clojure.string/trim
+                      ;   (println "entity-inline-attr-val >>>" val)
+                      ;   val
+                      ; )
+                      ; :people-list
+                      ; (fn [value]
+                      ;     (map clojure.string/trim
+                      ;          (clojure.string/split value ",")))
+                      ; :tags-list
+                      ; (fn [value]
+                      ;     (map clojure.string
+                      ;          (clojure.string/split value ",")))
+                      ; :places-list
+                      ; (fn [value]
+                      ;     (map clojure.string
+                      ;          (clojure.string/split value ",")))
+                               }
                      original-parsed)]
            (println doc)
            (println "parsed")

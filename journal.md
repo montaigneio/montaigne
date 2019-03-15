@@ -396,6 +396,7 @@ edu event  |     |     |     |     |     |  ✓  |
 ent event  |     |     |     |     |     |     |  ✓ 
 cul event  |     |     |     |     |     |     |   
 cycling    |     |     |     |     |     |     |   
+tennis     |     |     |     |     |     |     |   
 
 ### intake
 
@@ -415,21 +416,22 @@ end: 2019-03-16
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |  ✓  |     |     |     |     |     |   
-football   |     |     |     |     |     |     |   
+dance      |  ✓  |     |     |  ✓  |     |     |   
+football   |     |     |     |  ✓  |     |     |   
 reading    |     |     |  ✓  |     |     |     |   
-spanish    |     |  ✓  |     |     |     |     |   
+spanish    |     |  ✓  |     |     |  ✓  |     |   
 pushups    |     |     |     |     |     |     |   
 edu event  |     |     |     |     |     |     |   
 ent event  |     |     |     |     |     |     |    
 cul event  |     |     |     |     |     |     |   
-cycling    |     |     |     |     |     |     |   
+cycling    |     |     |     |  ✓  |     |     |   
+tennis     |     |     |     |  ✓  |     |     |   
 
 ### intake
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |   
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |   
 no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |   
 
