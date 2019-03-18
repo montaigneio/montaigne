@@ -25,7 +25,7 @@ isbn: 9780143036531
 year: 1985  
 pages: 208  
 rating: 5  
-tags: @{media, entertainment}  
+tags: #{media, entertainment}  
 
 ### readings
 
@@ -40,7 +40,7 @@ Outstanding analysis of American culture of 1980s dominated by entertainment.
 Makes a lot of sense to me since I witnessed myself similar changes to the culture growing up in Ukraine during the 1990s and 2000s.
 
 This book is even more actual now in the age of Internet, mobile phones, social networks, 
-instant deliveries etc.    
+instant deliveries etc.  
 
 ## Homage to Catalonia
 
@@ -145,7 +145,7 @@ started    | finished   | locations
 
 ### review
 
-Havel is role model for public figure, politician and citizen. 
+Havel is role model. He shows us waht a public figure, a politician and a citizen ca be.  
 He is definitely not afraid to think deeper and to express himself. 
 He is not afraid of expressing not popular opinions. 
 He tries to understand pluses and minuses of each system. 
@@ -187,22 +187,22 @@ Very personal memoir by Haruki Murakami that covers 30 something years of his li
 
 Few interesting things that I noticed:
 
- - Murakami shows his struggles with getting older. 
+ - Murakami shows his struggles with getting older.
  Aging is such an important topic that touches everyone often not talked about. 
  Seeing your result getting worth with age is a good way to be aware of time in life. 
  It keeps you focused on the crucial thing and helped you appreciate life.
  
- - I appreciated how he put the duration of human life in a better perspective. 
+ - I appreciated how he put the duration of human life in a better perspective.
  He became a writer after being 33 years old. He sold his bar, quit smoking, changed his diet, started writing and running. 
  The best part of the life for him began after he became true to himself in the mid-30s.
  
- - Murakami emphasizes how for him life is the process of knowing himself better. 
+ - Murakami emphasizes how for him life is the process of knowing himself better.
  Knowing what he likes, what is crucial for him. 
  His focus is on internal matters and not external things. 
  He decides to spend as much time with people he likes and avoid people he dislikes. 
  He is not competitive because for him competitiveness is about looking outward not inward.
 
- - Another valuable lesson: everything worthy in life requires a big effort. 
+ - Another valuable lesson: everything worthy in life requires a big effort.
  He shows how setting up routine and rules for himself was paramount.
 
 ## Conscientious Objections
@@ -287,7 +287,7 @@ v21  | v22  | v23
 ## Buenos Aires And Paris 2018
 
 from: San Francisco  
-to: Buenos Aires  
+to: *{Buenos Aires, Paris}
 type: friends  
 
 ### itinerary
@@ -300,7 +300,7 @@ airplane  | dwr  | sfo
 ## Summer 2018
 
 from: San Francisco  
-to: @{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}  
+to: *{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}  
 type: family  
 
 ### itinerary
@@ -358,7 +358,7 @@ Television screens saturated with commercials promote the Utopian and childish i
 ## Balzac on consumption
 
 authors: @{Honoré de Balzac}
-tags: @{consumption, coffee, alcholhol, drugs}
+tags: @{consumption, coffee, alchohol, drugs}
 
 ### sources
 
@@ -387,24 +387,24 @@ end: 2019-03-09
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |  ✓  |     |     |  ✓  |     |     |   
-football   |  ✓  |     |     |  ✓  |     |     |   
-reading    |  ✓  |     |     |     |     |     |   
-spanish    |     |     |     |     |  ✓  |     |   
-pushups    |  ✓  |  ✓  |  ✓  |     |     |     |   
-edu event  |     |     |     |     |     |  ✓  |   
+dance      |  ✓  |     |     |  ✓  |     |     |  
+football   |  ✓  |     |     |  ✓  |     |     |  
+reading    |  ✓  |     |     |     |     |     |  
+spanish    |     |     |     |     |  ✓  |     |  
+pushups    |  ✓  |  ✓  |  ✓  |     |     |     |  
+edu event  |     |     |     |     |     |  ✓  |  
 ent event  |     |     |     |     |     |     |  ✓ 
-cul event  |     |     |     |     |     |     |   
-cycling    |     |     |     |     |     |     |   
-tennis     |     |     |     |     |     |     |   
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |     |     |     |  
+tennis     |     |     |     |     |     |     |  
 
 ### intake
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |  ✓
-no coffee  |     |     |     |     |     |     |    
-no sugar   |     |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |  
 
 
 ## week 2
@@ -416,27 +416,55 @@ end: 2019-03-16
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |  ✓  |     |     |  ✓  |     |     |   
-football   |     |     |     |  ✓  |     |     |   
-reading    |     |     |  ✓  |     |     |     |   
-spanish    |     |  ✓  |     |     |  ✓  |     |   
-pushups    |     |     |     |     |     |     |   
-edu event  |     |     |     |     |     |     |   
-ent event  |     |     |     |     |     |     |    
-cul event  |     |     |     |     |     |     |   
-cycling    |     |     |     |  ✓  |     |     |   
-tennis     |     |     |     |  ✓  |     |     |   
+dance      |  ✓  |     |     |  ✓  |     |     |  
+football   |     |     |     |  ✓  |     |     |  
+reading    |     |     |  ✓  |     |     |     |  ✓
+spanish    |     |  ✓  |     |     |  ✓  |     |  
+pushups    |     |     |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |     |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |  ✓  |     |     |  ✓
+tennis     |     |     |     |  ✓  |     |     |  
 
 ### intake
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |   
-no coffee  |     |     |     |     |     |     |    
-no sugar   |     |     |     |     |     |     |   
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |  
 
 ## week 3
 
 start: 2019-03-17
 end: 2019-03-23
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |  ✓  |     |     |     |     |     |  
+football   |     |     |     |     |     |     |  
+reading    |     |  ✓  |     |     |     |     |   
+spanish    |     |     |     |     |     |     |  
+pushups    |     |     |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |  ✓  |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |     |     |     |   
+tennis     |     |     |     |     |     |     |  
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |  
+
+## week 4
+
+start: 2019-03-24
+end: 2019-03-30
 

@@ -9,12 +9,13 @@
             [cljs.pprint :refer [pprint]]
             [xregexp]
             [cuerdas.core :as cue]
+            ; [cljs-time.format :as date-format]
     ; [eval-soup.core :as eval-soup]
             ))
 
 (println "parser start...")
-
-
+;(def date-formatter (date-format/formatters :date))
+;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc
 (defn slice
       "Extracts a section of a string and returns a new string."
@@ -188,6 +189,42 @@
               :value value-as-str}
              )))
 
+(defn is-clojure-code [value-as-str]
+    (and
+        (clojure.string/starts-with? value-as-str "```clojure")
+        (clojure.string/ends-with? value-as-str "```")))
+
+(defn is-people [v]
+    (and 
+        (clojure.string/starts-with? v "@{")
+        (clojure.string/ends-with? v "}")))
+
+(defn is-locations [v]
+    (and 
+        (clojure.string/starts-with? v "*{")
+        (clojure.string/ends-with? v "}")))        
+
+(defn is-tags [v]
+    (and 
+        (clojure.string/starts-with? v "#{")
+        (clojure.string/ends-with? v "}")))                
+
+(defn parse-array [v prefix type-key]
+    (let [cleaned-v (-> v (strip-prefix prefix) (strip-suffix "}"))
+                      items (clojure.string/split cleaned-v ",")]
+                    (with-meta (map clojure.string/trim items) {:type type-key}))
+    )
+
+(defn parse-string-value [val]
+    (println "parse-string-value >>>" val)
+    (let [v (clojure.string/trim val)]
+        (cond
+            (nil? v) ""
+            (is-people v) (parse-array v "@{" "people")
+            (is-locations v) (parse-array v "*{" "locations")
+            (is-tags v) (parse-array v "#{" "tags")
+            :else v
+        )))
 
 (defn transform-entity-def-attr [el]
       (println "transform-entity-def-attr")
@@ -199,9 +236,7 @@
       (println "--")
       (let [attr-name (->> el :content first :content first)
             value-as-str (->> el :content last :content clojure.string/join clojure.string/trim)]
-           (if (and
-                 (clojure.string/starts-with? value-as-str "```clojure")
-                 (clojure.string/ends-with? value-as-str "```"))
+           (if (is-clojure-code value-as-str)
              (let [val_ (strip-prefix value-as-str "```clojure")
                    attr-value (strip-suffix val_ "```")]
                   {:name  attr-name
@@ -256,7 +291,7 @@
                (let [attr-value (->> el :content last :content clojure.string/join)]
                     {:name  attr-name
                      :value attr-value})
-               (let [attr-value (->> el :content last :content first)]
+               (let [attr-value (->> el :content last :content first parse-string-value)]
                     {:name  attr-name
                      :value attr-value})))))
 
@@ -278,12 +313,14 @@
                       ;     (println ">>>" hello)
                       ;     "")
                       ;  :column cue/trim
-                      ; :entity-inline-attr-val 
-                      ; (fn [val]
-                      ;   ;;clojure.string/trim
-                      ;   (println "entity-inline-attr-val >>>" val)
-                      ;   val
-                      ; )
+                    ;   :entity-inline-attr-val 
+                    ;   (fn [val]
+                    ;     ;;clojure.string/trim
+                    ;     (let [v (parse-string-value val)]
+                    ;             (println "entity-inline-attr-val >>>" val v)
+                    ;             v
+                    ;             )
+                    ;   )
                       ; :people-list
                       ; (fn [value]
                       ;     (map clojure.string/trim

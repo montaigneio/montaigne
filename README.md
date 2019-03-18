@@ -7,7 +7,7 @@ Montaigne is a document system developed for keeping personal journals and wikis
 ## TODO
 
  - [ ] support for date types
- - [ ] support for people, places, tags types
+ - [x] support for people, places, tags types
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [ ] define dynamic columns
  - [ ] define cli commands
