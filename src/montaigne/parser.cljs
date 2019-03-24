@@ -348,6 +348,25 @@
            )
       )
 
+(defn eval-attr [ent attr-value]
+  (println "evaluate ent attr")
+  ; (pprint ent)
+  (println "---1")
+  (println (dissoc ent :attrs :id))
+  (println "---2")
+  (println (prn-str (dissoc ent :attrs :id)))
+  (println "---3")
+  (let [
+        ; TODO disocc only `code` attributes from attr list and also from the ent
+        code-to-eval 
+          (str "(let [% " 
+            (prn-str (dissoc ent :attrs :id)) "]" attr-value ")")]
+        (try
+          (:value (eval-str code-to-eval))
+          (catch js/Object e
+            ""
+          ))))
+
 (defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
       (map
         (fn [entity]
@@ -355,15 +374,9 @@
               (fn [ent ent-def-attr]
                   (println "evaluate ent attr")
                   ; (pprint ent)
-                  ; (pprint ent-def-attr)
-                  (println "---")
-                  (println (dissoc ent :attrs :id))
-                  (println "---2")
+                  (pprint ent-def-attr)
                   (let [attr-name (keyword (:name ent-def-attr))
-                        code-to-eval
-                        ; TODO disocc only `code` attributes from attr list and also from the ent
-                        (str "(let [% " (prn-str (dissoc ent :attrs :id)) "]" (:value ent-def-attr) ")")
-                        attr-val (:value (eval-str code-to-eval))
+                        attr-val (eval-attr ent (:value ent-def-attr))
                         new-attr {:name attr-name :value attr-val}]
                        ; (println "code to eval" code-to-eval)
                        ; (println (eval-str code-to-eval))
@@ -415,21 +428,29 @@
                  collection))
         parsed-output))
 
+(defn mkdir-safe [dir]
+  (try
+    (mkdir dir)
+    (catch js/Object _
+    )
+  )
+)
+
 (defn render [collections]
       ; (rm-r "public")
-      ; (mkdir "public")
+      (mkdir-safe "public")
       (doall
         (map
           (fn [collection]
               (println "rendering:" (str "public/" (:name collection)))
-              (mkdir (str "public/" (:name collection) "/"))
+              (mkdir-safe (str "public/" (:name collection) "/"))
               (spit (str "public/" (:name collection) "/index.html")
                     (:template collection))
               (doall
                 (map
                   (fn [entity]
                       (println (str "public/" (:id entity)))
-                      (mkdir (str "public/" (:name collection) "/" (:id entity) "/"))
+                      (mkdir-safe (str "public/" (:name collection) "/" (:id entity) "/"))
                       (spit (str "public/" (:name collection) "/" (:id entity) "/index.html") (:template entity))
                       )
                   (:entities collection))))

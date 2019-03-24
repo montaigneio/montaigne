@@ -5,12 +5,23 @@ description: Books I've read
 ### template
 
 ```clojure
-(str "<ul>" 
+(str 
+"<html>"
+    "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>Readings</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+    "</head>"
+    "<body>"
+    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+    "<ul class='ph0 pv4 mt0 list measure'>" 
     (clojure.string/join "" 
         (map 
             (fn [entity]
-                (str "<li><a href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
-    "</ul>")
+                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
+    "</ul>"
+    "</main></body></html>"
+    )
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
@@ -18,47 +29,45 @@ description: Books I've read
 ### @template
 
 ```clojure
-    (str 
-        "<html>"
-            "<head>"
-            "<meta charset='UTF-8'>"
-            "<title>" (:name %) "</title>"
-            "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-            "</head>"
-            "<body>"
-                "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                    "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-                    "<header><div class='pv2'>"
-                    "<dl class='f6 lh-title mv2'>"
-                        "<dt class='dib gray'>Authors:</dt>"
-                        "<dd class='dib ml1'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
-                    "</dl>"
-                    "<dl class='f6 lh-title mv2'>"
-                        "<dt class='dib gray'>ISBN:</dt>"
-                        "<dd class='dib ml1'>" (->> % :isbn :value) "</dd>"
-                    "</dl>"
-                    "<dl class='f6 lh-title mv2'>"
-                        "<dt class='dib gray'>Year:</dt>"
-                        "<dd class='dib ml1'>" (->> % :year :value) "</dd>"
-                    "</dl>"
-                    "<dl class='f6 lh-title mv2'>"
-                        "<dt class='dib gray'>Rating:</dt>"
-                        "<dd class='dib ml1'>" (->> % :rating :value) "</dd>"
-                    "</dl>"
-                    "<dl class='f6 lh-title mv2'>"
-                        "<dt class='dib gray'>Dates:</dt>"
-                        "<dd class='dib ml1'>" "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished) "</dd>"
-                    "</dl>"
-                    "</div></header>"
-                    "<section><h2>review</h1>"
-                    "<article class='lh-copy measure f5'>"
-                    (->> % :review :value)
-                    "</article></section>"
-                "</main>"   
-            "</body>"
-        "</html>")
-            
-    
+(str 
+    "<html>"
+        "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>" (:name %) "</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+        "</head>"
+        "<body>"
+            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+                "<header><div class='pv2'>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>Authors:</dt>"
+                    "<dd class='dib ml1'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
+                "</dl>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>ISBN:</dt>"
+                    "<dd class='dib ml1'>" (->> % :isbn :value) "</dd>"
+                "</dl>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>Year:</dt>"
+                    "<dd class='dib ml1'>" (->> % :year :value) "</dd>"
+                "</dl>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>Rating:</dt>"
+                    "<dd class='dib ml1'>" (->> % :rating :value) "</dd>"
+                "</dl>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>Dates:</dt>"
+                    "<dd class='dib ml1'>" "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished) "</dd>"
+                "</dl>"
+                "</div></header>"
+                "<section><h2>review</h1>"
+                "<article class='lh-copy measure f5'>"
+                (->> % :review :value)
+                "</article></section>"
+            "</main>"   
+        "</body>"
+    "</html>")
 ```
 
 ## Amusing Ourselves to Death
@@ -301,7 +310,47 @@ Also the topic is as relevant as always and insights are true and common knowled
 
 description: My trips  
 
+### template
+
+```clojure
+(str 
+"<html>"
+    "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>Readings</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+    "</head>"
+    "<body>"
+    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+    "<ul class='ph0 pv4 mt0 list measure'>" 
+    (clojure.string/join "" 
+        (map 
+            (fn [entity]
+                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
+    "</ul>"
+    "</main></body></html>"
+    )
+```
+
 @id: `(montaigne.parser/slug (:name %))`
+
+### @template
+
+```clojure
+(str 
+    "<html>"
+        "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>" (:name %) "</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+        "</head>"
+        "<body>"
+            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+            "</main>"   
+        "</body>"
+    "</html>")
+```
 
 ## Temecula Feb 2019
 
@@ -310,51 +359,46 @@ to: Temecula, CA
 
 ### itinerary
 
-from | to   | date       | type
----- | ---- | ---------- | -----
-SFO  | SAN  | 2019-02-24 | flight
-SAN  | SFO  | 2019-03-01 | flight
+from | to   | date       | type   | flight | aircraft | emissions
+---- | ---- | ---------- | ------ | ------ | -------- | ---------- 
+SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2
+SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2
 
 
 ## Vail Feb 2019
 
 from: San Francisco  
 to: Vail  
+type: friends
 
 ### itinerary
 
-col1 | col2 | col3
----- | ---- | ----
-v11  | v12  | v13
-v21  | v22  | v23
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------- 
+SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200
+DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
 
 
 ## Buenos Aires And Paris 2018
 
 from: San Francisco  
-to: *{Buenos Aires, Paris}
-type: friends  
-
+to: *{Buenos Aires, New York, Paris}
+  
 ### itinerary
 
-type      | from | to
---------- | ---- | ---
-airplane  | sfo  | dwr
-airplane  | dwr  | sfo
+from | to  | date       | type   | flight | aircraft
+---- | --- | ---------- | ------ | ------ | --------------
+SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200
+EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400
+EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600
+MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS
+CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
 
 ## Summer 2018
 
 from: San Francisco  
-to: *{Kyiv, Barcelona, Santorini, Athens, Copenhaghen}  
+to: Kyiv, Barcelona, Santorini, Athens, Copenhaghen
 type: family  
-
-### itinerary
-
-type      | from    | to
---------- | ------- | ---
-airplane  | sfo     | dwr
-airplane  | dwr     | sfo
-boat      | athens  | santorini
 
 ## Los Angeles 2018
 
