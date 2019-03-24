@@ -19,22 +19,44 @@ description: Books I've read
 
 ```clojure
     (str 
-        "<div><h1>" (:name %) "</h1></div>"
-        "<dl class='f6 lh-title mv2'>"
-            "<dt class='dib gray'>Authors:</dt>"
-            "<dd class='dib ml0'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
-        "</dl>"
-        "<dl class='f6 lh-title mv2'>"
-            "<dt class='dib gray'>ISBN:</dt>"
-            "<dd class='dib ml0'>" (->> % :isbn :value) "</dd>"
-        "</dl>"
-        "<dl class='f6 lh-title mv2'>"
-            "<dt class='dib gray'>Year:</dt>"
-            "<dd class='dib ml0'>" (->> % :year :value) "</dd>"
-        "</dl>"
-        "<div><h2>review</h1></div>"
-        (->> % :review :value)
-        )
+        "<html>"
+            "<head>"
+            "<meta charset='UTF-8'>"
+            "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+            "</head>"
+            "<body>"
+                "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                    "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+                    "<header><div class='pv2'>"
+                    "<dl class='f6 lh-title mv2'>"
+                        "<dt class='dib gray'>Authors:</dt>"
+                        "<dd class='dib ml1'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
+                    "</dl>"
+                    "<dl class='f6 lh-title mv2'>"
+                        "<dt class='dib gray'>ISBN:</dt>"
+                        "<dd class='dib ml1'>" (->> % :isbn :value) "</dd>"
+                    "</dl>"
+                    "<dl class='f6 lh-title mv2'>"
+                        "<dt class='dib gray'>Year:</dt>"
+                        "<dd class='dib ml1'>" (->> % :year :value) "</dd>"
+                    "</dl>"
+                    "<dl class='f6 lh-title mv2'>"
+                        "<dt class='dib gray'>Rating:</dt>"
+                        "<dd class='dib ml1'>" (->> % :rating :value) "</dd>"
+                    "</dl>"
+                    "<dl class='f6 lh-title mv2'>"
+                        "<dt class='dib gray'>Dates:</dt>"
+                        "<dd class='dib ml1'>" "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished) "</dd>"
+                    "</dl>"
+                    "</div></header>"
+                    "<section><h2>review</h1>"
+                    "<article class='lh-copy measure f5'>"
+                    (->> % :review :value)
+                    "</article></section>"
+                "</main>"   
+            "</body>"
+        "</html>")
+            
     
 ```
 
@@ -240,7 +262,7 @@ tags: @{technology, medium}
 
 ### readings
 
-from      | to         | locations
+started   | finished   | locations
 ----------| ---------- | -------------
 2016-12-04| 2016-12-10 | San Francisco
 
@@ -264,7 +286,7 @@ rating: 3
 
 ### readings
 
-from      | to         | locations
+started   | finished   | locations
 ----------| ---------- | -------------
 2019-10-02| 2019-03-03 | San Francisco
 
