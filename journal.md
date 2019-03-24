@@ -5,7 +5,12 @@ description: Books I've read
 ### template
 
 ```clojure
-(str "<ul>" (clojure.string/join "" (map (fn [entity](str "<li><a href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) "</ul>")
+(str "<ul>" 
+    (clojure.string/join "" 
+        (map 
+            (fn [entity]
+                (str "<li><a href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
+    "</ul>")
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
@@ -13,7 +18,24 @@ description: Books I've read
 ### @template
 
 ```clojure
-(str "<div><h1>" (:name %) "</h1></div>")
+    (str 
+        "<div><h1>" (:name %) "</h1></div>"
+        "<dl class='f6 lh-title mv2'>"
+            "<dt class='dib gray'>Authors:</dt>"
+            "<dd class='dib ml0'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
+        "</dl>"
+        "<dl class='f6 lh-title mv2'>"
+            "<dt class='dib gray'>ISBN:</dt>"
+            "<dd class='dib ml0'>" (->> % :isbn :value) "</dd>"
+        "</dl>"
+        "<dl class='f6 lh-title mv2'>"
+            "<dt class='dib gray'>Year:</dt>"
+            "<dd class='dib ml0'>" (->> % :year :value) "</dd>"
+        "</dl>"
+        "<div><h2>review</h1></div>"
+        (->> % :review :value)
+        )
+    
 ```
 
 ## Amusing Ourselves to Death
@@ -445,21 +467,22 @@ end: 2019-03-23
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |  
-football   |     |     |     |     |     |     |  
-reading    |     |  ✓  |     |     |     |     |   
-spanish    |     |     |     |     |     |     |  
+football   |     |  ✓  |     |     |     |     |  
+reading    |     |  ✓  |     |     |     |     |  ✓
+spanish    |     |     |     |     |  ✓  |     |  
 pushups    |     |     |     |     |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |  ✓  |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
-cycling    |     |     |     |     |     |     |   
+cycling    |     |     |     |     |     |     |  ✓
 tennis     |     |     |     |     |     |     |  
+ping-pong  |     |     |     |     |  ✓  |     |  
 
 ### intake
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |     |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
@@ -467,4 +490,3 @@ no sugar   |     |     |     |     |     |     |
 
 start: 2019-03-24
 end: 2019-03-30
-

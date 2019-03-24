@@ -211,8 +211,9 @@
 
 (defn parse-array [v prefix type-key]
     (let [cleaned-v (-> v (strip-prefix prefix) (strip-suffix "}"))
-                      items (clojure.string/split cleaned-v ",")]
-                    (with-meta (map clojure.string/trim items) {:type type-key}))
+                      items (clojure.string/split cleaned-v ",")
+                      items-vec (into [] (map clojure.string/trim items))]
+                    (with-meta items-vec {:type type-key}))
     )
 
 (defn parse-string-value [val]
@@ -274,7 +275,7 @@
                                   row)]
                                (apply merge props)))
                       rows-values)]
-           records))
+           (into [] records)))
 
 (defn transform-entity-attr [el]
       (println "transform attr")
@@ -300,12 +301,17 @@
       (println el)
       (let [entity-name (->> el :content first :content first)
             entity-body (->> el :content last :content)
-            attrs (map transform-entity-attr entity-body)]
-           {:name  entity-name
-            :attrs attrs}))
+            attrs (map transform-entity-attr entity-body)
+            ent {:name  entity-name :attrs attrs}]
+           (reduce 
+            (fn [entity attr]
+              (assoc entity (keyword (:name attr)) attr)
+            ) ent attrs)
+           ))
 
 (defn parse-doc [doc]
-      (let [original-parsed (mntgn-parser doc)
+      (let [doc-str (str doc "\n\n\n\n")
+            original-parsed (mntgn-parser doc-str)
             parsed (insta/transform
                      {
                       ; :date
@@ -348,11 +354,15 @@
             (reduce
               (fn [ent ent-def-attr]
                   (println "evaluate ent attr")
-                  (pprint ent)
-                  (pprint ent-def-attr)
+                  ; (pprint ent)
+                  ; (pprint ent-def-attr)
+                  (println "---")
+                  (println (dissoc ent :attrs :id))
+                  (println "---2")
                   (let [attr-name (keyword (:name ent-def-attr))
                         code-to-eval
-                        (str "(let [% " (prn-str (dissoc ent :attrs)) "]" (:value ent-def-attr) ")")
+                        ; TODO disocc only `code` attributes from attr list and also from the ent
+                        (str "(let [% " (prn-str (dissoc ent :attrs :id)) "]" (:value ent-def-attr) ")")
                         attr-val (:value (eval-str code-to-eval))
                         new-attr {:name attr-name :value attr-val}]
                        ; (println "code to eval" code-to-eval)
