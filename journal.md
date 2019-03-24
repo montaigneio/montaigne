@@ -22,6 +22,7 @@ description: Books I've read
         "<html>"
             "<head>"
             "<meta charset='UTF-8'>"
+            "<title>" (:name %) "</title>"
             "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
             "</head>"
             "<body>"
