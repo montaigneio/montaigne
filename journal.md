@@ -308,7 +308,7 @@ Also the topic is as relevant as always and insights are true and common knowled
 
 # trips
 
-description: My trips  
+description: Books I've read
 
 ### template
 
@@ -317,7 +317,7 @@ description: My trips
 "<html>"
     "<head>"
         "<meta charset='UTF-8'>"
-        "<title>Readings</title>"
+        "<title>Trips</title>"
         "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
     "</head>"
     "<body>"
@@ -337,19 +337,7 @@ description: My trips
 ### @template
 
 ```clojure
-(str 
-    "<html>"
-        "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>" (:name %) "</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-        "</head>"
-        "<body>"
-            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-            "</main>"   
-        "</body>"
-    "</html>")
+(str "hello")
 ```
 
 ## Temecula Feb 2019
@@ -392,7 +380,7 @@ SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200
 EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400
 EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600
 MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS
-CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
+CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9
 
 ## Summer 2018
 
@@ -537,7 +525,7 @@ dance      |  ✓  |     |     |     |     |     |
 football   |     |  ✓  |     |     |     |     |  
 reading    |     |  ✓  |     |     |     |     |  ✓
 spanish    |     |     |     |     |  ✓  |     |  
-pushups    |     |     |     |     |     |     |  
+pushups    |     |     |     |     |     |     |  ✓
 edu event  |     |     |     |     |     |     |  
 ent event  |  ✓  |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
@@ -557,3 +545,32 @@ no sugar   |     |     |     |     |     |     |
 
 start: 2019-03-24
 end: 2019-03-30
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |  
+football   |     |     |     |     |     |     |  
+reading    |  ✓  |     |     |     |     |     |  
+spanish    |     |     |     |     |     |     |  
+pushups    |  ✓  |     |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |     |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |     |     |     |  
+tennis     |     |     |     |     |     |     |  
+ping-pong  |     |     |     |     |     |     |  
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |     |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |  
+
+## week 5
+
+start: 2019-03-31
+end: 2019-04-07

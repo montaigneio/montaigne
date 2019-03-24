@@ -9,6 +9,7 @@
             [cljs.pprint :refer [pprint]]
             [xregexp]
             [cuerdas.core :as cue]
+            [montaigne.fns :as fns]
             ; [cljs-time.format :as date-format]
     ; [eval-soup.core :as eval-soup]
             ))
@@ -247,7 +248,6 @@
              {:name  attr-name
               :type  "code"
               :value value-as-str})
-
            ))
 
 (defn transform-table-value [table-el]
@@ -275,7 +275,8 @@
                                   row)]
                                (apply merge props)))
                       rows-values)]
-           (into [] records)))
+           {:records (into [] records)
+            :columsn columns}))
 
 (defn transform-entity-attr [el]
       (println "transform attr")
@@ -285,9 +286,10 @@
             attr-name (->> el :content first :content first)]
            (if (= :entity-table-attr-val tag)
              (let [tag-content (->> el :content last :content)
-                   attr-value (transform-table-value tag-content)]
+                   table-data (transform-table-value tag-content)]
                   {:name  attr-name
-                   :value attr-value})
+                   :value (:records table-data)
+                   :columns (:columns table-data)})
              (if (= :entity-multiline-attr-val tag)
                (let [attr-value (->> el :content last :content clojure.string/join)]
                     {:name  attr-name
@@ -347,24 +349,36 @@
            parsed
            )
       )
-
+(defn remove-code-attrs [ent]
+ (reduce 
+  (fn [new-ent attr]
+   (if (not (= "code" (second (:type attr))))
+    (assoc new-ent (first attr) (second attr))
+    new-ent
+   )
+  )
+  {} ent)
+)
 (defn eval-attr [ent attr-value]
   (println "evaluate ent attr")
-  ; (pprint ent)
-  (println "---1")
-  (println (dissoc ent :attrs :id))
-  (println "---2")
-  (println (prn-str (dissoc ent :attrs :id)))
-  (println "---3")
   (let [
         ; TODO disocc only `code` attributes from attr list and also from the ent
         code-to-eval 
           (str "(let [% " 
-            (prn-str (dissoc ent :attrs :id)) "]" attr-value ")")]
+            (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" attr-value ")")]
         (try
           (:value (eval-str code-to-eval))
           (catch js/Object e
+            (do
+            (println "failed" e)
+              (println "---1")
+              (println (dissoc ent :attrs :id))
+              (println "---2")
+              (println code-to-eval)
+              (println "---3")
+
             ""
+            )
           ))))
 
 (defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
