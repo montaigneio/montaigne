@@ -4,6 +4,8 @@ This is a _prototype_.
 
 Montaigne is a document system developed for keeping personal journals and wikis.
 
+It comes with document format, format parser and CLI tool to generate web site from markdown documents.
+
 ## TODO
 
  - [ ] support for date types
@@ -26,7 +28,10 @@ Run locally:
 or 
 
 ```
-clj scripts/repl.clj
+    clj scripts/repl.clj
+    
+    (require 'montaigne.parser)
+    (montaigne.parser/parse "$PATH_TO_FILE")
 ```
 
 Compile
@@ -43,3 +48,4 @@ and run `node main.js`
  - https://wiki.xxiivv.com/#oscean
  - https://orgmode.org/
  - https://github.com/renerocksai/sublime_zk
+ - https://johno.com/txt

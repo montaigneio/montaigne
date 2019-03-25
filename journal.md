@@ -61,7 +61,7 @@ description: Books I've read
                     "<dd class='dib ml1'>" "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished) "</dd>"
                 "</dl>"
                 "</div></header>"
-                "<section><h2>review</h1>"
+                "<section><h2 class='f4'>review</h2>"
                 "<article class='lh-copy measure f5'>"
                 (->> % :review :value)
                 "</article></section>"
@@ -337,7 +337,19 @@ description: Books I've read
 ### @template
 
 ```clojure
-(str "hello")
+(str 
+    "<html>"
+        "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>" (:name %) "</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+        "</head>"
+        "<body>"
+            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+            "</main>"   
+        "</body>"
+    "</html>")
 ```
 
 ## Temecula Feb 2019
@@ -350,62 +362,102 @@ to: Temecula, CA
 from | to   | date       | type   | flight | aircraft | emissions
 ---- | ---- | ---------- | ------ | ------ | -------- | ---------- 
 SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2
-SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2
+SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2 
 
 
 ## Vail Feb 2019
 
 from: San Francisco  
 to: Vail  
-type: friends
+type: friends  
 
 ### itinerary
 
 from | to  | date       | type   | flight | aircraft 
 ---- | --- | ---------- | ------ | ------ | -------- 
-SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200
+SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
 DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
-
 
 ## Buenos Aires And Paris 2018
 
 from: San Francisco  
-to: *{Buenos Aires, New York, Paris}
+to: *{Buenos Aires, New York, Paris}  
   
 ### itinerary
 
 from | to  | date       | type   | flight | aircraft
 ---- | --- | ---------- | ------ | ------ | --------------
-SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200
-EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400
-EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600
-MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS
-CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9
+SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200 
+EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400 
+EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 
+MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS 
+CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
 
 ## Summer 2018
 
 from: San Francisco  
-to: Kyiv, Barcelona, Santorini, Athens, Copenhaghen
+to: Kyiv, Barcelona, Santorini, Athens, Copenhaghen  
 type: family  
+
 
 ## Los Angeles 2018
 
-from: San Francisco
-to: Los Angeles
-type: solo
+from: San Francisco  
+to: Los Angeles  
+type: solo  
 
 ### itinerary
 
 type      | from  | to
 --------- | ----- | ---
-airplane  | sfo   | lax
-airplane  | lax   | sfo
+airplane  | sfo   | lax 
+airplane  | lax   | sfo 
 
 # quotes
 
 description: My collection of quotes
 
+### template
+
+```clojure
+(str 
+"<html>"
+    "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>Quotes</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+    "</head>"
+    "<body>"
+    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+    "<ul class='ph0 pv4 mt0 list measure'>" 
+    (clojure.string/join "" 
+        (map 
+            (fn [entity]
+                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
+    "</ul>"
+    "</main></body></html>"
+    )
+```
+
 @id: `(montaigne.parser/slug (:name %))`
+
+### @template
+
+```clojure
+(str 
+    "<html>"
+        "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>" (:name %) "</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+        "</head>"
+        "<body>"
+            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+            "</main>"   
+        "</body>"
+    "</html>")
+```
 
 ## Havel on critizing
 
@@ -416,7 +468,7 @@ tags: @{politics, criticizing}
 
 book                   | pages | chapter
 ---------------------- | ----- | ---------
-To the Castle and Back | 5     | Chapter 1
+To the Castle and Back | 5     | Chapter 1 
 
 ### quote
 
@@ -451,9 +503,64 @@ abnormally enlarged, damanged and corrupt the machine, which succumbs.
 
 # activities
 
-description: My activities
+### template
+
+```clojure
+(str 
+"<html>"
+    "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>Readings</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+    "</head>"
+    "<body>"
+    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+    "<ul class='ph0 pv4 mt0 list measure'>" 
+    (clojure.string/join "" 
+        (map 
+            (fn [entity]
+                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
+    "</ul>"
+    "</main></body></html>"
+    )
+```
 
 @id: `(montaigne.parser/slug (:name %))`
+
+### @template
+
+```clojure
+(str 
+    "<html>"
+        "<head>"
+        "<meta charset='UTF-8'>"
+        "<title>" (:name %) "</title>"
+        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
+        "</head>"
+        "<body>"
+            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
+                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
+                "<header><div class='pv2'>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>Start:</dt>"
+                    "<dd class='dib ml1'>"(->> % :start :value)"</dd>"
+                "</dl>"
+                "<dl class='f6 lh-title mv2'>"
+                    "<dt class='dib gray'>End:</dt>"
+                    "<dd class='dib ml1'>" (->> % :end :value)"</dd>"
+                "</dl>"
+                "</dl>"
+                "</div></header>"
+                "<section><h2 class='f4'>activities</h2>"
+                "<article class='lh-copy measure f5'>"
+                "</article></section>"
+                "<section><h2 class='f4'>intake</h2>"
+                "<article class='lh-copy measure f5'>"
+                "</article></section>"
+            "</main>"   
+        "</body>"
+    "</html>")
+```
 
 ## week 1
 
@@ -482,7 +589,6 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |  ✓
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
-
 
 ## week 2
 
@@ -550,7 +656,7 @@ end: 2019-03-30
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |     |     |     |     |     |     |  
+dance      |  ✓  |     |     |     |     |     |  
 football   |     |     |     |     |     |     |  
 reading    |  ✓  |     |     |     |     |     |  
 spanish    |     |     |     |     |     |     |  

@@ -128,7 +128,6 @@
      entity-header-mark = '##'
      multiline-attr-header-mark = '###'
      entity-inline-attr-mark = '@'
-     <text> = #'[^`#*\n{2}]+'
      indentation = (space space) | '\t'
      colon = ':'
      space = ' '
@@ -463,7 +462,7 @@
               (doall
                 (map
                   (fn [entity]
-                      (println (str "public/" (:id entity)))
+                      (println (str "public/" (:name collection) "/" (:id entity) "/"))
                       (mkdir-safe (str "public/" (:name collection) "/" (:id entity) "/"))
                       (spit (str "public/" (:name collection) "/" (:id entity) "/index.html") (:template entity))
                       )
