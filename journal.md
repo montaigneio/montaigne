@@ -9,6 +9,8 @@ description: Books I've read
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       [:meta {:name "description" :content (:description %)}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -34,6 +36,8 @@ description: Books I've read
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
@@ -53,16 +57,20 @@ description: Books I've read
               [:dd {:class "dib ml1"} (->> % :isbn :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Dates:"]
+              [:dd {:class "dib ml1"} (str "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished))]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Year:"]
               [:dd {:class "dib ml1"} (->> % :year :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Rating:"]
-              [:dd {:class "dib ml1"} (->> % :rating :value)]
+              [:dt {:class "dib gray"} "Pages:"]
+              [:dd {:class "dib ml1"} (->> % :pages :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Dates:"]
-              [:dd {:class "dib ml1"} (str "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished))]
+              [:dt {:class "dib gray"} "Rating:"]
+              [:dd {:class "dib ml1"} (->> % :rating :value)]
             ]
           ]]
         [:section
@@ -320,6 +328,8 @@ description: Books I've read
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       [:meta {:name "description" :content (:description %)}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -345,6 +355,8 @@ description: Books I've read
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
@@ -443,6 +455,8 @@ description: My collection of quotes
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       [:meta {:name "description" :content (:description %)}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -468,6 +482,8 @@ description: My collection of quotes
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
@@ -542,6 +558,8 @@ description: Log of my activities
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       [:meta {:name "description" :content (:description %)}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -567,6 +585,8 @@ description: Log of my activities
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
