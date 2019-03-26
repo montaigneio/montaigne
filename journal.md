@@ -320,7 +320,7 @@ Also the topic is as relevant as always and insights are true and common knowled
 
 # trips
 
-description: Books I've read
+description: My trips  
 
 ### template
 
@@ -348,101 +348,24 @@ description: Books I've read
     ]])
 ```
 
+
 @id: `(montaigne.parser/slug (:name %))`
 
-### @template
+## Temecula 2019
 
-```clojure
-(montaigne.parser/html 
- [:html
-    [:head
-      [:meta {:charset "UTF-8"}]
-      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
-      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
-      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
-    [:body
-      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f4.athelas (:name %)]
+## Vail 2019
 
-        [:header
-          [:div.pv2
-            [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Start:"]
-            ]
-            [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "End:"]
-            ]
-          ]]
-        [:section
-          [:h2.f5 "itinerary"]
-          [:article.lh-copy.measure]]
-      ]
-    ]])
-```
+## Buenos Aires and Paris 2018
 
-## Temecula Feb 2019
+## Tijuana 3rd trip
 
-from: San Francisco  
-to: Temecula, CA  
+## Tijuana 2nd trip
 
-### itinerary
-
-from | to   | date       | type   | flight | aircraft | emissions
----- | ---- | ---------- | ------ | ------ | -------- | ---------- 
-SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2
-SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2 
-
-
-## Vail Feb 2019
-
-from: San Francisco  
-to: Vail  
-type: friends  
-
-### itinerary
-
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------- 
-SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
-DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
-
-## Buenos Aires And Paris 2018
-
-from: San Francisco  
-to: *{Buenos Aires, New York, Paris}  
-  
-### itinerary
-
-from | to  | date       | type   | flight | aircraft
----- | --- | ---------- | ------ | ------ | --------------
-SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200 
-EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400 
-EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 
-MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS 
-CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
+## Mexico City and Tijuana
 
 ## Summer 2018
 
-from: San Francisco  
-to: Kyiv, Barcelona, Santorini, Athens, Copenhaghen  
-type: family  
-
-
 ## Los Angeles 2018
-
-from: San Francisco  
-to: Los Angeles  
-type: solo  
-
-### itinerary
-
-type      | from  | to
---------- | ----- | ---
-airplane  | sfo   | lax 
-airplane  | lax   | sfo 
 
 # quotes
 

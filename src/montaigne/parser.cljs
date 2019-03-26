@@ -120,7 +120,6 @@
      <collection-attr-val-line> = #'[^\n]+' '\n'+
      collection-multiline-attr-val = collection-attr-val-line+
 
-
      entity = entity-header entity-body <newline>+
 
      <entity-header> = <entity-header-mark> <space> entity-name <blankline>
