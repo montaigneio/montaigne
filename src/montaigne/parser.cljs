@@ -16,7 +16,24 @@
             ))
 
 (println "parser start...")
-(serialize (js-array))
+
+(defn to-hiccup
+  "Used as toHiccup method on cljs vectors and lists.
+  Takes no arguments but uses js-this.
+  Returns a js array for thi.ng umbrella hiccup compatability."
+  []
+  (->> (js-this)
+       (clj->js)))
+
+;; Add a toHiccup method to cljs vectors and sequences
+(doseq [o [[] ()]]
+  (-> (.getPrototypeOf js/Object o)
+      (.-toHiccup)
+      (set! to-hiccup)))
+
+(defn html [hiccup-str]
+  (serialize hiccup-str))
+;(println "xx" (serialize [:div.xx (map (fn [x] [:div.aa x]) ["a" "b" "c"])]))
 ;(def date-formatter (date-format/formatters :date))
 ;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc

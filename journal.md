@@ -5,23 +5,22 @@ description: Books I've read
 ### template
 
 ```clojure
-(str 
-"<html>"
-    "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>Readings</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-    "</head>"
-    "<body>"
-    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-    "<ul class='ph0 pv4 mt0 list measure'>" 
-    (clojure.string/join "" 
-        (map 
-            (fn [entity]
-                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
-    "</ul>"
-    "</main></body></html>"
-    )
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title "Reading"]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+        [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+            [:ul {:class "ph0 pv4 mt0 list measure"}
+            (map 
+              (fn [entity]
+                [:li.mb3
+                  [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+              %)]
+        ]
+    ]])
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
