@@ -658,9 +658,9 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |  
 football   |     |     |     |     |     |     |  
-reading    |  ✓  |     |     |     |     |     |  
+reading    |  ✓  |  ✓  |     |     |     |     |  
 spanish    |     |     |     |     |     |     |  
-pushups    |  ✓  |     |     |     |     |     |  
+pushups    |  ✓  |  ✓  |     |     |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
@@ -672,7 +672,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |     |     |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |     |     |     |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 

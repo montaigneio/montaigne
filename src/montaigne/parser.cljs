@@ -10,11 +10,13 @@
             [xregexp]
             [cuerdas.core :as cue]
             [montaigne.fns :as fns]
+            ["@thi.ng/hiccup" :as hiccup :refer [serialize]]
             ; [cljs-time.format :as date-format]
     ; [eval-soup.core :as eval-soup]
             ))
 
 (println "parser start...")
+(serialize (js-array))
 ;(def date-formatter (date-format/formatters :date))
 ;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc
