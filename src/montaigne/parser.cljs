@@ -33,7 +33,7 @@
 
 (defn html [hiccup-str]
   (serialize hiccup-str))
-;(println "xx" (serialize [:div.xx (map (fn [x] [:div.aa x]) ["a" "b" "c"])]))
+
 ;(def date-formatter (date-format/formatters :date))
 ;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc
@@ -333,33 +333,7 @@
       (let [doc-str (str doc "\n\n\n\n")
             original-parsed (mntgn-parser doc-str)
             parsed (insta/transform
-                     {
-                      ; :date
-                      ; (fn [hello]
-                      ;     (println ">>>" hello)
-                      ;     "")
-                      ;  :column cue/trim
-                    ;   :entity-inline-attr-val 
-                    ;   (fn [val]
-                    ;     ;;clojure.string/trim
-                    ;     (let [v (parse-string-value val)]
-                    ;             (println "entity-inline-attr-val >>>" val v)
-                    ;             v
-                    ;             )
-                    ;   )
-                      ; :people-list
-                      ; (fn [value]
-                      ;     (map clojure.string/trim
-                      ;          (clojure.string/split value ",")))
-                      ; :tags-list
-                      ; (fn [value]
-                      ;     (map clojure.string
-                      ;          (clojure.string/split value ",")))
-                      ; :places-list
-                      ; (fn [value]
-                      ;     (map clojure.string
-                      ;          (clojure.string/split value ",")))
-                               }
+                     {}
                      original-parsed)]
            (println doc)
            (println "parsed")

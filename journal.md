@@ -9,17 +9,19 @@ description: Books I've read
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
-      [:title "Reading"]
+      [:title (:name %)]
+      [:meta {:name "description" :content (:description %)}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
-        [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-            [:ul {:class "ph0 pv4 mt0 list measure"}
-            (map 
-              (fn [entity]
-                [:li.mb3
-                  [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
-              %)]
-        ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+          %)]
+      ]
     ]])
 ```
 
@@ -28,45 +30,47 @@ description: Books I've read
 ### @template
 
 ```clojure
-(str 
-    "<html>"
-        "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>" (:name %) "</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-        "</head>"
-        "<body>"
-            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-                "<header><div class='pv2'>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>Authors:</dt>"
-                    "<dd class='dib ml1'>" (clojure.string/join ", " (->> % :authors :value)) "</dd>"
-                "</dl>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>ISBN:</dt>"
-                    "<dd class='dib ml1'>" (->> % :isbn :value) "</dd>"
-                "</dl>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>Year:</dt>"
-                    "<dd class='dib ml1'>" (->> % :year :value) "</dd>"
-                "</dl>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>Rating:</dt>"
-                    "<dd class='dib ml1'>" (->> % :rating :value) "</dd>"
-                "</dl>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>Dates:</dt>"
-                    "<dd class='dib ml1'>" "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished) "</dd>"
-                "</dl>"
-                "</div></header>"
-                "<section><h2 class='f4'>review</h2>"
-                "<article class='lh-copy measure f5'>"
-                (->> % :review :value)
-                "</article></section>"
-            "</main>"   
-        "</body>"
-    "</html>")
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (:name %)]
+
+        [:header
+          [:div.pv2
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Authors:"]
+              [:dd {:class "dib ml1"} (clojure.string/join ", " (->> % :authors :value))]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "ISBN:"]
+              [:dd {:class "dib ml1"} (->> % :isbn :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Year:"]
+              [:dd {:class "dib ml1"} (->> % :year :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Rating:"]
+              [:dd {:class "dib ml1"} (->> % :rating :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Dates:"]
+              [:dd {:class "dib ml1"} (str "from "(->> % :readings :value first :started) " to " (->> % :readings :value first :finished))]
+            ]
+          ]]
+        [:section
+          [:h2.f5 "review"]
+          [:article.lh-copy.measure
+          (->> % :review :value)]]
+      ]
+    ]])
 ```
 
 ## Amusing Ourselves to Death
@@ -312,23 +316,24 @@ description: Books I've read
 ### template
 
 ```clojure
-(str 
-"<html>"
-    "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>Trips</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-    "</head>"
-    "<body>"
-    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-    "<ul class='ph0 pv4 mt0 list measure'>" 
-    (clojure.string/join "" 
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      [:meta {:name "description" :content (:description %)}]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
-            (fn [entity]
-                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
-    "</ul>"
-    "</main></body></html>"
-    )
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+          %)]
+      ]
+    ]])
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
@@ -336,19 +341,34 @@ description: Books I've read
 ### @template
 
 ```clojure
-(str 
-    "<html>"
-        "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>" (:name %) "</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-        "</head>"
-        "<body>"
-            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-            "</main>"   
-        "</body>"
-    "</html>")
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (:name %)]
+
+        [:header
+          [:div.pv2
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Start:"]
+              ; [:dd {:class "dib ml1"} (->> % :start :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "End:"]
+              ; [:dd {:class "dib ml1"} (->> % :end :value)]
+            ]
+          ]]
+        [:section
+          [:h2.f5 "itinerary"]
+          [:article.lh-copy.measure]]
+      ]
+    ]])
 ```
 
 ## Temecula Feb 2019
@@ -419,23 +439,24 @@ description: My collection of quotes
 ### template
 
 ```clojure
-(str 
-"<html>"
-    "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>Quotes</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-    "</head>"
-    "<body>"
-    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-    "<ul class='ph0 pv4 mt0 list measure'>" 
-    (clojure.string/join "" 
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      [:meta {:name "description" :content (:description %)}]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
-            (fn [entity]
-                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
-    "</ul>"
-    "</main></body></html>"
-    )
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+          %)]
+      ]
+    ]])
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
@@ -443,19 +464,28 @@ description: My collection of quotes
 ### @template
 
 ```clojure
-(str 
-    "<html>"
-        "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>" (:name %) "</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-        "</head>"
-        "<body>"
-            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-            "</main>"   
-        "</body>"
-    "</html>")
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (:name %)]
+
+        [:blockquote {:class "athelas ml0 mt0 pl4 black-90 bl bw2 b--blue"}
+          [:p {:class "f5 f4-m f3-l lh-copy measure mt0"}
+            (->> % :quote :value)
+          ]
+          [:cite {:class "f6 ttu tracked fs-normal"}
+            (clojure.string/join ", " (->> % :authors :value))
+          ]
+        ]
+      ]
+    ]])
 ```
 
 ## Havel on critizing
@@ -472,7 +502,8 @@ To the Castle and Back | 5     | Chapter 1
 ### quote
 
 People told me exactly what I would later often say to others when tring to draw them into politics: 
-you can't spend your whole life criticizing something and then, when you have the chance to do it better, refuse to go near it.
+you can't spend your whole life criticizing something and then, 
+when you have the chance to do it better, refuse to go near it.
 
 ## Postman on promotion of fast technological solutions
 
@@ -481,7 +512,7 @@ tags: @{technology, television commercials, utopia}
 
 ### quote
 
-Television screens saturated with commercials promote the Utopian and childish idea that all problems have fast, simple, and technological solutions.
+Television screens saturated with commercials to promote the Utopian and childish idea that all problems have fast, simple, and technological solutions.
 
 ## Balzac on consumption
 
@@ -502,26 +533,29 @@ abnormally enlarged, damanged and corrupt the machine, which succumbs.
 
 # activities
 
+description: Log of my activities
+
 ### template
 
 ```clojure
-(str 
-"<html>"
-    "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>Readings</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-    "</head>"
-    "<body>"
-    "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-    "<ul class='ph0 pv4 mt0 list measure'>" 
-    (clojure.string/join "" 
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      [:meta {:name "description" :content (:description %)}]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
-            (fn [entity]
-                (str "<li class='mb3'><a class='link f6 b mb1' href='" (:id entity) "'>" (:name entity) "</a></li>")) %)) 
-    "</ul>"
-    "</main></body></html>"
-    )
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+          %)]
+      ]
+    ]])
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
@@ -529,36 +563,37 @@ abnormally enlarged, damanged and corrupt the machine, which succumbs.
 ### @template
 
 ```clojure
-(str 
-    "<html>"
-        "<head>"
-        "<meta charset='UTF-8'>"
-        "<title>" (:name %) "</title>"
-        "<link rel='stylesheet' type='text/css' href='https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css'/>"
-        "</head>"
-        "<body>"
-            "<main class='ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns'>"
-                "<h1 class='lh-title f3 athelas'>" (:name %) "</h1>"
-                "<header><div class='pv2'>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>Start:</dt>"
-                    "<dd class='dib ml1'>"(->> % :start :value)"</dd>"
-                "</dl>"
-                "<dl class='f6 lh-title mv2'>"
-                    "<dt class='dib gray'>End:</dt>"
-                    "<dd class='dib ml1'>" (->> % :end :value)"</dd>"
-                "</dl>"
-                "</dl>"
-                "</div></header>"
-                "<section><h2 class='f4'>activities</h2>"
-                "<article class='lh-copy measure f5'>"
-                "</article></section>"
-                "<section><h2 class='f4'>intake</h2>"
-                "<article class='lh-copy measure f5'>"
-                "</article></section>"
-            "</main>"   
-        "</body>"
-    "</html>")
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:title (:name %)]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (:name %)]
+
+        [:header
+          [:div.pv2
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Start:"]
+              [:dd {:class "dib ml1"} (->> % :start :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "End:"]
+              [:dd {:class "dib ml1"} (->> % :end :value)]
+            ]
+          ]]
+        [:section
+          [:h2.f5 "activities"]
+          [:article.lh-copy.measure]]
+        [:section
+          [:h2.f5 "intake"]
+          [:article.lh-copy.measure]]  
+      ]
+    ]])
 ```
 
 ## week 1
