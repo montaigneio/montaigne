@@ -11,7 +11,8 @@
             [cuerdas.core :as cue]
             [montaigne.fns :as fns]
             ["@thi.ng/hiccup" :as hiccup :refer [serialize]]
-            ; [cljs-time.format :as date-format]
+            [cljs-time.format :as date-format]
+            [cljs-time.core :as date-core]
     ; [eval-soup.core :as eval-soup]
             ))
 
@@ -80,17 +81,16 @@
           [] indexed-lines)]
     result))  
 
-;(def date-formatter (date-format/formatters :date))
-;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
+
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc
 (defn slice
-      "Extracts a section of a string and returns a new string."
-      ([s begin]
-        (when (string? s)
-              (.slice s begin)))
-      ([s begin end]
-        (when (string? s)
-              (.slice s begin end))))
+  "Extracts a section of a string and returns a new string."
+  ([s begin]
+    (when (string? s)
+          (.slice s begin)))
+  ([s begin end]
+    (when (string? s)
+          (.slice s begin end))))
 
 (defn strip-suffix
       "Strip suffix in more efficient way."
@@ -113,20 +113,34 @@
       (cue/slug prop-value))
 
 (defn eval-str [s]
-      (eval
-        (empty-state)
-        (read-string s)
-        {:eval        js-eval
-         ;  :load (fn [_ cb] (cb {:lang :clj :source "(ns foo.core) (defn add [a b] (+ a b))"}))
-         :source-map  false
-         :verbose     true
-         :context     :expr
-         ;  :ns 'foo.core
-         :load-macros true}
-        (fn [result]
-            ; (println "result>>" result)
-            result
-            )))
+  (eval
+    (empty-state)
+    (read-string s)
+    {:eval        js-eval
+      ;  :load (fn [_ cb] (cb {:lang :clj :source "(ns foo.core) (defn add [a b] (+ a b))"}))
+      :source-map  false
+      :verbose     true
+      :context     :expr
+      ;  :ns 'foo.core
+      :load-macros true}
+    (fn [result]
+        ; (println "result>>" result)
+        result
+        )))
+
+(defn eval-safe [s]
+  (try 
+    eval-str
+    (catch js/Object e
+      (do
+        (println "eval code failed...")
+        (println s)
+        (println "...eval code failed")
+        {:value ""}
+      )
+    )
+  )
+)        
 
 
 (def mntgn-parser
@@ -254,6 +268,25 @@
               :value value-as-str}
              )))
 
+(defn is-number [str-value]
+  (> (js/parseInt str-value) 0))
+
+(defn is-date [value-as-string]
+  (println "is-date" value-as-string)
+  ;; YYYY-MM-DD
+  (if (= 10 (count value-as-string))
+    (let [tokens (clojure.string/split value-as-string "-")]
+      (if (= 3 (count tokens))
+        (and 
+          (is-number (first tokens))
+          (is-number (second tokens))
+          (is-number (last tokens))
+        )
+        false
+      )
+    )
+    false))
+
 (defn is-clojure-code [value-as-str]
     (and
         (clojure.string/starts-with? value-as-str "```clojure")
@@ -278,18 +311,37 @@
     (let [cleaned-v (-> v (strip-prefix prefix) (strip-suffix "}"))
                       items (clojure.string/split cleaned-v ",")
                       items-vec (into [] (map clojure.string/trim items))]
-                    (with-meta items-vec {:type type-key}))
+                    (with-meta {:value items-vec} {:type type-key}))
     )
+
+(def date-formatter (date-format/formatters :date))
+
+(defn to-js-date [v]
+  (cljs-time.format/parse (cljs-time.format/formatters :date) v))
+
+(defn duration-in-days [d1 d2]
+  (println "duratiion between" d1 d2)
+  (date-core/in-days (date-core/interval (to-js-date (:value d1)) (to-js-date (:value d2)))))
+
+(defn parse-date [v]
+  (let [d (to-js-date v)]
+    (with-meta {:value v 
+                :year (.getYear d) 
+                :month (inc (.getMonth d))
+                :day (inc (.getDate d))} 
+              {:type "date"})
+  ))
 
 (defn parse-string-value [val]
     (println "parse-string-value >>>" val)
     (let [v (clojure.string/trim val)]
         (cond
-            (nil? v) ""
+            (nil? v) {:value ""}
             (is-people v) (parse-array v "@{" "people")
             (is-locations v) (parse-array v "*{" "locations")
             (is-tags v) (parse-array v "#{" "tags")
-            :else v
+            (is-date v) (parse-date v)
+            :else {:value v}
         )))
 
 (defn transform-entity-def-attr [el]
@@ -348,9 +400,9 @@
   (pprint el)
   (let [tag (->> el :content last :tag)
         attr-name (->> el :content first :content first)
-        attr-value (->> el :content last :content first parse-string-value)]
-        {:name  attr-name
-        :value attr-value}
+        attr-props (->> el :content last :content first parse-string-value)]
+        (println "done transforming inline prop" attr-props)
+        (assoc attr-props :name attr-name)
         ))
 
 ; TODO if attr is multiline - we need to render markdown.
@@ -436,7 +488,7 @@
 (defn eval-attr [ent attr-value]
   (println "evaluate ent attr")
   (let [
-        ; TODO disocc only `code` attributes from attr list and also from the ent
+        ; TODO dissoc only `code` attributes from attr list and also from the ent
         code-to-eval 
           (str "(let [% " 
             (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" attr-value ")")]
@@ -444,7 +496,7 @@
           (:value (eval-str code-to-eval))
           (catch js/Object e
             (do
-            (println "failed" e)
+              (println "failed" e)
               (println "---1")
               (println (dissoc ent :attrs :id))
               (println "---2")
@@ -466,9 +518,6 @@
                   (let [attr-name (keyword (:name ent-def-attr))
                         attr-val (eval-attr ent (:value ent-def-attr))
                         new-attr {:name attr-name :value attr-val}]
-                       ; (println "code to eval" code-to-eval)
-                       ; (println (eval-str code-to-eval))
-                       ; (println "done eval")
                        (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
                   )
               entity entity-def-attrs))
@@ -480,16 +529,16 @@
       (pprint collection)
       (reduce
         (fn [collection collection-attr]
-            (println "eval code attr" (:type collection-attr))
+            (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
             (if (= "code" (:type collection-attr))
               (let [attr-name (keyword (:name collection-attr))
                     ents (map #(dissoc % :attrs) (:entities collection))
                     ; TODO we need to path collection name and collection props to eval
                     code-to-eval
                     (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
-                    attr-val (:value (eval-str code-to-eval))
+                    attr-val (:value (eval-safe code-to-eval))
                     new-attr {:name attr-name :value attr-val}]
-                   (println "coll attr. code to eval" code-to-eval attr-name)
+                   (println "coll attr. code to eval" attr-name code-to-eval)
                    (println attr-val)
                    (println "done eval")
                    (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))

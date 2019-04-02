@@ -8,7 +8,7 @@ It comes with document format, format parser and CLI tool to generate web site f
 
 ## TODO
 
- - [ ] support for date types
+ - [x] support for date types
  - [x] support for people, places, tags types
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [ ] define dynamic columns

@@ -767,6 +767,7 @@ description: Log of my activities
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
+@days: `(montaigne.parser/duration-in-days (->> % :start) (->> % :end))`
 
 ### @template
 
@@ -794,6 +795,10 @@ description: Log of my activities
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "End:"]
               [:dd {:class "dib ml1"} (->> % :end :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Days:"]
+              [:dd {:class "dib ml1"} (->> % :days)]
             ]
           ]]
         [:section
