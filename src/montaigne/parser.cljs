@@ -353,6 +353,7 @@
         :value attr-value}
         ))
 
+; TODO if attr is multiline - we need to render markdown.
 (defn transform-entity-multiline-attr [el]
   (println "transform-entity-multiline-attr")
   (println (->> el :content last :tag))
@@ -483,6 +484,7 @@
             (if (= "code" (:type collection-attr))
               (let [attr-name (keyword (:name collection-attr))
                     ents (map #(dissoc % :attrs) (:entities collection))
+                    ; TODO we need to path collection name and collection props to eval
                     code-to-eval
                     (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
                     attr-val (:value (eval-str code-to-eval))

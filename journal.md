@@ -75,6 +75,33 @@ description: Books I've read
             ]
           ]]
         [:section
+          [:h2.f5 "readings"]
+          [:article.lh-copy.measure
+            [:table {:class "f6 w-100 mw8 center"}
+              [:thead
+                [:tr
+                  (map (fn [column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                  )
+                (->> % :readings :columns))]
+              ]
+              [:tbody {:class "lh-copy"}
+                (map (fn [row]
+                  [:tr
+                    (map 
+                      (fn [column-name]
+                        [:td (get row (keyword column-name))]
+                      )
+                    (->> % :readings :columns)
+                    )
+                  ]
+                  )
+                  (->> % :readings :value)
+                )
+              ]
+            ]
+          ]]
+        [:section
           [:h2.f5 "review"]
           [:article.lh-copy.measure
           (->> % :review :value)]]
@@ -971,7 +998,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |     |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |     |     |     |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
