@@ -22,7 +22,7 @@ description: Books I've read
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+              [:a.link.f6.b.mb1 {:href (:id entity)} (->> entity :title :value)]])
           %)]
       ]
     ]])
@@ -45,7 +45,7 @@ description: Books I've read
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f4.athelas (:name %)]
+        [:h1.lh-title.f4.athelas (->> % :title :value)]
 
         [:header
           [:div.pv2
@@ -82,6 +82,45 @@ description: Books I've read
     ]])
 ```
 
+
+## Building a Bridge to the 18th Century
+
+title: Building a Bridge to the 18th Century  
+subtitle: How the Past Can Improve Our Future  
+authors: @{Neil Postman}  
+isbn: 978-0-375-70127-6  
+year: 1999  
+pages: 224  
+rating: 5
+tags: #{philosophy, history, media, education,}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-10-19 | 2016-10-24 | San Francisco
+
+### review
+
+Manifest of humanity for humanity from Neil Postman. He shares his few big with ideas us.
+
+The first one is the idea of introspection and reflection; that is the idea of being mindful when evaluating life, decisions, tools, words, behaviors of ours and others.
+
+The second idea is the idea of finding the new narrative; that is a meta-purpose to our lives and the existence of humankind. 
+He hints that idea of continuity of human race, which can be achieved through understanding of oneness between not only human beings but between humans and Nature, may be the answer. 
+Idea of continuity should transcend one's life (everyone should become \"smaller\") and time (we should be fill continuity with the greats of the past and future).
+
+The third big idea is the idea of importance of history. Postman demonstrates by example how history might have not only origins for our problems but also ideas how to solve them. History is a tool that scales down time, that is making us smaller, and allows us to see bigger picture and have bigger ideas.
+
+The fourth big idea and hope from Postman is to show us that we can change things. He shows that ideas were created and implemented by real people. 
+He suggest that we shouldn't blindly follow the flow of history, because there is no such flow. We should alter it (at the capacities available to humans) based on the values and idea we believe in.
+
+The final idea is the idea of choosing correct tools and frameworks. He suggest Scientific method to us. In his book he tries to provide us with good tools that help us evaluate everything else. 
+Neil Postman's book is a work of ultimate importance in the post-modern world. 
+The absence of the Narrative, forgetfulness of smaller good ideas and lost of ideals causing some lack of belief in the bright future. 
+Postman, as a true philosophe, tries to use his intellect, following the tradition of Voltaire, Rousseau, Locke, Hume, Jefferson, and others, to give us practical examples how we can change things for the better.
+
+
 ## Amusing Ourselves to Death
 
 title: Amusing Ourselves to Death  
@@ -107,6 +146,7 @@ Makes a lot of sense to me since I witnessed myself similar changes to the cultu
 
 This book is even more actual now in the age of Internet, mobile phones, social networks, 
 instant deliveries etc.  
+
 
 ## Homage to Catalonia
 
@@ -139,6 +179,7 @@ Seems like not many people back then and now do this.
 Also, I really like that Orwell was optimistic even in the end. 
 He was wounded, needed to leave country, but at the end he still believed in human nature and better future.
 
+
 ## The Animal Farm
 
 title: The Animal Farm  
@@ -166,6 +207,7 @@ the pattern is the same for all them.
 This book is a reminder to us how events usually unfold and what happens at the end. 
 And what kind of people typically end-up on top in any system regarding of the title.  
 
+
 ## The Little Prince
 
 title: The Little Prince  
@@ -192,6 +234,25 @@ I didn't understand the story about little prince, talking foxes, flowers and sn
 Form didn't appeal to me and I probably had nothing to learn from it at that time. 
 This time was different. I would recommend this book to everyone. 
 It's a pure beauty. Just in few pages it shows what is important in life and what is not.
+
+
+## Technopoly
+
+title: Technopoly  
+subtitle: The Surrender of Culture to Technology  
+authors: @{Neil Postman}
+isbn: 978-0-679-74540-2  
+year: 1992  
+pages: 222  
+rating: 5
+tags: #{techonlogy, culture}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-25 | 2017-04-30 | San Francisco
+
 
 ## To the Castle and Back
 
@@ -230,6 +291,7 @@ he wanted to inspire them to improve.
 Politicians of today mostly move in opposite direction. 
 They just represent the worst parts of our society and our people. If society is corrupt, politicians are corrupt. 
 If society is uneducated, politicians are profane.
+
 
 ## What I Talk About When I Talk About Running
 
@@ -271,6 +333,7 @@ Few interesting things that I noticed:
  - Another valuable lesson: everything worthy in life requires a big effort.
  He shows how setting up routine and rules for himself was paramount.
 
+
 ## Conscientious Objections
 
 title: Conscientious Objections  
@@ -297,6 +360,69 @@ His essays and observations draw a picture of quite sad future. A lot of this pr
 
 However, what I liked about this book is that he tries to stay optimistic. He reminds us that civilized society is very vulnerable and we should pay attention to dangers. And he tries to provide us with a mindset how to do just that.
 
+
+## The Little Book of Hygge
+
+title: The Little Book of Hygge  
+subtitle: The Danish Way to Live Well  
+authors: @{Meik Wiking} 
+isbn: 978-0-241-28391-2  
+year: 2016
+pages: 288   
+rating: 3
+tags: #{Denmark, lifestyle}
+
+### review
+
+Not much to say about this one. Too simple.
+
+
+## On Tyranny
+
+title: On Tyranny  
+subtitle: Twenty Lessons from the Twentieth Century  
+authors: @{Tymothy Snyder}  
+isbn: 978-0-8041-9011-4  
+year: 2017
+pages: 126
+rating: 3
+tags: #{politics}
+
+### readings
+
+started   | finished   | locations
+----------| ---------- | -------------
+2017-04-30| 2017-04-30 | San Francisco
+
+### review
+
+Too simple and too tied to the things that were going on in the USA during 2016.
+My expectations were much higher, especially given authors background as a historian.
+
+
+## China Disruptors
+
+title: China's Disruptors  
+subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business
+authors: @{Edward Tse}  
+isbn: 978-0-241-24039-7
+year: 2015 
+pages: 256  
+rating: 4
+tags: #{China, technology, business}
+
+### readings
+
+started   | finished   | locations
+----------| ---------- | -------------
+2017-04-15| 2017-04-24 | San Francisco
+
+### review
+
+Great book on the technological developments in China. 
+Learned a lot about Chinese tech companies, the way they started and the way they do business.
+
+
 ## Treatise on Modern Stimulants
 
 title: Treatise on Modern Stimulants  
@@ -317,6 +443,7 @@ started   | finished   | locations
 Very short and simple book. Didn't find a lot of interesting things when read.
 However, I think it's an interesting book to be written at 1839.
 Also the topic is as relevant as always and insights are true and common knowledge now.
+
 
 # trips
 
@@ -351,21 +478,40 @@ description: My trips
 
 @id: `(montaigne.parser/slug (:name %))`
 
+### @template
+
+```clojure
+(montaigne.parser/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (:name %)]
+      ]
+    ]])
+```
+
 ## Temecula 2019
+
+country: USA
+
 
 ## Vail 2019
 
-## Buenos Aires and Paris 2018
+country: USA
+
 
 ## Tijuana 3rd trip
 
-## Tijuana 2nd trip
+country: Mexico
 
-## Mexico City and Tijuana
-
-## Summer 2018
-
-## Los Angeles 2018
 
 # quotes
 
@@ -428,6 +574,7 @@ description: My collection of quotes
     ]])
 ```
 
+
 ## Havel on critizing
 
 authors: @{Václav Havel}  
@@ -445,6 +592,7 @@ People told me exactly what I would later often say to others when tring to draw
 you can't spend your whole life criticizing something and then, 
 when you have the chance to do it better, refuse to go near it.
 
+
 ## Postman on promotion of fast technological solutions
 
 authors: @{Neil Postman}  
@@ -453,6 +601,7 @@ tags: @{technology, television commercials, utopia}
 ### quote
 
 Television screens saturated with commercials to promote the Utopian and childish idea that all problems have fast, simple, and technological solutions.
+
 
 ## Balzac on consumption
 
@@ -470,6 +619,7 @@ Treatise on Modern Stimulants  | 6     | I The Subject at Hand
 Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an 
 early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become 
 abnormally enlarged, damanged and corrupt the machine, which succumbs.
+
 
 # activities
 
@@ -541,6 +691,7 @@ description: Log of my activities
     ]])
 ```
 
+
 ## week 1
 
 start: 2019-03-03  
@@ -569,6 +720,7 @@ no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |  ✓
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
+
 ## week 2
 
 start: 2019-03-10
@@ -596,6 +748,7 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
+
 
 ## week 3
 
@@ -626,6 +779,7 @@ no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
+
 ## week 4
 
 start: 2019-03-24
@@ -637,9 +791,39 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |  
 football   |     |     |     |     |     |     |  
-reading    |  ✓  |  ✓  |     |     |     |     |  
-spanish    |     |     |     |     |     |     |  
+reading    |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
+spanish    |     |     |     |     |  ✓  |     |  
 pushups    |  ✓  |  ✓  |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |     |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |     |     |     |  
+tennis     |     |     |     |     |     |     |  
+ping-pong  |     |  ✓  |     |     |     |     |  
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |  ✓  |     |  ✓  |  ✓  |  ✓  |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |  
+
+
+## week 5
+
+start: 2019-03-31
+end: 2019-04-06
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |  ✓  |     |     |     |     |     |  
+football   |  ✓  |     |     |     |     |     |  
+reading    |  ✓  |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |  
+pushups    |     |     |     |     |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
@@ -651,11 +835,37 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |     |     |     |     |    
+no alcohol |  ✓  |     |     |     |     |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
-## week 5
 
-start: 2019-03-31
-end: 2019-04-07
+## week 6
+
+start: 2019-04-07
+end: 2019-04-14
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |  
+football   |     |     |     |     |     |     |  
+reading    |     |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |  
+pushups    |     |     |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |     |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |     |     |     |     |     |     |  
+tennis     |     |     |     |     |     |     |  
+ping-pong  |     |     |     |     |     |     |  
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |     |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |    
+

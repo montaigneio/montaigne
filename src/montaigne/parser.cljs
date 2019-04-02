@@ -17,6 +17,8 @@
 
 (println "parser start...")
 
+
+
 (defn to-hiccup
   "Used as toHiccup method on cljs vectors and lists.
   Takes no arguments but uses js-this.
@@ -33,6 +35,50 @@
 
 (defn html [hiccup-str]
   (serialize hiccup-str))
+
+
+(def COLLECTION_START_MARK "# ")
+(def ENITITY_START_MARK "## ")
+(def ENTITY_DEF_ATTRIBUTE_MARK "@")
+(def INDENTANTION_MARK "  ")
+
+(defn find-el-index [els el]
+  (loop [arr els n 0]
+    (if (= el (first arr))
+      n
+      (recur (next arr) (inc n)))))
+
+(defn regex-modifiers
+  "Returns the modifiers of a regex, concatenated as a string."
+  [re]
+  (str (if (.-multiline re) "m")
+       (if (.-ignoreCase re) "i")))
+
+(defn re-pos
+  "Returns a vector of vectors, each subvector containing in order:
+   the position of the match, the matched string, and any groups
+   extracted from the match."
+  [re s]
+  (let [re (js/RegExp. (.-source re) (str "g" (regex-modifiers re)))]
+    (loop [res []]
+      (if-let [m (.exec re s)]
+        (recur (conj res (vec (cons (.-index m) m))))
+        res))))
+
+(defn find-collections [indexed-lines]
+  (let [result (reduce 
+          (fn [acc indexed-line]
+            (let [line (second indexed-line)]
+              (if (clojure.string/starts-with? line COLLECTION_START_MARK)
+                (let [collection-name (subs line 2)
+                      trimmed (clojure.string/trim collection-name)
+                      collection-keyword (keyword trimmed)]
+                      (conj acc {:name trimmed :key collection-keyword :start-line (first indexed-line) :lines [] :collection-attrs [] :entity-attrs [] :entities []}))
+                (let [last-el (last acc)
+                      updated (assoc last-el :lines (conj (:lines last-el) indexed-line))]      
+                  (conj (vec (butlast acc)) updated)))))
+          [] indexed-lines)]
+    result))  
 
 ;(def date-formatter (date-format/formatters :date))
 ;(cljs-time.format/parse (cljs-time.format/formatters :date) "2010-03-11")
@@ -85,7 +131,7 @@
 
 (def mntgn-parser
   (insta/parser
-    "<root> = collection+
+    "<root> = collection*
      collection = collection-header collection-body
 
      <collection-header> = <collection-header-mark> <space> collection-name <blankline>
@@ -120,11 +166,14 @@
      <collection-attr-val-line> = #'[^\n]+' '\n'+
      collection-multiline-attr-val = collection-attr-val-line+
 
-     entity = entity-header entity-body <newline>+
+     entity = entity-header entity-body <blankline>+
 
      <entity-header> = <entity-header-mark> <space> entity-name <blankline>
      entity-name = #'[a-zA-Z0-9 ]+'
-     entity-body = (entity-inline-attr | entity-multiline-attr)+
+     entity-body = entity-inline-attrs entity-multiline-attrs
+
+     entity-inline-attrs = entity-inline-attr*
+     entity-multiline-attrs = entity-multiline-attr* 
 
      entity-attr-name = attribute-name
      entity-inline-attr = entity-attr-name <colon> <spaces> entity-inline-attr-val <space>* <newline>+
@@ -152,8 +201,8 @@
      spaces = space+
 
      comma = ','
-     newline = #'\n'
-     blankline = #'\n\n'" :output-format :enlive))
+     newline = '\n'
+     blankline = '\n\n'" :output-format :enlive))
 
 
 (defn get-collection-attributes [els]
@@ -295,32 +344,46 @@
            {:records (into [] records)
             :columsn columns}))
 
-(defn transform-entity-attr [el]
-      (println "transform attr")
-      (println (->> el :content last :tag))
-      (pprint el)
-      (let [tag (->> el :content last :tag)
-            attr-name (->> el :content first :content first)]
-           (if (= :entity-table-attr-val tag)
-             (let [tag-content (->> el :content last :content)
-                   table-data (transform-table-value tag-content)]
-                  {:name  attr-name
-                   :value (:records table-data)
-                   :columns (:columns table-data)})
-             (if (= :entity-multiline-attr-val tag)
-               (let [attr-value (->> el :content last :content clojure.string/join)]
-                    {:name  attr-name
-                     :value attr-value})
-               (let [attr-value (->> el :content last :content first parse-string-value)]
-                    {:name  attr-name
-                     :value attr-value})))))
+(defn transform-entity-inline-attr [el]
+  (println "transform-entity-inline-attr")
+  (println (->> el :content last :tag))
+  (pprint el)
+  (let [tag (->> el :content last :tag)
+        attr-name (->> el :content first :content first)
+        attr-value (->> el :content last :content first parse-string-value)]
+        {:name  attr-name
+        :value attr-value}
+        ))
+
+(defn transform-entity-multiline-attr [el]
+  (println "transform-entity-multiline-attr")
+  (println (->> el :content last :tag))
+  (pprint el)
+  (let [tag (->> el :content last :tag)
+        attr-name (->> el :content first :content first)]
+        (if (= :entity-table-attr-val tag)
+          (let [tag-content (->> el :content last :content)
+                table-data (transform-table-value tag-content)]
+              {:name  attr-name
+                :value (:records table-data)
+                :columns (:columns table-data)})
+          (if (= :entity-multiline-attr-val tag)
+            (let [attr-value (->> el :content last :content clojure.string/join)]
+                {:name  attr-name
+                  :value attr-value})))))
 
 (defn transform-entity [el]
       (println "transform entity.")
       (println el)
+      (println "transform entity2")
+      (pprint (->> el :content last))
       (let [entity-name (->> el :content first :content first)
+            entity-inline-attrs-body (->> el :content last :content first :content)
+            entity-multiline-attrs-body (->> el :content last :content last :content)
             entity-body (->> el :content last :content)
-            attrs (map transform-entity-attr entity-body)
+            inline-attrs (map transform-entity-inline-attr entity-inline-attrs-body)
+            multiline-attrs (map transform-entity-multiline-attr entity-multiline-attrs-body)
+            attrs (concat inline-attrs multiline-attrs)
             ent {:name  entity-name :attrs attrs}]
            (reduce 
             (fn [entity attr]
@@ -329,17 +392,38 @@
            ))
 
 (defn parse-doc [doc]
-      (let [doc-str (str doc "\n\n\n\n")
-            original-parsed (mntgn-parser doc-str)
-            parsed (insta/transform
-                     {}
-                     original-parsed)]
-           (println doc)
-           (println "parsed")
-           ;  (println parsed)
-           parsed
-           )
-      )
+  (let [doc-str (str doc "\n\n\n\n")
+        original-parsed (mntgn-parser doc-str)
+        parsed (insta/transform
+                  {}
+                  original-parsed)]
+        (println doc)
+        (println "parsed")
+        ;  (println parsed)
+        parsed
+        ))
+
+(defn parse-collections [collections]
+  (map
+    (fn [collection]
+      (let [content_ (clojure.string/triml (clojure.string/join "\n" (map second (:lines collection))))
+            content (str content_)
+            parsed (mntgn-parser content)
+            ; parsed (insta/transform
+            ;       {}
+            ;       original-parsed)
+            ]
+            (println "collection content")
+            (println content)
+            (println "parsed collection")
+            (println parsed)
+            ; TODO name of the collection is lost
+            (first parsed)
+            )
+    )
+    collections
+  )
+)        
 (defn remove-code-attrs [ent]
  (reduce 
   (fn [new-ent attr]
@@ -397,6 +481,7 @@
       (pprint collection)
       (reduce
         (fn [collection collection-attr]
+            (println "eval code attr" (:type collection-attr))
             (if (= "code" (:type collection-attr))
               (let [attr-name (keyword (:name collection-attr))
                     ents (map #(dissoc % :attrs) (:entities collection))
@@ -417,7 +502,8 @@
         ))
 
 (defn evaluate [parsed-output]
-      (println "evaluate")
+      (println "evaluate output>>")
+      (pprint parsed-output)
       (map
         (fn [collection]
             (let [content (->> collection :content second :content)
@@ -430,6 +516,8 @@
                                :entity-def-attrs entity-def-attrs
                                :entities         entities_}
                   collection (evaluate-collection-attributes collection_)]
+                  (println "collection data>>>")
+                  (pprint collection_)
                  collection))
         parsed-output))
 
@@ -464,11 +552,18 @@
 
 (defn parse [filename]
       (let [doc (slurp filename)
+            ; lines (clojure.string/split doc "\n")
+            ; indexed-lines (into [] (map-indexed vector lines))
+            ; raw-collections (find-collections indexed-lines)
+            ; parsed (parse-collections raw-collections)
             parsed (parse-doc doc)
             transformed (evaluate parsed)
             ]
            ;  parsed
+          ;  (pprint raw-collections)
+           (println "parsed doc")
            (println parsed)
+           (println "transformed doc")
            (pprint transformed)
            (render transformed)
            ;  transformed
