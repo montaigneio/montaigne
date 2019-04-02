@@ -517,6 +517,33 @@ description: My trips
     [:body
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
         [:h1.lh-title.f4.athelas (:name %)]
+        [:section
+          [:h2.f5 "itinerary"]
+          [:article.lh-copy.measure
+            [:table {:class "f6 w-100 mw8 center"}
+              [:thead
+                [:tr
+                  (map (fn [column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                  )
+                (->> % :itinerary :columns))]
+              ]
+              [:tbody {:class "lh-copy"}
+                (map (fn [row]
+                  [:tr
+                    (map 
+                      (fn [column-name]
+                        [:td (get row (keyword column-name))]
+                      )
+                    (->> % :itinerary :columns)
+                    )
+                  ]
+                  )
+                  (->> % :itinerary :value)
+                )
+              ]
+            ]
+          ]]
       ]
     ]])
 ```
