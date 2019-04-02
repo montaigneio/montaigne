@@ -91,8 +91,8 @@ authors: @{Neil Postman}
 isbn: 978-0-375-70127-6  
 year: 1999  
 pages: 224  
-rating: 5
-tags: #{philosophy, history, media, education,}
+rating: 5  
+tags: #{philosophy, history, media, education}
 
 ### readings
 
@@ -365,11 +365,11 @@ However, what I liked about this book is that he tries to stay optimistic. He re
 
 title: The Little Book of Hygge  
 subtitle: The Danish Way to Live Well  
-authors: @{Meik Wiking} 
+authors: @{Meik Wiking}  
 isbn: 978-0-241-28391-2  
-year: 2016
+year: 2016  
 pages: 288   
-rating: 3
+rating: 3  
 tags: #{Denmark, lifestyle}
 
 ### review
@@ -383,10 +383,10 @@ title: On Tyranny
 subtitle: Twenty Lessons from the Twentieth Century  
 authors: @{Tymothy Snyder}  
 isbn: 978-0-8041-9011-4  
-year: 2017
-pages: 126
-rating: 3
-tags: #{politics}
+year: 2017  
+pages: 126  
+rating: 3  
+tags: #{politics}  
 
 ### readings
 
@@ -403,13 +403,13 @@ My expectations were much higher, especially given authors background as a histo
 ## China Disruptors
 
 title: China's Disruptors  
-subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business
+subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
 authors: @{Edward Tse}  
-isbn: 978-0-241-24039-7
-year: 2015 
+isbn: 978-0-241-24039-7  
+year: 2015  
 pages: 256  
-rating: 4
-tags: #{China, technology, business}
+rating: 4  
+tags: #{China, technology, business}  
 
 ### readings
 
@@ -450,10 +450,11 @@ Also the topic is as relevant as always and insights are true and common knowled
 title: Sea People  
 subtitle: The Puzzle of Polynesia  
 authors: @{Christina Thompson}  
-isbn: 978-0-06-206087-7
+isbn: 978-0-06-206087-7  
 year: 2019  
 pages: 364  
 rating: 5  
+tags: #{Polynesia, history, travel, ocean, culture  
 
 ### readings
 
@@ -536,10 +537,7 @@ SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2
 
 ### summary
 
-Great trip.
-What can one say?
-
-Amazing stuff.
+First time in this part of SoCal. Didn't do much since it was work event.
 
 
 ## Vail Feb
@@ -554,6 +552,10 @@ from | to  | date       | type   | flight | aircraft
 ---- | --- | ---------- | ------ | ------ | --------  
 SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
 DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
+
+### summary
+
+First time in Colorado. Great weather, great slops - exactly as I like.
 
 
 ## Buenos Aires And Paris
@@ -637,7 +639,7 @@ description: My collection of quotes
 ## Havel on critizing
 
 authors: @{Václav Havel}  
-tags: @{politics, criticizing}  
+tags: #{politics, criticizing}  
 
 ### sources
 
@@ -655,7 +657,7 @@ when you have the chance to do it better, refuse to go near it.
 ## Postman on promotion of fast technological solutions
 
 authors: @{Neil Postman}  
-tags: @{technology, television commercials, utopia}  
+tags: #{technology, television commercials, utopia}  
 
 ### quote
 
@@ -665,7 +667,7 @@ Television screens saturated with commercials to promote the Utopian and childis
 ## Balzac on consumption
 
 authors: @{Honoré de Balzac}
-tags: @{consumption, coffee, alchohol, drugs}
+tags: #{consumption, coffee, alchohol, drugs}
 
 ### sources
 
@@ -742,10 +744,58 @@ description: Log of my activities
           ]]
         [:section
           [:h2.f5 "activities"]
-          [:article.lh-copy.measure]]
+          [:article.lh-copy.measure
+            [:table {:class "f6 w-100 mw8 center"}
+              [:thead
+                [:tr
+                  (map (fn [column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                  )
+                (->> % :activities :columns))]
+              ]
+              [:tbody {:class "lh-copy"}
+                (map (fn [row]
+                  [:tr
+                    (map 
+                      (fn [column-name]
+                        [:td (get row (keyword column-name))]
+                      )
+                    (->> % :activities :columns)
+                    )
+                  ]
+                  )
+                  (->> % :activities :value)
+                )
+              ]
+            ]
+          ]]
         [:section
           [:h2.f5 "intake"]
-          [:article.lh-copy.measure]]  
+          [:article.lh-copy.measure
+          [:table {:class "f6 w-100 mw8 center"}
+              [:thead
+                [:tr
+                  (map (fn [column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                  )
+                (->> % :intake :columns))]
+              ]
+              [:tbody {:class "lh-copy"}
+                (map (fn [row]
+                  [:tr
+                    (map 
+                      (fn [column-name]
+                        [:td (get row (keyword column-name))]
+                      )
+                    (->> % :intake :columns)
+                    )
+                  ]
+                  )
+                  (->> % :intake :value)
+                )
+              ]
+            ]
+          ]]  
       ]
     ]])
 ```

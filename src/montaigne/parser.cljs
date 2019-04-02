@@ -340,7 +340,7 @@
                                (apply merge props)))
                       rows-values)]
            {:records (into [] records)
-            :columsn columns}))
+            :columns columns}))
 
 (defn transform-entity-inline-attr [el]
   (println "transform-entity-inline-attr")
