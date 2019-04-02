@@ -521,10 +521,10 @@ description: My trips
 ```
 
 
-## Temecula Feb 2019
+## Temecula Feb
 
 from: San Francisco  
-to: Temecula, CA  
+to: Temecula
 
 ### itinerary
 
@@ -534,29 +534,37 @@ SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2
 SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2 
 
 
-## Vail Feb 2019
+### summary
+
+Great trip.
+What can one say?
+
+Amazing stuff.
+
+
+## Vail Feb
 
 from: San Francisco  
 to: Vail  
-type: friends
+type: friends  
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft  
----- | --- | ---------- | ------ | ------ | -------- 
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | --------  
 SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
 DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
 
 
-## Buenos Aires And Paris 2018
+## Buenos Aires And Paris
 
 from: San Francisco  
 to: *{Buenos Aires, New York, Paris}
-  
+
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft
----- | --- | ---------- | ------ | ------ | --------------
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
 SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200 
 EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400 
 EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 

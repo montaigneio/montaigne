@@ -195,12 +195,10 @@
      entity-header-mark = '##'
      multiline-attr-header-mark = '###'
      entity-inline-attr-mark = '@'
-     indentation = (space space) | '\t'
      colon = ':'
      space = ' '
      spaces = space+
 
-     comma = ','
      newline = '\n'
      blankline = '\n\n'" :output-format :enlive))
 
