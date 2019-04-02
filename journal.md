@@ -436,13 +436,36 @@ rating: 3
 
 started   | finished   | locations
 ----------| ---------- | -------------
-2019-10-02| 2019-03-03 | San Francisco
+2019-02-10| 2019-03-03 | San Francisco
 
 ### reviews
 
 Very short and simple book. Didn't find a lot of interesting things when read.
 However, I think it's an interesting book to be written at 1839.
 Also the topic is as relevant as always and insights are true and common knowledge now.
+
+
+## Sea People
+
+title: Sea People  
+subtitle: The Puzzle of Polynesia  
+authors: @{Christina Thompson}  
+isbn: 978-0-06-206087-7
+year: 2019  
+pages: 364  
+rating: 5  
+
+### readings
+
+started   | finished   | locations
+----------| ---------- | -------------
+2019-03-24| 2019-03-31 | San Francisco
+
+### review
+
+Engaging book. Learned a lot about region I knew so little. The book 
+laid out the history of the region and history scientific inqury into it. 
+I've read it just in few days and couldn't stop reading.
 
 
 # trips
@@ -475,7 +498,6 @@ description: My trips
     ]])
 ```
 
-
 @id: `(montaigne.parser/slug (:name %))`
 
 ### @template
@@ -498,19 +520,48 @@ description: My trips
     ]])
 ```
 
-## Temecula 2019
 
-country: USA
+## Temecula Feb 2019
+
+from: San Francisco  
+to: Temecula, CA  
+
+### itinerary
+
+from | to   | date       | type   | flight | aircraft | emissions 
+---- | ---- | ---------- | ------ | ------ | -------- | ---------- 
+SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2 
+SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2 
 
 
-## Vail 2019
+## Vail Feb 2019
 
-country: USA
+from: San Francisco  
+to: Vail  
+type: friends
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft  
+---- | --- | ---------- | ------ | ------ | -------- 
+SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
+DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
 
 
-## Tijuana 3rd trip
+## Buenos Aires And Paris 2018
 
-country: Mexico
+from: San Francisco  
+to: *{Buenos Aires, New York, Paris}
+  
+### itinerary
+
+from | to  | date       | type   | flight | aircraft
+---- | --- | ---------- | ------ | ------ | --------------
+SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200 
+EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400 
+EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 
+MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS 
+CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
 
 
 # quotes
