@@ -500,8 +500,7 @@
               (println "---2")
               (println code-to-eval)
               (println "---3")
-
-            ""
+              ""
             )
           ))))
 
@@ -549,24 +548,24 @@
     ))
 
 (defn evaluate [parsed-output]
-      (println "evaluate output>>")
-      (pprint parsed-output)
-      (map
-        (fn [collection]
-            (let [content (->> collection :content second :content)
-                  collection-attrs (map transform-collection-attr (get-collection-attributes content))
-                  entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
-                  plain-entities (map transform-entity (get-entities content))
-                  entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
-                  collection_ {:name             (->> collection :content first :content first)
-                               :attrs            collection-attrs
-                               :entity-def-attrs entity-def-attrs
-                               :entities         entities_}
-                  collection (evaluate-collection-attributes collection_)]
-                  (println "collection data>>>")
-                  (pprint collection_)
-                 collection))
-        parsed-output))
+  (println "evaluate output>>")
+  (pprint parsed-output)
+  (map
+    (fn [collection]
+        (let [content (->> collection :content second :content)
+              collection-attrs (map transform-collection-attr (get-collection-attributes content))
+              entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
+              plain-entities (map transform-entity (get-entities content))
+              entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
+              collection_ {:name             (->> collection :content first :content first)
+                            :attrs            collection-attrs
+                            :entity-def-attrs entity-def-attrs
+                            :entities         entities_}
+              collection (evaluate-collection-attributes collection_)]
+              (println "collection data>>>")
+              (pprint collection_)
+              collection))
+    parsed-output))
 
 (defn mkdir-safe [dir]
   (try
