@@ -318,7 +318,7 @@
   (cljs-time.format/parse (cljs-time.format/formatters :date) v))
 
 (defn duration-in-days [d1 d2]
-  (println "duratiion between" d1 d2)
+  (println "duration between" d1 d2)
   (date-core/in-days (date-core/interval (to-js-date (:value d1)) (to-js-date (:value d2)))))
 
 (defn parse-date [v]
@@ -509,14 +509,41 @@
     (fn [entity]
       (reduce
         (fn [ent ent-def-attr]
-            (println "evaluate ent attr")
-            ; (pprint ent)
+            (println "evaluate ent def attr")
             (pprint ent-def-attr)
-            (let [attr-name (keyword (:name ent-def-attr))
-                  attr-val (eval-attr ent (:value ent-def-attr))
-                  new-attr {:name attr-name :value attr-val}]
-                  (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
-            )
+            (let [tokens (clojure.string/split (:name ent-def-attr) ".")]
+              (cond
+                (= 2 (count tokens)) 
+                  (do
+                    (println "evaluate nested attr")
+                    (let [main-attr (keyword (first tokens))
+                          nested-attr (keyword (second tokens))
+                          attr-val (eval-attr ent (:value ent-def-attr))
+                          old-attr (get ent main-attr)
+                          updated-value 
+                            (into [] (map 
+                              (fn [row]
+                                (assoc row nested-attr attr-val)
+                              )
+                              (:value old-attr)))
+                          updated-columns (conj (:columns old-attr) (second tokens))
+                          ]
+                    (pprint ent)
+                    (println "---")
+                    (pprint updated-value)
+                    (println updated-columns)
+                    (assoc-in
+                      (assoc-in ent [main-attr :value] updated-value)
+                      [main-attr :columns] updated-columns
+                      )
+                  ))
+                (= 1 (count tokens))
+                  (let [attr-name (keyword (:name ent-def-attr))
+                        attr-val (eval-attr ent (:value ent-def-attr))
+                        new-attr {:name attr-name :value attr-val}]
+                        (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
+                :else ent
+            )))
         entity entity-def-attrs))
     plain-entities))
 

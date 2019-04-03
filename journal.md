@@ -29,6 +29,7 @@ description: Books I've read
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
+@readings.duration: `(montaigne.parser/slug (:name %))`
 
 ### @template
 
@@ -527,7 +528,7 @@ isbn: 978-0-06-206087-7
 year: 2019  
 pages: 364  
 rating: 5  
-tags: #{Polynesia, history, travel, ocean, culture  
+tags: #{Polynesia, history, travel, ocean, culture}
 
 ### readings
 
