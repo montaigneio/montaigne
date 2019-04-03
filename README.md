@@ -10,8 +10,10 @@ It comes with document format, format parser and CLI tool to generate web site f
 
  - [x] support for date types
  - [x] support for people, places, tags types
+ - [ ] document evaludation order
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
- - [ ] define dynamic columns
+ - [x] define dynamic columns
+ - [ ] render multiline as markdown
  - [ ] define dynamic pages 
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks

@@ -29,7 +29,7 @@ description: Books I've read
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
-@readings.duration: `(montaigne.parser/slug (:name %))`
+@readings.duration: `(montaigne.parser/duration-in-days (:started %) (:finished %))`
 
 ### @template
 
@@ -814,7 +814,7 @@ description: Log of my activities
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
-@days: `(montaigne.parser/duration-in-days (->> % :start) (->> % :end))`
+@days: `(montaigne.parser/duration-in-days (->> % :start :value) (->> % :end :value))`
 
 ### @template
 
@@ -1036,7 +1036,7 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |  
 football   |  ✓  |     |     |     |     |     |  
-reading    |  ✓  |     |     |     |     |     |    
+reading    |  ✓  |     |     |  ✓  |     |     |    
 spanish    |     |     |     |     |     |     |  
 pushups    |     |  ✓  |     |     |     |     |  
 edu event  |     |     |     |     |     |     |  
@@ -1050,7 +1050,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 

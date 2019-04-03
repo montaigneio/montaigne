@@ -18,6 +18,11 @@
 
 (println "parser start...")
 
+(defn debug [message entity]
+  (println (str message "..."))
+  (pprint entity)
+  (println (str "..." message)))
+
 (defn to-hiccup
   "Used as toHiccup method on cljs vectors and lists.
   Takes no arguments but uses js-this.
@@ -128,7 +133,7 @@
 
 (defn eval-safe [s]
   (try 
-    eval-str
+    (eval-str s)
     (catch js/Object e
       (do
         (println "eval code failed...")
@@ -216,55 +221,49 @@
 
 
 (defn get-collection-attributes [els]
-      (println "get-collection-attributes..")
-      (pprint els)
-      (->>
-        (filter #(= :collection-attrs (:tag %)) els)
-        first
-        :content))
+  (debug "get-collection-attributes" els)
+  (->>
+    (filter #(= :collection-attrs (:tag %)) els)
+    first
+    :content))
 
 (defn get-entity-def-attributes [els]
-      (println "get-entity-def-attributes..")
-      (pprint els)
-      (let [attrs (->>
-                    (filter #(= :entity-def-attrs (:tag %)) els)
-                    first
-                    :content)]
-           (do
-             (println "get-entity-def-attributes. done.")
-             (pprint attrs)
-             attrs
-             )
-           ))
+  (debug "get-entity-def-attributes" els)
+  (let [attrs (->>
+                (filter #(= :entity-def-attrs (:tag %)) els)
+                first
+                :content)]
+        (do
+          (debug "get-entity-def-attributes. done" attrs)
+          attrs
+          )
+        ))
 
 (defn get-entities [els]
-      (println "get-entities..")
-      (pprint els)
-      (->>
-        (filter #(= :entities (:tag %)) els)
-        first
-        :content))
+  (debug "get-entities" els)
+  (->>
+    (filter #(= :entities (:tag %)) els)
+    first
+    :content))
 
 ;{:tag :collection-inline-attr, :content ({:tag :collection-attr-name, :content (description)} {:tag :collection-inline-attr-val, :content (Collection of books)}
 (defn transform-collection-attr [el]
-      (println "transform collection attr")
-      (pprint el)
-      (pprint (->> el :content first :content last :content))
-      (let [value-lines-list (->> el :content first :content last :content)
-            value-as-str (clojure.string/trim (clojure.string/join value-lines-list))
-            attr-name (->> el :content first :content first :content first)]
-           (if (and
-                 (clojure.string/starts-with? value-as-str "```clojure")
-                 (clojure.string/ends-with? value-as-str "```"))
-             (let [val_ (strip-prefix value-as-str "```clojure")
-                   attr-value (strip-suffix val_ "```")]
-                  {:name  attr-name
-                   :type  "code"
-                   :value attr-value}
-                  )
-             {:name  attr-name
-              :value value-as-str}
-             )))
+  (debug "transform-collection-attr" el)
+  (let [value-lines-list (->> el :content first :content last :content)
+        value-as-str (clojure.string/trim (clojure.string/join value-lines-list))
+        attr-name (->> el :content first :content first :content first)]
+        (if (and
+              (clojure.string/starts-with? value-as-str "```clojure")
+              (clojure.string/ends-with? value-as-str "```"))
+          (let [val_ (strip-prefix value-as-str "```clojure")
+                attr-value (strip-suffix val_ "```")]
+              {:name  attr-name
+                :type  "code"
+                :value attr-value}
+              )
+          {:name  attr-name
+          :value value-as-str}
+          )))
 
 (defn is-number [str-value]
   (> (js/parseInt str-value) 0))
@@ -319,7 +318,7 @@
 
 (defn duration-in-days [d1 d2]
   (println "duration between" d1 d2)
-  (date-core/in-days (date-core/interval (to-js-date (:value d1)) (to-js-date (:value d2)))))
+  (date-core/in-days (date-core/interval (to-js-date d1) (to-js-date d2))))
 
 (defn parse-date [v]
   (let [d (to-js-date v)]
@@ -331,16 +330,16 @@
   ))
 
 (defn parse-string-value [val]
-    (println "parse-string-value >>>" val)
-    (let [v (clojure.string/trim val)]
-        (cond
-            (nil? v) {:value ""}
-            (is-people v) (parse-array v "@{" "people")
-            (is-locations v) (parse-array v "*{" "locations")
-            (is-tags v) (parse-array v "#{" "tags")
-            (is-date v) (parse-date v)
-            :else {:value v}
-        )))
+  (println "parse-string-value >>>" val)
+  (let [v (clojure.string/trim val)]
+      (cond
+          (nil? v) {:value ""}
+          (is-people v) (parse-array v "@{" "people")
+          (is-locations v) (parse-array v "*{" "locations")
+          (is-tags v) (parse-array v "#{" "tags")
+          (is-date v) (parse-date v)
+          :else {:value v}
+      )))
 
 (defn transform-entity-def-attr [el]
   (println "transform-entity-def-attr")
@@ -393,21 +392,17 @@
         :columns columns}))
 
 (defn transform-entity-inline-attr [el]
-  (println "transform-entity-inline-attr")
-  (println (->> el :content last :tag))
-  (pprint el)
+  (debug "transform-entity-inline-attr" el)
   (let [tag (->> el :content last :tag)
         attr-name (->> el :content first :content first)
         attr-props (->> el :content last :content first parse-string-value)]
-        (println "done transforming inline prop" attr-props)
+        (debug "done. transform-entity-inline-attr" attr-props)
         (assoc attr-props :name attr-name)
         ))
 
 ; TODO if attr is multiline - we need to render markdown.
 (defn transform-entity-multiline-attr [el]
-  (println "transform-entity-multiline-attr")
-  (println (->> el :content last :tag))
-  (pprint el)
+  (debug "transform-entity-multiline-attr" el)
   (let [tag (->> el :content last :tag)
         attr-name (->> el :content first :content first)]
         (if (= :entity-table-attr-val tag)
@@ -422,23 +417,20 @@
                   :value attr-value})))))
 
 (defn transform-entity [el]
-      (println "transform entity.")
-      (println el)
-      (println "transform entity2")
-      (pprint (->> el :content last))
-      (let [entity-name (->> el :content first :content first)
-            entity-inline-attrs-body (->> el :content last :content first :content)
-            entity-multiline-attrs-body (->> el :content last :content last :content)
-            entity-body (->> el :content last :content)
-            inline-attrs (map transform-entity-inline-attr entity-inline-attrs-body)
-            multiline-attrs (map transform-entity-multiline-attr entity-multiline-attrs-body)
-            attrs (concat inline-attrs multiline-attrs)
-            ent {:name  entity-name :attrs attrs}]
-           (reduce 
-            (fn [entity attr]
-              (assoc entity (keyword (:name attr)) attr)
-            ) ent attrs)
-           ))
+  (debug "transform-entity" el)
+  (let [entity-name (->> el :content first :content first)
+        entity-inline-attrs-body (->> el :content last :content first :content)
+        entity-multiline-attrs-body (->> el :content last :content last :content)
+        entity-body (->> el :content last :content)
+        inline-attrs (map transform-entity-inline-attr entity-inline-attrs-body)
+        multiline-attrs (map transform-entity-multiline-attr entity-multiline-attrs-body)
+        attrs (concat inline-attrs multiline-attrs)
+        ent {:name  entity-name :attrs attrs}]
+        (reduce 
+        (fn [entity attr]
+          (assoc entity (keyword (:name attr)) attr)
+        ) ent attrs)
+        ))
 
 (defn parse-doc [doc]
   (let [doc-str (str doc "\n\n\n\n")
@@ -483,34 +475,28 @@
   )
   {} ent))
 
-(defn eval-attr [ent attr-value]
+(defn eval-attr [ent code-value]
   (println "evaluate ent attr")
-  (let [
-        ; TODO dissoc only `code` attributes from attr list and also from the ent
-        code-to-eval 
+  (let [code-to-eval 
           (str "(let [% " 
-            (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" attr-value ")")]
-        (try
-          (:value (eval-str code-to-eval))
-          (catch js/Object e
-            (do
-              (println "failed" e)
-              (println "---1")
-              (println (dissoc ent :attrs :id))
-              (println "---2")
-              (println code-to-eval)
-              (println "---3")
-              ""
-            )
-          ))))
+            (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" code-value ")")]
+        (:value (eval-safe code-to-eval))))
+
+
+
+(defn eval-nested-attr [record code-value]
+  (debug "eval-nested-attr" record)
+  (let [code-to-eval 
+          (str "(let [% " 
+            (prn-str record) "]" code-value ")")]
+        (:value (eval-safe code-to-eval))))        
 
 (defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
   (map
     (fn [entity]
       (reduce
         (fn [ent ent-def-attr]
-            (println "evaluate ent def attr")
-            (pprint ent-def-attr)
+            (debug "evaluate ent def attr" ent-def-attr)
             (let [tokens (clojure.string/split (:name ent-def-attr) ".")]
               (cond
                 (= 2 (count tokens)) 
@@ -518,20 +504,21 @@
                     (println "evaluate nested attr")
                     (let [main-attr (keyword (first tokens))
                           nested-attr (keyword (second tokens))
-                          attr-val (eval-attr ent (:value ent-def-attr))
+                          code-value (:value ent-def-attr)
                           old-attr (get ent main-attr)
                           updated-value 
-                            (into [] (map 
-                              (fn [row]
-                                (assoc row nested-attr attr-val)
-                              )
-                              (:value old-attr)))
+                            (into [] 
+                              (map 
+                                (fn [row]
+                                  (let [attr-val (eval-nested-attr row code-value)]
+                                    (debug "new nested attr value" attr-val)
+                                    (assoc row nested-attr attr-val))
+                                )
+                                (:value old-attr)))
                           updated-columns (conj (:columns old-attr) (second tokens))
                           ]
-                    (pprint ent)
-                    (println "---")
-                    (pprint updated-value)
-                    (println updated-columns)
+                    (debug "updated-nested-attr-value" updated-value)
+                    (println "updated columns" updated-columns)
                     (assoc-in
                       (assoc-in ent [main-attr :value] updated-value)
                       [main-attr :columns] updated-columns
@@ -549,8 +536,7 @@
 
 ; TODO here we need to update collection attributes
 (defn evaluate-collection-attributes [collection]
-  (println "eval collection attrs")
-  (pprint collection)
+  (debug "evaluate-collection-attributes" collection)
   (reduce
     (fn [collection collection-attr]
         (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
@@ -575,8 +561,7 @@
     ))
 
 (defn evaluate [parsed-output]
-  (println "evaluate output>>")
-  (pprint parsed-output)
+  (debug "evaluate" parsed-output)
   (map
     (fn [collection]
         (let [content (->> collection :content second :content)
