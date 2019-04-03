@@ -374,9 +374,9 @@ tags: @{technology, medium}
 
 ### readings
 
-started   | finished   | locations
-----------| ---------- | -------------
-2016-12-04| 2016-12-10 | San Francisco
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-12-04 | 2016-12-10 | San Francisco
 
 ### review
 
@@ -417,9 +417,9 @@ tags: #{politics}
 
 ### readings
 
-started   | finished   | locations
-----------| ---------- | -------------
-2017-04-30| 2017-04-30 | San Francisco
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-30 | 2017-04-30 | San Francisco
 
 ### review
 
@@ -440,14 +440,60 @@ tags: #{China, technology, business}
 
 ### readings
 
-started   | finished   | locations
-----------| ---------- | -------------
-2017-04-15| 2017-04-24 | San Francisco
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2017-04-15 | 2017-04-24 | San Francisco 
 
 ### review
 
 Great book on the technological developments in China. 
 Learned a lot about Chinese tech companies, the way they started and the way they do business.
+
+
+## Ill Fares the Land
+
+title: Ill Fares the Land  
+authors: @{Tony Judt}  
+isbn: 9781101223703  
+year: 2010  
+pages: 237  
+rating: 5  
+tags: #{history}  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-07 | 2016-08-13 | San Francisco 
+
+### review
+
+Very good book with some recipes for society. Will going to reread it in the future.
+
+Also I really liked the amount of quotes in this book.
+
+
+## Brave New World
+
+title: Brave New World  
+authors: @{Aldous Huxley}  
+isbn: 978-0-06-085052-4  
+year: 1932  
+pages: 152  
+rating: 5  
+tags: #{dystopia, anti-utopia}
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-09-17 | 2016-09-27 | San Francisco 
+
+### review
+
+Great distopia written in early XX century. Suprisingly the world in the last 30 years become very close to the one described by Huxley.
+
+The best book that explains Brave New World is Amusing Ourlselves to Death by Neil Postman.
 
 
 ## Treatise on Modern Stimulants
@@ -461,11 +507,11 @@ rating: 3
 
 ### readings
 
-started   | finished   | locations
-----------| ---------- | -------------
-2019-02-10| 2019-03-03 | San Francisco
+started    | finished   | locations
+---------- | ---------- | -------------
+2019-02-10 | 2019-03-03 | San Francisco
 
-### reviews
+### review
 
 Very short and simple book. Didn't find a lot of interesting things when read.
 However, I think it's an interesting book to be written at 1839.
@@ -485,9 +531,9 @@ tags: #{Polynesia, history, travel, ocean, culture
 
 ### readings
 
-started   | finished   | locations
-----------| ---------- | -------------
-2019-03-24| 2019-03-31 | San Francisco
+started    | finished   | locations
+---------- | ---------- | -------------
+2019-03-24 | 2019-03-31 | San Francisco
 
 ### review
 
@@ -991,7 +1037,7 @@ dance      |  ✓  |     |     |     |     |     |
 football   |  ✓  |     |     |     |     |     |  
 reading    |  ✓  |     |     |     |     |     |    
 spanish    |     |     |     |     |     |     |  
-pushups    |     |     |     |     |     |     |  
+pushups    |     |  ✓  |     |     |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  

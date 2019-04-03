@@ -18,8 +18,6 @@
 
 (println "parser start...")
 
-
-
 (defn to-hiccup
   "Used as toHiccup method on cljs vectors and lists.
   Takes no arguments but uses js-this.
@@ -93,24 +91,24 @@
           (.slice s begin end))))
 
 (defn strip-suffix
-      "Strip suffix in more efficient way."
-      [^String s ^Object suffix]
-      (if (clojure.string/ends-with? s suffix)
-        (slice s 0 (- (count s) (count (.toString suffix))))
-        s))
+  "Strip suffix in more efficient way."
+  [^String s ^Object suffix]
+  (if (clojure.string/ends-with? s suffix)
+    (slice s 0 (- (count s) (count (.toString suffix))))
+    s))
 
 (defn strip-prefix
-      "Strip prefix in more efficient way."
-      [^String s ^Object prefix]
-      (if (clojure.string/starts-with? s prefix)
-        (slice s (count (.toString prefix)) (count s))
-        s))
+  "Strip prefix in more efficient way."
+  [^String s ^Object prefix]
+  (if (clojure.string/starts-with? s prefix)
+    (slice s (count (.toString prefix)) (count s))
+    s))
 
 ;; end cuerdas
 
 
 (defn slug [prop-value]
-      (cue/slug prop-value))
+  (cue/slug prop-value))
 
 (defn eval-str [s]
   (eval
@@ -159,7 +157,7 @@
 
      entities = entity*
 
-     def-attr-name = attribute-name
+     def-attr-name = #'[a-zA-Z0-9.]+'
      <inline-code> = <'`'> #'[^`]+' <'`'>
 
      entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <colon> <space> entity-inline-def-attr-val <newline>+
@@ -345,54 +343,54 @@
         )))
 
 (defn transform-entity-def-attr [el]
-      (println "transform-entity-def-attr")
-      (pprint el)
-      (println "--")
-      (pprint (->> el :content first))
-      (println "--")
-      (pprint (->> el :content last :content clojure.string/join clojure.string/trim))
-      (println "--")
-      (let [attr-name (->> el :content first :content first)
-            value-as-str (->> el :content last :content clojure.string/join clojure.string/trim)]
-           (if (is-clojure-code value-as-str)
-             (let [val_ (strip-prefix value-as-str "```clojure")
-                   attr-value (strip-suffix val_ "```")]
-                  {:name  attr-name
-                   :type  "code"
-                   :value attr-value}
-                  )
-             {:name  attr-name
-              :type  "code"
-              :value value-as-str})
-           ))
+  (println "transform-entity-def-attr")
+  (pprint el)
+  (println "--")
+  (pprint (->> el :content first))
+  (println "--")
+  (pprint (->> el :content last :content clojure.string/join clojure.string/trim))
+  (println "--")
+  (let [attr-name (->> el :content first :content first)
+        value-as-str (->> el :content last :content clojure.string/join clojure.string/trim)]
+        (if (is-clojure-code value-as-str)
+          (let [val_ (strip-prefix value-as-str "```clojure")
+                attr-value (strip-suffix val_ "```")]
+              {:name  attr-name
+                :type  "code"
+                :value attr-value}
+              )
+          {:name  attr-name
+          :type  "code"
+          :value value-as-str})
+        ))
 
 (defn transform-table-value [table-el]
-      (let [header-row (first table-el)
-            columns (into []
-                          (map
-                            (fn [col]
-                                (->> col :content first clojure.string/trim))
-                            (->> header-row :content)))
-            rows (drop 1 table-el)
-            rows-values (map
-                          (fn [row]
-                              (map
-                                (fn [cell]
-                                    (->> cell :content first clojure.string/trim))
-                                (->> row :content)))
-                          rows)
-            records (map
+  (let [header-row (first table-el)
+        columns (into []
+                      (map
+                        (fn [col]
+                            (->> col :content first clojure.string/trim))
+                        (->> header-row :content)))
+        rows (drop 1 table-el)
+        rows-values (map
                       (fn [row]
-                          (let [props
-                                (map-indexed
-                                  (fn [idx val]
-                                      {
-                                       (keyword (get columns idx)) val})
-                                  row)]
-                               (apply merge props)))
-                      rows-values)]
-           {:records (into [] records)
-            :columns columns}))
+                          (map
+                            (fn [cell]
+                                (->> cell :content first clojure.string/trim))
+                            (->> row :content)))
+                      rows)
+        records (map
+                  (fn [row]
+                      (let [props
+                            (map-indexed
+                              (fn [idx val]
+                                  {
+                                    (keyword (get columns idx)) val})
+                              row)]
+                            (apply merge props)))
+                  rows-values)]
+        {:records (into [] records)
+        :columns columns}))
 
 (defn transform-entity-inline-attr [el]
   (println "transform-entity-inline-attr")
@@ -473,8 +471,8 @@
             )
     )
     collections
-  )
-)        
+  ))        
+
 (defn remove-code-attrs [ent]
  (reduce 
   (fn [new-ent attr]
@@ -483,8 +481,8 @@
     new-ent
    )
   )
-  {} ent)
-)
+  {} ent))
+
 (defn eval-attr [ent attr-value]
   (println "evaluate ent attr")
   (let [
@@ -508,47 +506,47 @@
           ))))
 
 (defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
-      (map
-        (fn [entity]
-            (reduce
-              (fn [ent ent-def-attr]
-                  (println "evaluate ent attr")
-                  ; (pprint ent)
-                  (pprint ent-def-attr)
-                  (let [attr-name (keyword (:name ent-def-attr))
-                        attr-val (eval-attr ent (:value ent-def-attr))
-                        new-attr {:name attr-name :value attr-val}]
-                       (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
-                  )
-              entity entity-def-attrs))
-        plain-entities))
+  (map
+    (fn [entity]
+      (reduce
+        (fn [ent ent-def-attr]
+            (println "evaluate ent attr")
+            ; (pprint ent)
+            (pprint ent-def-attr)
+            (let [attr-name (keyword (:name ent-def-attr))
+                  attr-val (eval-attr ent (:value ent-def-attr))
+                  new-attr {:name attr-name :value attr-val}]
+                  (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
+            )
+        entity entity-def-attrs))
+    plain-entities))
 
 ; TODO here we need to update collection attributes
 (defn evaluate-collection-attributes [collection]
-      (println "eval collection attrs")
-      (pprint collection)
-      (reduce
-        (fn [collection collection-attr]
-            (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
-            (if (= "code" (:type collection-attr))
-              (let [attr-name (keyword (:name collection-attr))
-                    ents (map #(dissoc % :attrs) (:entities collection))
-                    ; TODO we need to path collection name and collection props to eval
-                    code-to-eval
-                    (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
-                    attr-val (:value (eval-safe code-to-eval))
-                    new-attr {:name attr-name :value attr-val}]
-                   (println "coll attr. code to eval" attr-name code-to-eval)
-                   (println attr-val)
-                   (println "done eval")
-                   (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
-              ; put back original attribute
-              (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
-              ))
-        ; reset :attrs
-        (assoc collection :attrs [])
-        (:attrs collection)
-        ))
+  (println "eval collection attrs")
+  (pprint collection)
+  (reduce
+    (fn [collection collection-attr]
+        (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
+        (if (= "code" (:type collection-attr))
+          (let [attr-name (keyword (:name collection-attr))
+                ents (map #(dissoc % :attrs) (:entities collection))
+                ; TODO we need to path collection name and collection props to eval
+                code-to-eval
+                (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
+                attr-val (:value (eval-safe code-to-eval))
+                new-attr {:name attr-name :value attr-val}]
+                (println "coll attr. code to eval" attr-name code-to-eval)
+                (println attr-val)
+                (println "done eval")
+                (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
+          ; put back original attribute
+          (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
+          ))
+    ; reset :attrs
+    (assoc collection :attrs [])
+    (:attrs collection)
+    ))
 
 (defn evaluate [parsed-output]
       (println "evaluate output>>")
@@ -573,31 +571,26 @@
 (defn mkdir-safe [dir]
   (try
     (mkdir dir)
-    (catch js/Object _
-    )
-  )
-)
+    (catch js/Object _)))
 
 (defn render [collections]
-      ; (rm-r "public")
-      (mkdir-safe "public")
-      (doall
-        (map
-          (fn [collection]
-              (println "rendering:" (str "public/" (:name collection)))
-              (mkdir-safe (str "public/" (:name collection) "/"))
-              (spit (str "public/" (:name collection) "/index.html")
-                    (:template collection))
-              (doall
-                (map
-                  (fn [entity]
-                      (println (str "public/" (:name collection) "/" (:id entity) "/"))
-                      (mkdir-safe (str "public/" (:name collection) "/" (:id entity) "/"))
-                      (spit (str "public/" (:name collection) "/" (:id entity) "/index.html") (:template entity))
-                      )
-                  (:entities collection))))
-          collections
-          )))
+  (mkdir-safe "public")
+  (doall
+    (map
+      (fn [collection]
+          (println "rendering:" (str "public/" (:name collection)))
+          (mkdir-safe (str "public/" (:name collection) "/"))
+          (spit (str "public/" (:name collection) "/index.html")
+                (:template collection))
+          (doall
+            (map
+              (fn [entity]
+                  (println (str "public/" (:name collection) "/" (:id entity) "/"))
+                  (mkdir-safe (str "public/" (:name collection) "/" (:id entity) "/"))
+                  (spit (str "public/" (:name collection) "/" (:id entity) "/index.html") (:template entity)))
+              (:entities collection))))
+      collections
+      )))
 
 (defn parse [filename]
       (let [doc (slurp filename)
