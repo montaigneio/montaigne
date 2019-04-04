@@ -28,8 +28,8 @@ description: Books I've read
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`
-@readings.duration: `(montaigne.parser/duration-in-days (:started %) (:finished %))`
+@id: `(montaigne.parser/slug (:name %))`  
+@readings.duration: `(montaigne.parser/duration-in-days (:started %) (:finished %))`  
 
 ### @template
 
@@ -577,11 +577,11 @@ description: My trips
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`
-@itinerary.from: `(str {:value (str (:to %) (:from %))})`
-@started: `(:date (first (->> % :itinerary :value)))`
-@finished: `(:date (last (->> % :itinerary :value)))`
-@days: `(montaigne.parser/duration-in-days (:started %) (:finished %))`
+@id: `(montaigne.parser/slug (:name %))`  
+@itinerary.from: `(str {:value (str (:to %) (:from %))})`  
+@started: `(:date (first (->> % :itinerary :value)))`  
+@finished: `(:date (last (->> % :itinerary :value)))`  
+@days: `(montaigne.parser/duration-in-days (:started %) (:finished %))`  
 
 
 ### @template
@@ -826,8 +826,8 @@ LHR  | SFO | 2016-05-15 | flight | OS7857 | 777-200
 ## STL 2015
 
 from: @{San Francisco}  
-to: @{St. Louis}
-purpose: StrangeLoop conference
+to: @{St. Louis}  
+purpose: StrangeLoop conference  
 
 ### itinerary
 
@@ -841,8 +841,8 @@ STL  | SFO | 2015-09-28 | flight | UA6421 | ERJ-170
 ## Portland First Trip 2015
 
 from: @{San Francisco}  
-to: @{Portland}
-purpose: Clojure/West conference
+to: @{Portland}  
+purpose: Clojure/West conference  
 
 ### itinerary
 
@@ -944,7 +944,7 @@ Television screens saturated with commercials to promote the Utopian and childis
 
 ## Balzac on consumption
 
-authors: @{Honoré de Balzac}
+authors: @{Honoré de Balzac}  
 tags: #{consumption, coffee, alchohol, drugs}
 
 ### sources
@@ -955,8 +955,7 @@ Treatise on Modern Stimulants  | 6     | I The Subject at Hand
 
 ### quote
 
-Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an 
-early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become 
+Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become 
 abnormally enlarged, damanged and corrupt the machine, which succumbs.
 
 
@@ -990,8 +989,7 @@ description: Log of my activities
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`
-@days: `(montaigne.parser/duration-in-days (->> % :start :value) (->> % :end :value))`
+@id: `(montaigne.parser/slug (:name %))`  
 
 ### @template
 
@@ -1019,10 +1017,6 @@ description: Log of my activities
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "End:"]
               [:dd {:class "dib ml1"} (->> % :end :value)]
-            ]
-            [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Days:"]
-              [:dd {:class "dib ml1"} (->> % :days)]
             ]
           ]]
         [:section
@@ -1115,7 +1109,7 @@ no sugar   |     |     |     |     |     |     |
 
 ## week 2
 
-start: 2019-03-10
+start: 2019-03-10  
 end: 2019-03-16
 
 ### activities
@@ -1144,7 +1138,7 @@ no sugar   |     |     |     |     |     |     |
 
 ## week 3
 
-start: 2019-03-17
+start: 2019-03-17  
 end: 2019-03-23
 
 ### activities
@@ -1174,7 +1168,7 @@ no sugar   |     |     |     |     |     |     |
 
 ## week 4
 
-start: 2019-03-24
+start: 2019-03-24  
 end: 2019-03-30
 
 ### activities
@@ -1204,7 +1198,7 @@ no sugar   |     |     |     |     |     |     |
 
 ## week 5
 
-start: 2019-03-31
+start: 2019-03-31  
 end: 2019-04-06
 
 ### activities
@@ -1234,7 +1228,7 @@ no sugar   |     |     |     |     |     |     |
 
 ## week 6
 
-start: 2019-04-07
+start: 2019-04-07  
 end: 2019-04-14
 
 ### activities
