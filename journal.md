@@ -5,7 +5,7 @@ description: Books I've read
 ### template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -28,13 +28,13 @@ description: Books I've read
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`  
-@readings.duration: `(montaigne.parser/duration-in-days (:started %) (:finished %))`  
+@id: `(montaigne.fns/slug (:name %))`  
+@readings.duration: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
 
 ### @template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -550,7 +550,7 @@ description: My trips
 ### template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -577,17 +577,17 @@ description: My trips
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`  
+@id: `(montaigne.fns/slug (:name %))`  
 @itinerary.from: `(str {:value (str (:to %) (:from %))})`  
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
-@days: `(montaigne.parser/duration-in-days (:started %) (:finished %))`  
+@days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
 
 
 ### @template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -859,7 +859,7 @@ description: My collection of quotes
 ### template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -882,12 +882,12 @@ description: My collection of quotes
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`  
+@id: `(montaigne.fns/slug (:name %))`  
 
 ### @template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -966,7 +966,7 @@ description: Log of my activities
 ### template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]
@@ -989,12 +989,12 @@ description: Log of my activities
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`  
+@id: `(montaigne.fns/slug (:name %))`  
 
 ### @template
 
 ```clojure
-(montaigne.parser/html 
+(montaigne.fns/html 
  [:html
     [:head
       [:meta {:charset "UTF-8"}]

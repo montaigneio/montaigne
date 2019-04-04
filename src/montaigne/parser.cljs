@@ -3,14 +3,11 @@
   (:require [instaparse.core :as insta :refer-macros [defparser]]
             [cljs-node-io.core :as io :refer [slurp spit]]
             [cljs-node-io.fs :as fs :refer [mkdir rm-r]]
-            [cljs.tools.reader :refer [read-string]]
-            [cljs.js :refer [empty-state eval js-eval]]
-            [cljs.env :refer [*compiler*]]
             [cljs.pprint :refer [pprint]]
             [xregexp]
             [cuerdas.core :as cue]
             [montaigne.fns :as fns]
-            ["@thi.ng/hiccup" :as hiccup :refer [serialize]]
+            ["@thi.ng/hiccup" :as hiccup]
             [cljs-time.format :as date-format]
             [cljs-time.core :as date-core]
             [httpurr.status :as s]
@@ -70,21 +67,6 @@
       (.-toHiccup)
       (set! to-hiccup)))
 
-(defn html [hiccup-str]
-  (serialize hiccup-str))
-
-
-(def COLLECTION_START_MARK "# ")
-(def ENITITY_START_MARK "## ")
-(def ENTITY_DEF_ATTRIBUTE_MARK "@")
-(def INDENTANTION_MARK "  ")
-
-(defn find-el-index [els el]
-  (loop [arr els n 0]
-    (if (= el (first arr))
-      n
-      (recur (next arr) (inc n)))))
-
 (defn regex-modifiers
   "Returns the modifiers of a regex, concatenated as a string."
   [re]
@@ -101,22 +83,6 @@
       (if-let [m (.exec re s)]
         (recur (conj res (vec (cons (.-index m) m))))
         res))))
-
-(defn find-collections [indexed-lines]
-  (let [result (reduce 
-          (fn [acc indexed-line]
-            (let [line (second indexed-line)]
-              (if (clojure.string/starts-with? line COLLECTION_START_MARK)
-                (let [collection-name (subs line 2)
-                      trimmed (clojure.string/trim collection-name)
-                      collection-keyword (keyword trimmed)]
-                      (conj acc {:name trimmed :key collection-keyword :start-line (first indexed-line) :lines [] :collection-attrs [] :entity-attrs [] :entities []}))
-                (let [last-el (last acc)
-                      updated (assoc last-el :lines (conj (:lines last-el) indexed-line))]      
-                  (conj (vec (butlast acc)) updated)))))
-          [] indexed-lines)]
-    result))  
-
 
 ;; from cuerdas https://github.com/funcool/cuerdas/blob/master/src/cuerdas/core.cljc
 (defn slice
@@ -145,27 +111,9 @@
 ;; end cuerdas
 
 
-(defn slug [prop-value]
-  (cue/slug prop-value))
-
-(defn eval-str [s]
-  (eval
-    (empty-state)
-    (read-string s)
-    {:eval        js-eval
-      ;  :load (fn [_ cb] (cb {:lang :clj :source "(ns foo.core) (defn add [a b] (+ a b))"}))
-      :source-map  false
-      :verbose     true
-      :context     :expr
-      ;  :ns 'foo.core
-      :load-macros true}
-    (fn [result]
-        result
-        )))
-
 (defn eval-safe [s]
   (try 
-    (eval-str s)
+    (fns/eval-str s)
     (catch js/Object e
       (do
         (println "eval code failed...")
@@ -342,17 +290,11 @@
                       items-vec (into [] (map clojure.string/trim items))]
                     (with-meta {:value items-vec} {:type type-key})))
 
-(def date-formatter (date-format/formatters :date))
-
-(defn to-js-date [v]
+(defn str-to-date [v]
   (cljs-time.format/parse (cljs-time.format/formatters :date) v))
 
-(defn duration-in-days [d1 d2]
-  (println "duration between" d1 d2)
-  (date-core/in-days (date-core/interval (to-js-date d1) (to-js-date d2))))
-
 (defn parse-date [v]
-  (let [d (to-js-date v)]
+  (let [d (str-to-date v)]
     (with-meta {:value v 
                 :year (.getYear d) 
                 :month (inc (.getMonth d))
@@ -462,8 +404,7 @@
         parsed (insta/transform
                   {}
                   original-parsed)]
-        (println doc)
-        (println "parsed")
+        (println "parsed doc...")
         parsed
         ))
 
