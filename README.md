@@ -12,11 +12,11 @@ It comes with document format, format parser and CLI tool to generate web site f
  - [x] support for people, tags types
  - [ ] support for places type
  - [x] multiline support for template properties. Only one works now
- - [ ] document evaludation order
+ - [ ] document evaluation order
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [x] define dynamic columns
  - [ ] render multiline as markdown
- - [ ] define dynamic pages 
+ - [x] define dynamic pages 
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks
  - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props

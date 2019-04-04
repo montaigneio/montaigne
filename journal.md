@@ -1,3 +1,48 @@
+# @index
+
+description: My tips
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+          [:li.mb3
+            [:a.link.f6.b.mb1 {:href "/readings"} "Readings"]]
+          [:li.mb3  
+            [:a.link.f6.b.mb1 {:href "/trips"} "Trips"]]
+          [:li.mb3  
+            [:a.link.f6.b.mb1 {:href "/activities"} "Activities"]]
+          [:li.mb3  
+            [:a.link.f6.b.mb1 {:href "/quotes"} "Quotes"]]]
+      ]
+    ]])
+```
+
 # readings
 
 description: Books I've read
@@ -619,7 +664,7 @@ description: My trips
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
 @days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
-
+@year: `(montaigne.fns/get-year (:started %))`
 
 ### @template
 
@@ -1061,7 +1106,11 @@ description: Log of my activities
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:div.mt1.mb0.mh0
+                [:span.f7.ml0.mb0.mr1 "from " (:from entity) " to " (:to entity)]
+              ]
+              ])
           %)]
       ]
     ]])

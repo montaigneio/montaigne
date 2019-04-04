@@ -11,7 +11,6 @@
             [httpurr.client :as http]
             [httpurr.client.node :as node]
             [promesa.core :as p]
-    ; [eval-soup.core :as eval-soup]
             ))
 
 (println "parser start...")
@@ -34,16 +33,16 @@
     s/not-found    (p/rejected :not-found)
     s/unauthorized (p/rejected :unauthorized)))
 
-(def airports [])
-(defn get-airports []
-  (p/then 
-    (get! "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json")
-    (fn [response]
-      (cljs.pprint/pprint response)
-      (let [airports_ (process-response response)]
-        (set! airports airports_)
-      )
-      )))
+; (def airports [])
+; (defn get-airports []
+;   (p/then 
+;     (get! "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json")
+;     (fn [response]
+;       (cljs.pprint/pprint response)
+;       (let [airports_ (process-response response)]
+;         (set! airports airports_)
+;       )
+;       )))
 
 (defn debug [message entity]
   (println (str message "..."))
@@ -125,8 +124,12 @@
 
 (def mntgn-parser
   (insta/parser
-    "<root> = collection*
+    "<root> = page* collection*
      collection = collection-header collection-body
+     page = page-header collection-body
+
+     <page-header> = <collection-header-mark> <space> <'@'> page-name <blankline>
+     page-name = #'[a-zA-Z0-9 ]+'
 
      <collection-header> = <collection-header-mark> <space> collection-name <blankline>
      collection-name = #'[a-zA-Z0-9 ]+'
@@ -270,6 +273,7 @@
                       items (clojure.string/split cleaned-v ",")
                       items-vec (into [] (map clojure.string/trim items))]
                     (with-meta {:value items-vec} {:type type-key})))
+
 (defn parse-string-value [val]
   (println "parse-string-value >>>" val)
   (let [v (clojure.string/trim val)]
@@ -393,7 +397,6 @@
         (:value (eval-safe code-to-eval))))
 
 
-
 (defn eval-nested-attr [record code-value]
   (debug "eval-nested-attr" record)
   (let [code-to-eval 
@@ -466,23 +469,72 @@
     (:attrs collection)
     ))
 
+(defn evaluate-page-attributes [page all-records]
+  (debug "evaluate-page-attributes" page)
+  (reduce
+    (fn [page page-attr]
+        (println "eval page code attr" (:type page-attr) (keyword (:name page-attr)))
+        (if (= "code" (:type page-attr))
+          (let [attr-name (keyword (:name page-attr))
+                ; TODO we need to path collection name and collection props to eval
+                code-to-eval
+                  (str "(let [% '" (prn-str all-records) "]" (:value page-attr) ")")
+                attr-val (:value (eval-safe code-to-eval))
+                new-attr {:name attr-name :value attr-val}]
+                  (assoc page attr-name attr-val :attrs (concat (:attrs page) [new-attr])))
+          ; put back original attribute
+          (assoc page :attrs (concat (:attrs page) [page-attr]))
+          ))
+    ; reset :attrs
+    (assoc page :attrs [])
+    (:attrs page)
+    ))  
+
+(defn evaluate-collection [name content collection-attrs]
+  (let [entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
+        plain-entities (map transform-entity (get-entities content))
+        entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
+        collection_ {
+          :name name
+          :type "collection"
+          :attrs collection-attrs
+          :entity-def-attrs entity-def-attrs
+          :entities entities_}
+        collection (evaluate-collection-attributes collection_)]
+        (debug "evaludated collection" collection_)
+        collection))
+
 (defn evaluate [parsed-output]
-  (debug "evaluate" parsed-output)
-  (map
-    (fn [collection]
-        (let [content (->> collection :content second :content)
-              collection-attrs (map transform-collection-attr (get-collection-attributes content))
-              entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
-              plain-entities (map transform-entity (get-entities content))
-              entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
-              collection_ {:name             (->> collection :content first :content first)
-                            :attrs            collection-attrs
-                            :entity-def-attrs entity-def-attrs
-                            :entities         entities_}
-              collection (evaluate-collection-attributes collection_)]
-              (debug "evaludated collection" collection_)
-              collection))
-    parsed-output))
+  ; records are collections and pages. pages are not evaluated
+  (let [records 
+        (map
+          (fn [collection-or-page]
+            (debug "evaluate each collection or page" collection-or-page)
+            (let [tag (:tag collection-or-page)
+                  name (->> collection-or-page :content first :content first)
+                  content (->> collection-or-page :content second :content)
+                  collection-attrs (map transform-collection-attr (get-collection-attributes content))]
+              (if (= :page tag)
+                ;page
+                {:name name
+                  :type "page"
+                  :attrs collection-attrs}
+                ;collection
+                (evaluate-collection name content collection-attrs)
+              )
+            )
+          )
+          parsed-output)]
+    (map
+      (fn [collection-or-page]
+        (if (= "page" (:type collection-or-page))
+          (evaluate-page-attributes collection-or-page records)
+          collection-or-page
+        )
+      )
+      records
+    )      
+    ))
 
 (defn mkdir-safe [dir]
   (try
@@ -495,9 +547,18 @@
     (map
       (fn [collection]
           (println "rendering:" (str "public/" (:name collection)))
-          (mkdir-safe (str "public/" (:name collection) "/"))
-          (spit (str "public/" (:name collection) "/index.html")
-                (:template collection))
+          (if (= "index" (:name collection))
+            (do
+              (spit (str "public/index.html")
+                    (:template collection))
+            )
+            (do
+              (mkdir-safe (str "public/" (:name collection) "/"))
+              (spit (str "public/" (:name collection) "/index.html")
+                    (:template collection))
+            )
+          )
+          
           (doall
             (map
               (fn [entity]
