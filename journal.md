@@ -97,36 +97,36 @@ description: Books I've read
             ]
           ]]
         [:section
-          [:h2.f5 "readings"]
+          [:h2.f6 "readings"]
           [:article.lh-copy.measure
             [:table {:class "f6 w-100 mw8 center"}
               [:thead
                 [:tr
                   (map (fn [column]
-                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
-                  )
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column])
                 (->> % :readings :columns))]
               ]
               [:tbody {:class "lh-copy"}
-                (map (fn [row]
-                  [:tr
-                    (map 
-                      (fn [column-name]
-                        [:td (get row (keyword column-name))]
+                (map 
+                  (fn [row]
+                    [:tr
+                      (map 
+                        (fn [column-name]
+                          [:td (get row (keyword column-name))]
+                        )
+                      (->> % :readings :columns)
                       )
-                    (->> % :readings :columns)
-                    )
-                  ]
-                  )
+                    ])
                   (->> % :readings :value)
                 )
               ]
             ]
           ]]
-        [:section
-          [:h2.f5 "review"]
-          [:article.lh-copy.measure
-          (->> % :review :value)]]
+        (if (not (nil? (->> % :review :value)))
+          [:section
+            [:h2.f6 "review"]
+            [:article.lh-copy.measure
+              (->> % :review :value)]])
       ]
     ]])
 ```
@@ -321,15 +321,19 @@ started    | finished   | locations
 
 ### review
 
-Havel is role model. He shows us waht a public figure, a politician and a citizen ca be.  
+Havel is a role model. He shows us what a public figure, a politician and a citizen can be.  
 He is definitely not afraid to think deeper and to express himself. 
-He is not afraid of expressing not popular opinions. 
+He is not afraid to formulate unpopular opinions. 
 He tries to understand pluses and minuses of each system. 
 E.x. he is for continous political integration, but he thinks globalization is a problem. 
 He recognized the pitfalls of both Soviet regime and consumerism society that both causes normalization and standartization of people.
 
-It was interesting for me to read his book for several reasons: to learn his story; 
-to learn about his thoughts; to take a look at his diary. 
+It was interesting for me to read his book for several reasons: 
+
+  - to learn his story
+  - to learn about his thoughts
+  - to take a look at his diary
+
 The diary of the President was an interesting read on itself. 
 It contained his agenda for a lot of days and it showed him as a real simple very likable human, 
 which is quite opposite of the politicians of the day.
@@ -659,27 +663,27 @@ description: My trips
             
             ]]
         [:section
-          [:h2.f5 "itinerary"]
+          [:h2.f6 "itinerary"]
           [:article.lh-copy.measure
             [:table {:class "f6 w-100 mw8 center"}
               [:thead
                 [:tr
-                  (map (fn [column]
-                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
-                  )
-                (->> % :itinerary :columns))]
+                  (map 
+                    (fn [column]
+                      [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column])
+                    (->> % :itinerary :columns))]
               ]
               [:tbody {:class "lh-copy"}
-                (map (fn [row]
-                  [:tr
-                    (map 
-                      (fn [column-name]
-                        [:td (get row (keyword column-name))]
+                (map 
+                  (fn [row]
+                    [:tr
+                      (map 
+                        (fn [column-name]
+                          [:td (get row (keyword column-name))]
+                        )
+                      (->> % :itinerary :columns)
                       )
-                    (->> % :itinerary :columns)
-                    )
-                  ]
-                  )
+                    ])
                   (->> % :itinerary :value)
                 )
               ]
@@ -1102,7 +1106,7 @@ description: Log of my activities
             ]
           ]]
         [:section
-          [:h2.f5 "activities"]
+          [:h2.f6 "activities"]
           [:article.lh-copy.measure
             [:table {:class "f6 w-100 mw8 center"}
               [:thead
@@ -1129,7 +1133,7 @@ description: Log of my activities
             ]
           ]]
         [:section
-          [:h2.f5 "intake"]
+          [:h2.f6 "intake"]
           [:article.lh-copy.measure
           [:table {:class "f6 w-100 mw8 center"}
               [:thead
