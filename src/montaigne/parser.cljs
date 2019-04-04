@@ -197,7 +197,7 @@
      def-attr-name = #'[a-zA-Z0-9.]+'
      <inline-code> = <'`'> #'[^`]+' <'`'>
 
-     entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <colon> <space> entity-inline-def-attr-val <newline>+
+     entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <colon> <space> entity-inline-def-attr-val <space>* <newline>+
      entity-inline-def-attr-val = inline-code
 
      entity-multiline-def-attr = entity-multiline-def-attr-header entity-multiline-def-attr-val <newline>*

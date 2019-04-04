@@ -882,7 +882,7 @@ description: My collection of quotes
     ]])
 ```
 
-@id: `(montaigne.parser/slug (:name %))`
+@id: `(montaigne.parser/slug (:name %))`  
 
 ### @template
 
