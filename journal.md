@@ -30,6 +30,7 @@ description: Books I've read
 
 @id: `(montaigne.fns/slug (:name %))`  
 @readings.duration: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
+@readings.year: `(montaigne.fns/get-year (:finished %))`
 
 ### @template
 

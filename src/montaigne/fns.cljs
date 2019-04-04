@@ -19,6 +19,8 @@
 (defn duration-in-days [d1 d2]
   (date-core/in-days (date-core/interval (str-to-date d1) (str-to-date d2))))
 
+(defn get-year [s]
+  (.getYear (str-to-date s)))
 
 (defn html [hiccup-str]
   (serialize hiccup-str))

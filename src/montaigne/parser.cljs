@@ -1,5 +1,4 @@
 (ns montaigne.parser
-  ;(:require-macros [hiccups.core :as hiccups :refer [html]])
   (:require [instaparse.core :as insta :refer-macros [defparser]]
             [cljs-node-io.core :as io :refer [slurp spit]]
             [cljs-node-io.fs :as fs :refer [mkdir rm-r]]
@@ -8,8 +7,6 @@
             [cuerdas.core :as cue]
             [montaigne.fns :as fns]
             ["@thi.ng/hiccup" :as hiccup]
-            [cljs-time.format :as date-format]
-            [cljs-time.core :as date-core]
             [httpurr.status :as s]
             [httpurr.client :as http]
             [httpurr.client.node :as node]
@@ -248,22 +245,6 @@
 (defn is-number [str-value]
   (> (js/parseInt str-value) 0))
 
-(defn is-date [value-as-string]
-  (println "is-date" value-as-string)
-  ;; YYYY-MM-DD
-  (if (= 10 (count value-as-string))
-    (let [tokens (clojure.string/split value-as-string "-")]
-      (if (= 3 (count tokens))
-        (and 
-          (is-number (first tokens))
-          (is-number (second tokens))
-          (is-number (last tokens))
-        )
-        false
-      )
-    )
-    false))
-
 (defn is-clojure-code [value-as-str]
     (and
         (clojure.string/starts-with? value-as-str "```clojure")
@@ -289,19 +270,6 @@
                       items (clojure.string/split cleaned-v ",")
                       items-vec (into [] (map clojure.string/trim items))]
                     (with-meta {:value items-vec} {:type type-key})))
-
-(defn str-to-date [v]
-  (cljs-time.format/parse (cljs-time.format/formatters :date) v))
-
-(defn parse-date [v]
-  (let [d (str-to-date v)]
-    (with-meta {:value v 
-                :year (.getYear d) 
-                :month (inc (.getMonth d))
-                :day (inc (.getDate d))} 
-              {:type "date"})
-  ))
-
 (defn parse-string-value [val]
   (println "parse-string-value >>>" val)
   (let [v (clojure.string/trim val)]
@@ -310,7 +278,7 @@
           (is-people v) (parse-array v "@{" "people")
           (is-locations v) (parse-array v "*{" "locations")
           (is-tags v) (parse-array v "#{" "tags")
-          (is-date v) (parse-date v)
+          ; (is-date v) (parse-date v)
           :else {:value v}
       )))
 
