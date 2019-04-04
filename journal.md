@@ -12,6 +12,8 @@ description: Books I've read
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -52,6 +54,8 @@ description: Books I've read
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -574,6 +578,8 @@ description: My trips
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}]) 
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -621,6 +627,8 @@ description: My trips
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -900,6 +908,8 @@ description: My collection of quotes
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -938,6 +948,8 @@ description: My collection of quotes
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -1023,6 +1035,8 @@ description: Log of my activities
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -1061,6 +1075,8 @@ description: Log of my activities
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
       [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
@@ -1275,7 +1291,7 @@ dance      |  ✓  |     |     |     |     |     |
 football   |  ✓  |     |     |     |     |     |  
 reading    |  ✓  |     |     |  ✓  |     |     |    
 spanish    |     |     |     |     |     |     |  
-pushups    |     |  ✓  |     |     |     |     |  
+pushups    |     |  ✓  |     |  ✓  |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
