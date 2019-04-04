@@ -567,13 +567,22 @@ description: My trips
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:div.mt1.mb0.mh0
+                [:span.f7.ml0.mb0.mr1 "from " (:started entity) " to " (:finished entity)]
+              ]
+              ])
           %)]
       ]
     ]])
 ```
 
 @id: `(montaigne.parser/slug (:name %))`
+@itinerary.from: `(str {:value (str (:to %) (:from %))})`
+@started: `(:date (first (->> % :itinerary :value)))`
+@finished: `(:date (last (->> % :itinerary :value)))`
+@days: `(montaigne.parser/duration-in-days (:started %) (:finished %))`
+
 
 ### @template
 
@@ -591,6 +600,22 @@ description: My trips
     [:body
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
         [:h1.lh-title.f4.athelas (:name %)]
+        [:header
+          [:div.pv2
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Started:"]
+              [:dd {:class "dib ml1"} (->> % :started)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Finished:"]
+              [:dd {:class "dib ml1"} (->> % :finished)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Days:"]
+              [:dd {:class "dib ml1"} (->> % :days)]
+            ]
+            
+            ]]
         [:section
           [:h2.f5 "itinerary"]
           [:article.lh-copy.measure
@@ -623,7 +648,7 @@ description: My trips
 ```
 
 
-## Temecula Feb
+## Temecula Feb 2019
 
 from: San Francisco  
 to: Temecula
@@ -641,7 +666,7 @@ SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2
 First time in this part of SoCal. Didn't do much since it was work event.
 
 
-## Vail Feb
+## Vail Feb 2019
 
 from: San Francisco  
 to: Vail  
@@ -659,9 +684,9 @@ DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200
 First time in Colorado. Great weather, great slops - exactly as I like.
 
 
-## Buenos Aires And Paris
+## Buenos Aires and Paris
 
-from: San Francisco  
+from: *{San Francisco}$  
 to: *{Buenos Aires, New York, Paris}
 
 ### itinerary
@@ -673,6 +698,158 @@ EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400
 EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 
 MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS 
 CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
+
+
+## Tijuana 2018 Last Trip
+
+from: *{San Francisco}  
+to: *{San Diego, Tijuana}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | SAN | 2018-10-12 | flight | UA361  | 737-900  
+SAN  | SFO | 2018-11-15 | flight | UA334  | 737-900  
+
+
+## Mexico City and Tijuana 2018
+
+from: *{San Francisco}  
+to: *{Mexico City, Tijuana, San Diego}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | MEX | 2018-10-05 | flight | UA412  | A320  
+MEX  | TIJ | 2018-10-08 | flight | Y4813  | A320  
+SAN  | SFO | 2018-10-09 | flight | UA662  | 737-800  
+
+
+## Ukraine First Trip in Years
+
+from: @{San Francisco}  
+to: @{Kyiv, Kharkiv}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | EWR | 2017-11-16 | flight | UA1796 | 777-200  
+JFK  | MUC | 2017-11-17 | flight | LH411  | A340-600  
+MUC  | KBP | 2017-11-18 | flight | LH2544 | A320  
+KBP  | FRA | 2017-11-27 | flight | LH1493 | A321  
+FRA  | SFO | 2017-11-27 | flight | LH9052 | 777-300  
+
+
+## Hong Kong Birthday Trip
+
+from: @{San Francisco}  
+to: @{Hong Kong}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | HKG | 2017-06-29 | flight | UA869  | 777-300  
+HKG  | SFO | 2017-07-10 | flight | UA862  | 777-300  
+
+
+## New York City May 2017
+
+from: @{San Francisco}  
+to: @{New York}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | JFK | 2017-05-04 | flight | DL1144 | 717-200   
+JFK  | SFO | 2017-05-11 | flight | DL426  | A320  
+
+
+## Indonesia 2017
+
+from: @{San Francisco}  
+to: @{Singapore, Bali, Gili}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | SIN | 2017-03-24 | flight | SQ1    | 777-300   
+SIN  | DPS | 2017-03-25 | flight | SQ946  | A330-300  
+DPS  | SIN | 2017-04-09 | flight | SQ943  | A330-300   
+SIN  | SFO | 2017-04-09 | flight | SQ2    | 777-300  
+
+
+## Hong Kong Second Trip
+
+from: @{San Francisco}  
+to: @{Hong Kong}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | HKG | 2016-10-29 | flight | CX0879 | 777-300  
+HKG  | SFO | 2016-11-07 | flight | CX0870 | 777-300  
+
+
+## Hong Kong First Trip 2016
+
+from: @{San Francisco}  
+to: @{Hong Kong}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | HKG | 2016-08-24 | flight | CX0873 | 777-300  
+HKG  | SFO | 2016-09-06 | flight | CX0892 | A350-900  
+
+
+## London First Trip 2016
+
+from: @{San Francisco}  
+to: @{London}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | LHR | 2016-05-06 | flight | OS7856 | 777-200  
+LHR  | SFO | 2016-05-15 | flight | OS7857 | 777-200  
+
+
+## STL 2015
+
+from: @{San Francisco}  
+to: @{St. Louis}
+purpose: StrangeLoop conference
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | DEN | 2015-09-23 | flight | UA1736 | 737-900  
+DEN  | STL | 2015-09-23 | flight | UA3395 | ERJ-145  
+STL  | SFO | 2015-09-28 | flight | UA6421 | ERJ-170  
+
+
+## Portland First Trip 2015
+
+from: @{San Francisco}  
+to: @{Portland}
+purpose: Clojure/West conference
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | PDX | 2015-04-18 | flight | UA464  | A320  
+PDX  | SFO | 2015-04-22 | flight | UA995  | 737-800  
 
 
 # quotes

@@ -13,10 +13,43 @@
             ["@thi.ng/hiccup" :as hiccup :refer [serialize]]
             [cljs-time.format :as date-format]
             [cljs-time.core :as date-core]
+            [httpurr.status :as s]
+            [httpurr.client :as http]
+            [httpurr.client.node :as node]
+            [promesa.core :as p]
     ; [eval-soup.core :as eval-soup]
             ))
 
 (println "parser start...")
+
+
+(defn decode
+  [response]
+  (update response :body #(js->clj (js/JSON.parse %))))
+
+(defn get!
+  [url]
+  (p/then (node/get url) decode))
+
+
+
+(defn process-response
+  [response]
+  (condp = (:status response)
+    s/ok           (p/resolved (:body response))
+    s/not-found    (p/rejected :not-found)
+    s/unauthorized (p/rejected :unauthorized)))
+
+(def airports [])
+(defn get-airports []
+  (p/then 
+    (get! "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json")
+    (fn [response]
+      (cljs.pprint/pprint response)
+      (let [airports_ (process-response response)]
+        (set! airports airports_)
+      )
+      )))
 
 (defn debug [message entity]
   (println (str message "..."))
@@ -127,7 +160,6 @@
       ;  :ns 'foo.core
       :load-macros true}
     (fn [result]
-        ; (println "result>>" result)
         result
         )))
 
@@ -308,8 +340,7 @@
     (let [cleaned-v (-> v (strip-prefix prefix) (strip-suffix "}"))
                       items (clojure.string/split cleaned-v ",")
                       items-vec (into [] (map clojure.string/trim items))]
-                    (with-meta {:value items-vec} {:type type-key}))
-    )
+                    (with-meta {:value items-vec} {:type type-key})))
 
 (def date-formatter (date-format/formatters :date))
 
@@ -342,13 +373,7 @@
       )))
 
 (defn transform-entity-def-attr [el]
-  (println "transform-entity-def-attr")
-  (pprint el)
-  (println "--")
-  (pprint (->> el :content first))
-  (println "--")
-  (pprint (->> el :content last :content clojure.string/join clojure.string/trim))
-  (println "--")
+  (debug "transform-entity-def-attr" el)
   (let [attr-name (->> el :content first :content first)
         value-as-str (->> el :content last :content clojure.string/join clojure.string/trim)]
         (if (is-clojure-code value-as-str)
@@ -397,8 +422,7 @@
         attr-name (->> el :content first :content first)
         attr-props (->> el :content last :content first parse-string-value)]
         (debug "done. transform-entity-inline-attr" attr-props)
-        (assoc attr-props :name attr-name)
-        ))
+        (assoc attr-props :name attr-name)))
 
 ; TODO if attr is multiline - we need to render markdown.
 (defn transform-entity-multiline-attr [el]
@@ -427,9 +451,9 @@
         attrs (concat inline-attrs multiline-attrs)
         ent {:name  entity-name :attrs attrs}]
         (reduce 
-        (fn [entity attr]
-          (assoc entity (keyword (:name attr)) attr)
-        ) ent attrs)
+          (fn [entity attr]
+            (assoc entity (keyword (:name attr)) attr)) 
+          ent attrs)
         ))
 
 (defn parse-doc [doc]
@@ -440,43 +464,20 @@
                   original-parsed)]
         (println doc)
         (println "parsed")
-        ;  (println parsed)
         parsed
         ))
-
-(defn parse-collections [collections]
-  (map
-    (fn [collection]
-      (let [content_ (clojure.string/triml (clojure.string/join "\n" (map second (:lines collection))))
-            content (str content_)
-            parsed (mntgn-parser content)
-            ; parsed (insta/transform
-            ;       {}
-            ;       original-parsed)
-            ]
-            (println "collection content")
-            (println content)
-            (println "parsed collection")
-            (println parsed)
-            ; TODO name of the collection is lost
-            (first parsed)
-            )
-    )
-    collections
-  ))        
 
 (defn remove-code-attrs [ent]
  (reduce 
   (fn [new-ent attr]
    (if (not (= "code" (second (:type attr))))
     (assoc new-ent (first attr) (second attr))
-    new-ent
-   )
+    new-ent)
   )
   {} ent))
 
 (defn eval-attr [ent code-value]
-  (println "evaluate ent attr")
+  (debug "evaluate ent attr" ent)
   (let [code-to-eval 
           (str "(let [% " 
             (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" code-value ")")]
@@ -501,7 +502,6 @@
               (cond
                 (= 2 (count tokens)) 
                   (do
-                    (println "evaluate nested attr")
                     (let [main-attr (keyword (first tokens))
                           nested-attr (keyword (second tokens))
                           code-value (:value ent-def-attr)
@@ -545,13 +545,10 @@
                 ents (map #(dissoc % :attrs) (:entities collection))
                 ; TODO we need to path collection name and collection props to eval
                 code-to-eval
-                (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
+                  (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
-                (println "coll attr. code to eval" attr-name code-to-eval)
-                (println attr-val)
-                (println "done eval")
-                (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
+                  (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
           ; put back original attribute
           (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
           ))
@@ -574,8 +571,7 @@
                             :entity-def-attrs entity-def-attrs
                             :entities         entities_}
               collection (evaluate-collection-attributes collection_)]
-              (println "collection data>>>")
-              (pprint collection_)
+              (debug "evaludated collection" collection_)
               collection))
     parsed-output))
 
@@ -604,27 +600,19 @@
       )))
 
 (defn parse [filename]
-      (let [doc (slurp filename)
-            ; lines (clojure.string/split doc "\n")
-            ; indexed-lines (into [] (map-indexed vector lines))
-            ; raw-collections (find-collections indexed-lines)
-            ; parsed (parse-collections raw-collections)
-            parsed (parse-doc doc)
-            transformed (evaluate parsed)
-            ]
-           ;  parsed
-          ;  (pprint raw-collections)
-           (println "parsed doc")
-           (println parsed)
-           (println "transformed doc")
-           (pprint transformed)
-           (render transformed)
-           ;  transformed
-           ))
+  (let [doc (slurp filename)
+        parsed (parse-doc doc)
+        transformed (evaluate parsed)]
+        (println "parsed doc")
+        (println parsed)
+        (debug "transformed doc" transformed)
+        (render transformed)
+        ;  transformed
+        ))
 
 
 (defn -main [& args]
-      (println "start")
-      (-> args first parse))
+  (println "start")
+  (-> args first parse))
 
 (set! *main-cli-fn* -main)

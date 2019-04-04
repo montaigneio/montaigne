@@ -4,7 +4,7 @@ Montaigne is a superset of Markdown.
 That means that any Montaigne document is valid Markdown document,
 however the reverse is not true.
 
-## Data types
+# Data types
 
 Montaigne is set of conventions over Markdown file.
 There are several supported data types.
@@ -44,7 +44,7 @@ Both `collections` and `entities` support
  - multine attributes
  - computable attributes
 
-### Inline attributes
+## Inline attributes
 
 Let us define new `description` inline attribute for our `books` collection.
 
@@ -68,7 +68,7 @@ ISBN: 9780143036531
 ...
 ```
 
-### Multiline attributes
+## Multiline attributes
 
 Multiline attributes can be defined using Markdown level 3 headers prefixed with `### `.
 
@@ -95,11 +95,37 @@ Wish I've read it earlier.
 
 ```
 
-### Computable attributes
-
-
-### Predefined attributes
+## Predefined attributes
 
 There are predefined attributes:
  - `name` comes from `collection`/`entity` definition
  - `template` and `@template`. If `template` attribute is defined it will be used when rendering document to HTML. 
+
+## Nested attributes
+
+If you want to define computable attribute that will be applied to all entities you can prefix them with `@` symbol.
+
+You can do inline or multiline nested attributes.
+
+```markdown
+# readings
+
+
+@id: `(montaigne.parser/slug (:name %))`
+
+### @template
+
+\```clojure
+    (html [:div "Hello world"])
+\```
+
+```
+
+In this case every entity will have `id` and `template` attribute evaluated automatically.
+
+
+# Core functions
+
+List core functions: slug, duration, distance.
+
+# Evaluation order
