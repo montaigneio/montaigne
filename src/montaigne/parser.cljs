@@ -167,7 +167,7 @@
      entity = entity-header entity-body <blankline>+
 
      <entity-header> = <entity-header-mark> <space> entity-name <blankline>
-     entity-name = #'[a-zA-Z0-9 ]+'
+     entity-name = #'[a-zA-Z0-9 -]+'
      entity-body = entity-inline-attrs entity-multiline-attrs
 
      entity-inline-attrs = entity-inline-attr*

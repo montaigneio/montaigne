@@ -13,15 +13,21 @@ It comes with document format, format parser and CLI tool to generate web site f
  - [ ] support for places type
  - [x] multiline support for template properties. Only one works now
  - [ ] document evaluation order
- - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [x] define dynamic columns
  - [x] render multiline as markdown
  - [x] define dynamic pages 
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks
  - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props
- - [ ] when we parse people, places and tags we need to stiore them as top level index with arrays of pathes to sources. Actually we only need it for places in order to batch them
+ - [ ] when we parse people, places and tags we need to store them as top level index with arrays of pathes to sources. Actually we only need it for places in order to batch them
+ - [ ] normalize attributes interface. Some have {:value ""} and some are just plain
  
+## Ideas
+
+ - rename `template` props to `html`
+ - support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
+ - we can allow users to define validate functions that will be called on parse. Like validate that end date is bigger than start.
+ - validate that collection/entity names are unique
 
 ## Dev
 

@@ -1,6 +1,6 @@
 # @index
 
-description: My tips
+description: My wiki
 
 ### template
 
@@ -79,15 +79,31 @@ description: Books I've read
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (->> entity :title :value)]])
+              [:a.link.f6.b.mb1 {:href (:id entity)} 
+                [:span (->> entity :title :value)]
+                [:span " by "]
+                [:span (clojure.string/join ", " (->> entity :authors :value))]
+              ]
+              [:div.mt1.mb0.mh0
+                [:small.f7.ml0.mb0.mr1.gray (:stars entity)]
+                (if (not (nil? (->> entity :days)))
+                  [:small.f7.ml0.mb0.mr1.gray (:days entity) " days"])
+                (if (not (nil? (->> entity :pages :value)))
+                  [:small.f7.ml0.mb0.mr1.gray (->> entity :pages :value) " pages"])
+              ]
+              ])
           %)]
       ]
     ]])
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
-@readings.duration: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
+@readings.duration: `(montaigne.fns/duration-in-days (:started %) (:finished %))`
 @readings.year: `(montaigne.fns/get-year (:finished %))`
+@stars: `(apply str (repeat (->> % :rating :value) "★&nbsp;"))`
+@started: `(:started (last (->> % :readings :value)))`  
+@finished: `(:finished (last (->> % :readings :value)))`  
+@days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
 
 ### @template
 
@@ -144,7 +160,7 @@ description: Books I've read
         [:section
           [:h2.f6 "readings"]
           [:article.lh-copy.measure
-            [:table {:class "f6 w-100 mw8 center"}
+            [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
                   (map (fn [column]
@@ -175,6 +191,28 @@ description: Books I've read
       ]
     ]])
 ```
+
+
+## Dear Professor Einstein
+
+title: Dear Professor Einstein  
+subtitle: Albert Einstein's Letters to and from Children  
+authors: @{Albert Einstein}  
+isbn: 1-59102-015-8  
+year: 2002  
+pages: 200
+rating: 4  
+tags: #{letters, children}  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2015-12-15 | 2016-01-01 | San Francisco
+
+### review
+
+Good book that shows how humane Einstein was.
 
 
 ## Building a Bridge to the 18th Century
@@ -473,6 +511,58 @@ tags: #{Denmark, lifestyle}
 Not much to say about this one. Too simple.
 
 
+## The Black Swan
+
+title: The Black Swan  
+subtitle: The Impact of the Highly Improbable  
+authors: @{Nassim Nicholas Taleb}
+isbn: 978-0-679-60418-1  
+year: 2010  
+pages: 400
+rating: 3
+tags: #{statistics}
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-06 | 2016-09-06 | San Francisco 
+
+### review
+
+Nasim Taleb seems like a very smart person but:
+
+- book was exremely long, especially to present one main idea
+- the style is quite arrogant, which I didn't enjoy at all
+
+I liked that he quoted a lot of people in his book, but because of 2 reasons stated above I'm not looking forward to read his other books. 
+It was very painful experience and took me half a year to finish it.
+
+
+## Chaos Monkeys
+
+title: Chaos Monkeys  
+subtitle: Obscene Fortune and Random Failure in Silicon Valley  
+authors: @{Antonio García Martínez}
+isbn: 978-0-06-245819-3  
+year: 2016  
+pages: 533  
+rating: 3  
+tags: #{startups, Silicon Valley}
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-01 | 2016-08-21 | San Francisco 
+
+### review
+
+Good read if you want to have insight about life of startup founder, product manager/engineer in the Silicon Valley. Has a lot of pretty intimate details and a lot of humor (but not the type I like).
+
+The book itself is too long. Easily can be done in 10 blog posts or shorter stories.
+
+
 ## Siddhartha
 
 title: Siddhartha  
@@ -615,6 +705,53 @@ started    | finished   | locations
 Great distopia written in early XX century. Suprisingly the world in the last 30 years become very close to the one described by Huxley.
 
 The best book that explains Brave New World is Amusing Ourlselves to Death by Neil Postman.
+
+
+## The Medium is the Massage
+
+title: The Medium is the Massage  
+subtitle: An Inventory of Effects 
+authors: @{Marshall McLuhan, Quentin Fiore}
+year: 1967  
+isbn: 978-1-58423-070-0  
+pages: 159  
+rating: 4  
+tags: #{media} 
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-03-16 | 2017-03-18 | San Francisco
+
+### review
+
+Tiny book which is basically collection of quotes and small passages about mediums.
+Some insights are quite good, but majority are very difficult to decompress and unbundle.
+
+
+## Buddhism The Religion of No-Religion
+
+title: Buddhism The Religion of No-Religion  
+subtitle: The Edited Transcripts  
+authors: @{Alan Watts}  
+isbn: 978-0-8048-3203-8
+year: 1996
+pages: 98  
+rating: 4  
+tags: #{Buddhism, religion, Hinduism}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-03-27 | 2017-04-01 | Gili Trawangan, Indonesia
+
+### review
+
+Introduction to Buddhism and especially Zen Buddhism. Very easy explanation of the core concepts.
+
+I really like the idea that Buddhism is Hinduism for export, that is Hinduism that stripped from culture and can be used as religion by people of different cultures.
 
 
 ## On Tyranny
@@ -806,7 +943,7 @@ description: My trips
         [:section
           [:h2.f6 "itinerary"]
           [:article.lh-copy.measure
-            [:table {:class "f6 w-100 mw8 center"}
+            [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
                   (map 
@@ -1253,7 +1390,7 @@ description: Log of my activities
         [:section
           [:h2.f6 "activities"]
           [:article.lh-copy.measure
-            [:table {:class "f6 w-100 mw8 center"}
+            [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
                   (map (fn [column]
@@ -1280,7 +1417,7 @@ description: Log of my activities
         [:section
           [:h2.f6 "intake"]
           [:article.lh-copy.measure
-          [:table {:class "f6 w-100 mw8 center"}
+          [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
                   (map (fn [column]
@@ -1439,7 +1576,7 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 dance      |  ✓  |     |     |     |     |     |  
 football   |  ✓  |     |     |     |     |     |  
 reading    |  ✓  |     |     |  ✓  |     |     |    
-spanish    |     |     |     |     |     |     |  
+spanish    |     |     |     |     |  ✓  |     |  
 pushups    |     |  ✓  |     |  ✓  |     |     |  
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
@@ -1452,7 +1589,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
