@@ -238,8 +238,7 @@ Outstanding analysis of American culture of 1980s dominated by entertainment.
 
 Makes a lot of sense to me since I witnessed myself similar changes to the culture growing up in Ukraine during the 1990s and 2000s.
 
-This book is even more actual now in the age of Internet, mobile phones, social networks, 
-instant deliveries etc.  
+This book is even more actual now in the age of Internet, mobile phones, social networks, instant deliveries etc.
 
 
 ## Homage to Catalonia
@@ -296,10 +295,9 @@ People of all ages can appreciate and visualize even the most complex social cha
 
 It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
 
-Also, it seems, that even if it accounts for the Russian revolution, 
-the pattern is the same for all them. 
+Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
 This book is a reminder to us how events usually unfold and what happens at the end. 
-And what kind of people typically end-up on top in any system regarding of the title.  
+And what kind of people typically end-up on top in any system regarding of the title.
 
 
 ## The Little Prince
@@ -366,7 +364,8 @@ started    | finished   | locations
 
 ### review
 
-Havel is a role model. He shows us what a public figure, a politician and a citizen can be.  
+Havel is a role model. 
+He shows us what a public figure, a politician and a citizen can be. 
 He is definitely not afraid to think deeper and to express himself. 
 He is not afraid to formulate unpopular opinions. 
 He tries to understand pluses and minuses of each system. 
@@ -375,19 +374,18 @@ He recognized the pitfalls of both Soviet regime and consumerism society that bo
 
 It was interesting for me to read his book for several reasons: 
 
-  - to learn his story
-  - to learn about his thoughts
-  - to take a look at his diary
+- to learn his story
+- to learn about his thoughts
+- to take a look at his diary
 
 The diary of the President was an interesting read on itself. 
-It contained his agenda for a lot of days and it showed him as a real simple very likable human, 
-which is quite opposite of the politicians of the day.
+It contained his agenda for a lot of days and it showed him as a real simple very likable human, which is quite opposite of the politicians of the day.
 
 Havel wanted to be a role model. 
-He wanted to remind his fellow citizens of better and bigger ideals, 
-he wanted to inspire them to improve. 
+He wanted to remind his fellow citizens of better and bigger ideals, he wanted to inspire them to improve. 
 Politicians of today mostly move in opposite direction. 
-They just represent the worst parts of our society and our people. If society is corrupt, politicians are corrupt. 
+They just represent the worst parts of our society and our people. 
+If society is corrupt, politicians are corrupt. 
 If society is uneducated, politicians are profane.
 
 
@@ -475,50 +473,102 @@ tags: #{Denmark, lifestyle}
 Not much to say about this one. Too simple.
 
 
-## On Tyranny
+## Siddhartha
 
-title: On Tyranny  
-subtitle: Twenty Lessons from the Twentieth Century  
-authors: @{Tymothy Snyder}  
-isbn: 978-0-8041-9011-4  
-year: 2017  
-pages: 126  
-rating: 3  
-tags: #{politics}  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-04-30 | 2017-04-30 | San Francisco
-
-### review
-
-Too simple and too tied to the things that were going on in the USA during 2016.
-My expectations were much higher, especially given authors background as a historian.
-
-
-## China Disruptors
-
-title: China's Disruptors  
-subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
-authors: @{Edward Tse}  
-isbn: 978-0-241-24039-7  
-year: 2015  
-pages: 256  
-rating: 4  
-tags: #{China, technology, business}  
+title: Siddhartha  
+authors: @{Hermann Hesse}  
+isbn: 978-1-62793-640-8  
+year: 1922  
+pages: 136  
+rating: 5  
+tags: #{philosophy, wisdom, religion}  
 
 ### readings
 
 started    | finished   | locations 
 ---------- | ---------- | ------------- 
-2017-04-15 | 2017-04-24 | San Francisco 
+2016-03-11 | 2016-03-13 | San Francisco 
 
 ### review
 
-Great book on the technological developments in China. 
-Learned a lot about Chinese tech companies, the way they started and the way they do business.
+Great book that I'm planning to re-read from time to time.
+
+
+## Bruce Lee Striking Thoughts
+
+title: Bruce Lee Striking Thoughts  
+subtitle: Bruce Lee's Wisdom for Daily Living  
+authors: @{Bruce Lee}  
+isbn: 978-1-4629-1792-1  
+year: 1973  
+pages: 250  
+rating: 5  
+tags: #{wisdom, diaries}
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-14 | 2016-03-19 | San Francisco 
+
+### review
+
+Outstanding book with a lot of wisdowm and personal discoveries. 
+Bruce Lee connects East and West.
+
+Reminds me of Meditations by Marcus Aurelius. 
+It's both a diary and collecion of insights that can be open and read any day.
+
+
+## Reinventing Organizations
+
+title: Reinventing Organizations  
+subtitle: A Guide to Creating Organizations Inspired by the Next Stage of Human Consciousness  
+authors: @{Frederic Laloux}  
+isbn: 978-2-960133-53-0  
+year: 2014
+pages: 378  
+rating: 4
+tags: #{organizations}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-06-14 | 2016-08-29 | San Francisco 
+
+### review
+
+Great book that briefly explains history of organizations and shows us how organizations of the future would look like.
+
+It describes requirenments for the organizations of the future and some practical advices how to set the up.
+
+However, I found book a bit longer than needed. It had double focus: both theory and a lot of practical case studies, and that seemed too much for me.
+
+
+## The Power of Habit
+
+title: The Power of Habit  
+subtitle: Why We Do What We Do in Life and Business  
+authors: @{Charles Duhigg}  
+isbn: 978-0-679-60385-6  
+year: 212  
+pages: 286  
+rating: 3  
+tags: #{habit}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-09-10 | 2016-09-14 | San Francisco 
+
+### review
+
+Book describes habits of individuals, organizations and societies. 
+It was interesting to read, but at the end I didn't get many insights that would remain with me for a long time.
+
+The book easily could have been shorter.
 
 
 ## Ill Fares the Land
@@ -567,6 +617,52 @@ Great distopia written in early XX century. Suprisingly the world in the last 30
 The best book that explains Brave New World is Amusing Ourlselves to Death by Neil Postman.
 
 
+## On Tyranny
+
+title: On Tyranny  
+subtitle: Twenty Lessons from the Twentieth Century  
+authors: @{Tymothy Snyder}  
+isbn: 978-0-8041-9011-4  
+year: 2017  
+pages: 126  
+rating: 3  
+tags: #{politics}  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-30 | 2017-04-30 | San Francisco
+
+### review
+
+Too simple and too tied to the things that were going on in the USA during 2016.
+My expectations were much higher, especially given authors background as a historian.
+
+
+## China Disruptors
+
+title: China's Disruptors  
+subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
+authors: @{Edward Tse}  
+isbn: 978-0-241-24039-7  
+year: 2015  
+pages: 256  
+rating: 4  
+tags: #{China, technology, business}  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2017-04-15 | 2017-04-24 | San Francisco 
+
+### review
+
+Great book on the technological developments in China. 
+Learned a lot about Chinese tech companies, the way they started and the way they do business.
+
+
 ## Treatise on Modern Stimulants
 
 title: Treatise on Modern Stimulants  
@@ -608,8 +704,8 @@ started    | finished   | locations
 
 ### review
 
-Engaging book. Learned a lot about region I knew so little. The book 
-laid out the history of the region and history scientific inqury into it. 
+Engaging book. Learned a lot about region I knew so little. 
+The book laid out the history of the region and history scientific inqury into it. 
 I've read it just in few days and couldn't stop reading.
 
 

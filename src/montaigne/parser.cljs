@@ -6,6 +6,7 @@
             [xregexp]
             [cuerdas.core :as cue]
             [montaigne.fns :as fns]
+            [montaigne.markdown :as md]
             ["@thi.ng/hiccup" :as hiccup]
             [httpurr.status :as s]
             [httpurr.client :as http]
@@ -345,12 +346,14 @@
         attr-name (->> el :content first :content first)]
         (if (= :entity-table-attr-val tag)
           (let [tag-content (->> el :content last :content)
-                table-data (transform-table-value tag-content)]
+                table-data (transform-table-value tag-content)
+                records (:records table-data)
+                columns (if (empty? records) [] (:columns table-data))]
               {:name  attr-name
-                :value (:records table-data)
-                :columns (:columns table-data)})
+               :value records
+               :columns columns})
           (if (= :entity-multiline-attr-val tag)
-            (let [attr-value (->> el :content last :content clojure.string/join)]
+            (let [attr-value (->> el :content last :content clojure.string/join md/to-html)]
                 {:name  attr-name
                   :value attr-value})))))
 
@@ -427,7 +430,10 @@
                                     (assoc row nested-attr attr-val))
                                 )
                                 (:value old-attr)))
-                          updated-columns (conj (:columns old-attr) (second tokens))
+                          updated-columns 
+                          (if (empty? (:columns old-attr)) 
+                            [] 
+                            (conj (:columns old-attr) (second tokens)))
                           ]
                     (debug "updated-nested-attr-value" updated-value)
                     (println "updated columns" updated-columns)

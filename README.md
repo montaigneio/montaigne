@@ -15,7 +15,7 @@ It comes with document format, format parser and CLI tool to generate web site f
  - [ ] document evaluation order
  - [ ] support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - [x] define dynamic columns
- - [ ] render multiline as markdown
+ - [x] render multiline as markdown
  - [x] define dynamic pages 
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks

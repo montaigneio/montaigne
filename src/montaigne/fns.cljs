@@ -9,9 +9,17 @@
             [cljs-time.core :as date-core]
             ))
 
+(def ^:private +slug-tr-map+
+  (zipmap "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșšŝťțŭùúüűûñÿýçżźž"
+          "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssttuuuuuunyyczzz"))
 
-(defn slug [prop-value]
-  (cue/slug prop-value))
+(defn slug
+  "Transform text into a URL slug."
+  [s]
+  (some-> (cue/lower s)
+          (clojure.string/escape +slug-tr-map+)
+          (cue/replace #"[^\w\s]+" "")
+          (cue/replace #"\s+" "_")))
 
 (defn str-to-date [v]
   (cljs-time.format/parse (cljs-time.format/formatters :date) v))
