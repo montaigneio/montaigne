@@ -8,42 +8,9 @@
             [montaigne.fns :as fns]
             [montaigne.markdown :as md]
             ["@thi.ng/hiccup" :as hiccup]
-            [httpurr.status :as s]
-            [httpurr.client :as http]
-            [httpurr.client.node :as node]
-            [promesa.core :as p]
             ))
 
 (println "parser start...")
-
-
-(defn decode
-  [response]
-  (update response :body #(js->clj (js/JSON.parse %))))
-
-(defn get!
-  [url]
-  (p/then (node/get url) decode))
-
-
-
-(defn process-response
-  [response]
-  (condp = (:status response)
-    s/ok           (p/resolved (:body response))
-    s/not-found    (p/rejected :not-found)
-    s/unauthorized (p/rejected :unauthorized)))
-
-; (def airports [])
-; (defn get-airports []
-;   (p/then 
-;     (get! "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json")
-;     (fn [response]
-;       (cljs.pprint/pprint response)
-;       (let [airports_ (process-response response)]
-;         (set! airports airports_)
-;       )
-;       )))
 
 (defn debug [message entity]
   (println (str message "..."))
@@ -114,6 +81,8 @@
     (catch js/Object e
       (do
         (println "eval code failed...")
+        (println "error:")
+        (println e)
         (println s)
         (println "...eval code failed")
         {:value ""}
@@ -143,7 +112,7 @@
 
      entities = entity*
 
-     def-attr-name = #'[a-zA-Z0-9.]+'
+     def-attr-name = #'[a-zA-Z0-9.-]+'
      <inline-code> = <'`'> #'[^`]+' <'`'>
 
      entity-inline-def-attr = <entity-inline-attr-mark> def-attr-name <colon> <space> entity-inline-def-attr-val <space>* <newline>+
@@ -227,24 +196,37 @@
     first
     :content))
 
+(defn is-multiline-code [value-as-str]
+  (and
+    (clojure.string/starts-with? value-as-str "```clojure")
+    (clojure.string/ends-with? value-as-str "```")))
+
+(defn is-sinlge-line-code [value-as-str]
+  (and
+    (clojure.string/starts-with? value-as-str "`")
+    (clojure.string/ends-with? value-as-str "`")))  
+
 ;{:tag :collection-inline-attr, :content ({:tag :collection-attr-name, :content (description)} {:tag :collection-inline-attr-val, :content (Collection of books)}
 (defn transform-collection-attr [el]
   (debug "transform-collection-attr" el)
   (let [value-lines-list (->> el :content first :content last :content)
         value-as-str (clojure.string/trim (clojure.string/join value-lines-list))
         attr-name (->> el :content first :content first :content first)]
-        (if (and
-              (clojure.string/starts-with? value-as-str "```clojure")
-              (clojure.string/ends-with? value-as-str "```"))
+        (if (is-multiline-code value-as-str)
           (let [val_ (strip-prefix value-as-str "```clojure")
                 attr-value (strip-suffix val_ "```")]
               {:name  attr-name
                 :type  "code"
-                :value attr-value}
-              )
-          {:name  attr-name
-          :value value-as-str}
-          )))
+                :value attr-value})
+          (if (is-sinlge-line-code value-as-str)
+            (let [val_ (strip-prefix value-as-str "`")
+                  attr-value (strip-suffix val_ "`")]
+                {:name  attr-name
+                  :type  "code"
+                  :value attr-value})
+            {:name  attr-name
+            :value value-as-str}
+            ))))
 
 (defn is-number [str-value]
   (> (js/parseInt str-value) 0))
@@ -332,7 +314,7 @@
         :columns columns}))
 
 (defn transform-entity-inline-attr [el]
-  (debug "transform-entity-inline-attr" el)
+  ; (debug "transform-entity-inline-attr" el)
   (let [tag (->> el :content last :tag)
         attr-name (->> el :content first :content first)
         attr-props (->> el :content last :content first parse-string-value)]
@@ -341,7 +323,7 @@
 
 ; TODO if attr is multiline - we need to render markdown.
 (defn transform-entity-multiline-attr [el]
-  (debug "transform-entity-multiline-attr" el)
+  ; (debug "transform-entity-multiline-attr" el)
   (let [tag (->> el :content last :tag)
         attr-name (->> el :content first :content first)]
         (if (= :entity-table-attr-val tag)
@@ -392,27 +374,34 @@
   )
   {} ent))
 
-(defn eval-attr [ent code-value]
-  (debug "evaluate ent attr" ent)
+(defn eval-attr [ent code-value data]
+  (debug "eval-attr" (:name ent))
+  (debug "eval-attr-with-data" (:name data))
   (let [code-to-eval 
           (str "(let [% " 
-            (prn-str (remove-code-attrs (dissoc ent :attrs))) "]" code-value ")")]
+              (prn-str (remove-code-attrs (dissoc ent :attrs))) 
+            ; " %data " (prn-str data)
+            "]" code-value ")")]
         (:value (eval-safe code-to-eval))))
 
 
-(defn eval-nested-attr [record code-value]
+(defn eval-nested-attr [record ent code-value data]
   (debug "eval-nested-attr" record)
+  (debug "eval-nested-attr-with-data" (:name data))
   (let [code-to-eval 
           (str "(let [% " 
-            (prn-str record) "]" code-value ")")]
+            (prn-str record) 
+            "%% " (prn-str (remove-code-attrs (dissoc ent :attrs)))
+            " %data " (prn-str data)
+            "]" code-value ")")]
         (:value (eval-safe code-to-eval))))        
 
-(defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs]
+(defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs data]
   (map
     (fn [entity]
       (reduce
         (fn [ent ent-def-attr]
-            (debug "evaluate ent def attr" ent-def-attr)
+            (debug "evaluate ent def attr" (:name ent-def-attr))
             (let [tokens (clojure.string/split (:name ent-def-attr) ".")]
               (cond
                 (= 2 (count tokens)) 
@@ -425,7 +414,7 @@
                             (into [] 
                               (map 
                                 (fn [row]
-                                  (let [attr-val (eval-nested-attr row code-value)]
+                                  (let [attr-val (eval-nested-attr row ent code-value data)]
                                     (debug "new nested attr value" attr-val)
                                     (assoc row nested-attr attr-val))
                                 )
@@ -444,7 +433,7 @@
                   ))
                 (= 1 (count tokens))
                   (let [attr-name (keyword (:name ent-def-attr))
-                        attr-val (eval-attr ent (:value ent-def-attr))
+                        attr-val (eval-attr ent (:value ent-def-attr) data)
                         new-attr {:name attr-name :value attr-val}]
                         (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
                 :else ent
@@ -461,11 +450,12 @@
         (if (= "code" (:type collection-attr))
           (let [attr-name (keyword (:name collection-attr))
                 ents (map #(dissoc % :attrs) (:entities collection))
-                ; TODO we need to path collection name and collection props to eval
+                ; TODO we need to pass collection name and collection props to eval
                 code-to-eval
                   (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
+                  (println "evaluated collection attr")
                   (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
           ; put back original attribute
           (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
@@ -475,7 +465,7 @@
     (:attrs collection)
     ))
 
-(defn evaluate-page-attributes [page all-records]
+(defn evaluate-page-attributes [page all-records data]
   (debug "evaluate-page-attributes" page)
   (reduce
     (fn [page page-attr]
@@ -484,7 +474,9 @@
           (let [attr-name (keyword (:name page-attr))
                 ; TODO we need to path collection name and collection props to eval
                 code-to-eval
-                  (str "(let [% '" (prn-str all-records) "]" (:value page-attr) ")")
+                  (str "(let [% '" (prn-str all-records) 
+                              ; " %data " (prn-str data)
+                              "]" (:value page-attr) ")")
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
                   (assoc page attr-name attr-val :attrs (concat (:attrs page) [new-attr])))
@@ -496,10 +488,11 @@
     (:attrs page)
     ))  
 
-(defn evaluate-collection [name content collection-attrs]
+(defn evaluate-collection [name content collection-attrs data]
+  (debug "evaluate-collection" name)
   (let [entity-def-attrs (map transform-entity-def-attr (get-entity-def-attributes content))
         plain-entities (map transform-entity (get-entities content))
-        entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs)
+        entities_ (evaluate-def-attribute-for-each-entity plain-entities entity-def-attrs data)
         collection_ {
           :name name
           :type "collection"
@@ -507,17 +500,41 @@
           :entity-def-attrs entity-def-attrs
           :entities entities_}
         collection (evaluate-collection-attributes collection_)]
-        (debug "evaludated collection" collection_)
+        (debug "evaluated collection" name)
+        (debug "evaluated collection attrs" collection-attrs)
         collection))
+
+
+(defn get-collection-name [envlive-struct]
+  (->> envlive-struct :content first :content first))
+
+(defn get-data [data-collection]
+  (debug "get-data" data-collection)
+  (let [tag (:tag data-collection)
+        name (get-collection-name data-collection)
+        content (->> data-collection :content second :content)
+        collection-attrs (map transform-collection-attr (get-collection-attributes content))
+        data-collection (evaluate-collection name content collection-attrs {})]
+      ;data collection
+      (println "xxx" (:name data-collection))
+      (println "xxx1" (:name (first (:attrs data-collection))))
+      (println "xxx2" (str (:value (first (:attrs data-collection)))))
+      (into [] (:attrs data-collection))
+      
+  ))
+
 
 (defn evaluate [parsed-output]
   ; records are collections and pages. pages are not evaluated
-  (let [records 
+  (let [data-collection (first (filter #(= (get-collection-name %) "data") parsed-output))
+        data (get-data data-collection)
+        collections-or-pages  (remove #(= (get-collection-name %) "data") parsed-output)
+        records 
         (map
           (fn [collection-or-page]
             (debug "evaluate each collection or page" collection-or-page)
             (let [tag (:tag collection-or-page)
-                  name (->> collection-or-page :content first :content first)
+                  name (get-collection-name collection-or-page)
                   content (->> collection-or-page :content second :content)
                   collection-attrs (map transform-collection-attr (get-collection-attributes content))]
               (if (= :page tag)
@@ -526,15 +543,15 @@
                   :type "page"
                   :attrs collection-attrs}
                 ;collection
-                (evaluate-collection name content collection-attrs)
+                (evaluate-collection name content collection-attrs data)
               )
             )
           )
-          parsed-output)]
+          collections-or-pages)]
     (map
       (fn [collection-or-page]
         (if (= "page" (:type collection-or-page))
-          (evaluate-page-attributes collection-or-page records)
+          (evaluate-page-attributes collection-or-page records data)
           collection-or-page
         )
       )

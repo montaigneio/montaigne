@@ -9,5 +9,6 @@
   :npm-deps {
     "xregexp" "4.2.0"
     "@thi.ng/hiccup" "3.1.4"
+    "sync-request" "6.1.0"
   }
   :cache-analysis true)

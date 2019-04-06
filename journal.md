@@ -43,6 +43,11 @@ description: My wiki
     ]])
 ```
 
+# data
+
+airports: `(:airports (montaigne.fns/get-json-private "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
+
+
 # readings
 
 description: Books I've read
@@ -279,154 +284,6 @@ Makes a lot of sense to me since I witnessed myself similar changes to the cultu
 This book is even more actual now in the age of Internet, mobile phones, social networks, instant deliveries etc.
 
 
-## Homage to Catalonia
-
-title: Homage to Catalonia  
-authors: @{George Orwell}  
-isbn: 978-1-84902-597-3  
-year: 1938  
-rating: 4  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2016-12-23 | 2017-02-25 | San Francisco
-
-### review
-
-Personal account of Spanish war by George Orwell.
-
-Couple of insights:
-
-- Stalinist tactics used in Spain were as terrible as in USSR
-- Press is extremely important in influencing events
-
-What was interesting is that Orwell few times pointed out that his account is not fully objective and that reader should not believe his words without verification. 
-This is great example of professionalism. 
-Orwell recognizes both his subjectivity but also his duty to the public. 
-Seems like not many people back then and now do this.
-
-Also, I really like that Orwell was optimistic even in the end. 
-He was wounded, needed to leave country, but at the end he still believed in human nature and better future.
-
-
-## The Animal Farm
-
-title: The Animal Farm  
-authors: @{George Orwell}  
-isbn: 978-1-943138-42-5  
-year: 1945  
-rating: 5  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2016-12-10 | 2016-12-10 | San Francisco
-
-### review
-
-A comprehensive history of Russian revolution in a short, simple book that anyone can understand. 
-I think in this fact lies the beauty of Orwell’s work. 
-People of all ages can appreciate and visualize even the most complex social changes.
-
-It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
-
-Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
-This book is a reminder to us how events usually unfold and what happens at the end. 
-And what kind of people typically end-up on top in any system regarding of the title.
-
-
-## The Little Prince
-
-title: The Little Prince  
-authors: @{Antoine de Saint-Exupéry}  
-isbn: 978-0-15-601219-5  
-year: 1943  
-rating: 5  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-05-13 | 2017-05-13 | San Francisco
-
-### review
-
-One of the most beautiful and simple books about life, love, death; 
-about being a child and being an adult; about friendship, people and happiness.
-
-When I was in 10th grade at school, I remember literature teacher was very enthusiastic about this book. 
-She was telling us about it all the time. 
-I didn't find it interesting back then. 
-I didn't understand the story about little prince, talking foxes, flowers and snakes. 
-Form didn't appeal to me and I probably had nothing to learn from it at that time. 
-This time was different. I would recommend this book to everyone. 
-It's a pure beauty. Just in few pages it shows what is important in life and what is not.
-
-
-## Technopoly
-
-title: Technopoly  
-subtitle: The Surrender of Culture to Technology  
-authors: @{Neil Postman}
-isbn: 978-0-679-74540-2  
-year: 1992  
-pages: 222  
-rating: 5
-tags: #{techonlogy, culture}
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-04-25 | 2017-04-30 | San Francisco
-
-
-## To the Castle and Back
-
-title: To the Castle and Back  
-authors: @{Václav Havel}  
-isbn: 978-0-307-38845-2  
-year: 2006  
-pages: 383  
-rating: 5  
-tags: @{Eastern Europe, politics}  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-02-25 | 2017-03-09 | San Francisco
-
-### review
-
-Havel is a role model. 
-He shows us what a public figure, a politician and a citizen can be. 
-He is definitely not afraid to think deeper and to express himself. 
-He is not afraid to formulate unpopular opinions. 
-He tries to understand pluses and minuses of each system. 
-E.x. he is for continous political integration, but he thinks globalization is a problem. 
-He recognized the pitfalls of both Soviet regime and consumerism society that both causes normalization and standartization of people.
-
-It was interesting for me to read his book for several reasons: 
-
-- to learn his story
-- to learn about his thoughts
-- to take a look at his diary
-
-The diary of the President was an interesting read on itself. 
-It contained his agenda for a lot of days and it showed him as a real simple very likable human, which is quite opposite of the politicians of the day.
-
-Havel wanted to be a role model. 
-He wanted to remind his fellow citizens of better and bigger ideals, he wanted to inspire them to improve. 
-Politicians of today mostly move in opposite direction. 
-They just represent the worst parts of our society and our people. 
-If society is corrupt, politicians are corrupt. 
-If society is uneducated, politicians are profane.
-
-
 ## What I Talk About When I Talk About Running
 
 title: What I Talk About When I Talk About Running  
@@ -493,6 +350,154 @@ Postman, as always, provides insights into our culture (mostly American) and sug
 His essays and observations draw a picture of quite sad future. A lot of this predications are already fulfilled, so Postman is unfortunately was very accurate in them which he poses as warnings for us.
 
 However, what I liked about this book is that he tries to stay optimistic. He reminds us that civilized society is very vulnerable and we should pay attention to dangers. And he tries to provide us with a mindset how to do just that.
+
+
+## Homage to Catalonia
+
+title: Homage to Catalonia  
+authors: @{George Orwell}  
+isbn: 978-1-84902-597-3  
+year: 1938  
+rating: 4  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-12-23 | 2017-02-25 | San Francisco
+
+### review
+
+Personal account of Spanish war by George Orwell.
+
+Couple of insights:
+
+- Stalinist tactics used in Spain were as terrible as in USSR
+- Press is extremely important in influencing events
+
+What was interesting is that Orwell few times pointed out that his account is not fully objective and that reader should not believe his words without verification. 
+This is great example of professionalism. 
+Orwell recognizes both his subjectivity but also his duty to the public. 
+Seems like not many people back then and now do this.
+
+Also, I really like that Orwell was optimistic even in the end. 
+He was wounded, needed to leave country, but at the end he still believed in human nature and better future.
+
+
+## The Animal Farm
+
+title: The Animal Farm  
+authors: @{George Orwell}  
+isbn: 978-1-943138-42-5  
+year: 1945  
+rating: 5  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-12-10 | 2016-12-10 | San Francisco
+
+### review
+
+A comprehensive history of Russian revolution in a short, simple book that anyone can understand. 
+I think in this fact lies the beauty of Orwell’s work. 
+People of all ages can appreciate and visualize even the most complex social changes.
+
+It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
+
+Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
+This book is a reminder to us how events usually unfold and what happens at the end. 
+And what kind of people typically end-up on top in any system regarding of the title.
+
+
+## To the Castle and Back
+
+title: To the Castle and Back  
+authors: @{Václav Havel}  
+isbn: 978-0-307-38845-2  
+year: 2006  
+pages: 383  
+rating: 5  
+tags: @{Eastern Europe, politics}  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-02-25 | 2017-03-09 | San Francisco
+
+### review
+
+Havel is a role model. 
+He shows us what a public figure, a politician and a citizen can be. 
+He is definitely not afraid to think deeper and to express himself. 
+He is not afraid to formulate unpopular opinions. 
+He tries to understand pluses and minuses of each system. 
+E.x. he is for continous political integration, but he thinks globalization is a problem. 
+He recognized the pitfalls of both Soviet regime and consumerism society that both causes normalization and standartization of people.
+
+It was interesting for me to read his book for several reasons: 
+
+- to learn his story
+- to learn about his thoughts
+- to take a look at his diary
+
+The diary of the President was an interesting read on itself. 
+It contained his agenda for a lot of days and it showed him as a real simple very likable human, which is quite opposite of the politicians of the day.
+
+Havel wanted to be a role model. 
+He wanted to remind his fellow citizens of better and bigger ideals, he wanted to inspire them to improve. 
+Politicians of today mostly move in opposite direction. 
+They just represent the worst parts of our society and our people. 
+If society is corrupt, politicians are corrupt. 
+If society is uneducated, politicians are profane.
+
+
+## Technopoly
+
+title: Technopoly  
+subtitle: The Surrender of Culture to Technology  
+authors: @{Neil Postman}
+isbn: 978-0-679-74540-2  
+year: 1992  
+pages: 222  
+rating: 5
+tags: #{techonlogy, culture}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-25 | 2017-04-30 | San Francisco
+
+
+## The Little Prince
+
+title: The Little Prince  
+authors: @{Antoine de Saint-Exupéry}  
+isbn: 978-0-15-601219-5  
+year: 1943  
+rating: 5  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-05-13 | 2017-05-13 | San Francisco
+
+### review
+
+One of the most beautiful and simple books about life, love, death; 
+about being a child and being an adult; about friendship, people and happiness.
+
+When I was in 10th grade at school, I remember literature teacher was very enthusiastic about this book. 
+She was telling us about it all the time. 
+I didn't find it interesting back then. 
+I didn't understand the story about little prince, talking foxes, flowers and snakes. 
+Form didn't appeal to me and I probably had nothing to learn from it at that time. 
+This time was different. I would recommend this book to everyone. 
+It's a pure beauty. Just in few pages it shows what is important in life and what is not.
 
 
 ## The Little Book of Hygge
@@ -754,6 +759,29 @@ Introduction to Buddhism and especially Zen Buddhism. Very easy explanation of t
 I really like the idea that Buddhism is Hinduism for export, that is Hinduism that stripped from culture and can be used as religion by people of different cultures.
 
 
+## China Disruptors
+
+title: China's Disruptors  
+subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
+authors: @{Edward Tse}  
+isbn: 978-0-241-24039-7  
+year: 2015  
+pages: 256  
+rating: 4  
+tags: #{China, technology, business}  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2017-04-15 | 2017-04-24 | San Francisco 
+
+### review
+
+Great book on the technological developments in China. 
+Learned a lot about Chinese tech companies, the way they started and the way they do business.
+
+
 ## On Tyranny
 
 title: On Tyranny  
@@ -777,27 +805,68 @@ Too simple and too tied to the things that were going on in the USA during 2016.
 My expectations were much higher, especially given authors background as a historian.
 
 
-## China Disruptors
+## The Disappearence of Childhood
 
-title: China's Disruptors  
-subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
-authors: @{Edward Tse}  
-isbn: 978-0-241-24039-7  
-year: 2015  
-pages: 256  
-rating: 4  
-tags: #{China, technology, business}  
+title: The Disappearence of Childhood  
+authors: @{Neil Postman}
+isbn: 0-679-75166-1  
+year: 1994
+pages: 176  
+rating: 5  
+tags: #{childhood}
 
 ### readings
 
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2017-04-15 | 2017-04-24 | San Francisco 
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-11-18 | 2017-11-27 | San Francisco
 
 ### review
 
-Great book on the technological developments in China. 
-Learned a lot about Chinese tech companies, the way they started and the way they do business.
+Great book on history of chilhood in general and how the notion of children changes with the environment.
+
+
+## The Art of Learning
+
+title: The Art of Learning  
+subtitle: An Inner Journey to Optimal Performance  
+authors: @{Josh Waitzkin}  
+isbn: 978-0-7432-7745-7  
+year: 2008  
+pages: 264  
+rating: 4  
+tags: #{autobiography, chess}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-12-03 | 2017-12-24 | San Francisco
+
+### review
+
+I like it because it's an autobiography with a lot of personal details. Was interesting to read on career in chess and martial arts.
+
+
+## A Little History of Philosophy
+
+title: A Little History of Philosophy  
+authors: @{Nigel Warburton}
+isbn: 978-0-300-15208-1  
+year: 2012
+pages: 252  
+rating: 5  
+tags: #{philosophy, ideas}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-01-16 | 2018-01-18 | San Francisco
+
+### review
+
+Great book as intro into philosophy. I think these types of books work for me very well.
 
 
 ## Treatise on Modern Stimulants
@@ -893,7 +962,12 @@ description: My trips
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
-@itinerary.from: `(str {:value (str (:to %) (:from %))})`  
+@itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %data first :value)))`
+@itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %data first :value)))`
+@itinerary.airport-from-lon: `(:lon (:airport-from %))`
+@itinerary.airport-from-lat: `(:lat (:airport-from %))`
+@itinerary.airport-to-lon: `(:lon (:airport-to %))`
+@itinerary.airport-to-lat: `(:lat (:airport-to %))`
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
 @days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
