@@ -97,7 +97,7 @@ description: Books I've read
                   [:small.f7.ml0.mb0.mr1.gray (->> entity :pages :value) " pages"])
               ]
               ])
-          %)]
+          (reverse %))]
       ]
     ]])
 ```
@@ -848,6 +848,73 @@ started    | finished   | locations
 I like it because it's an autobiography with a lot of personal details. Was interesting to read on career in chess and martial arts.
 
 
+## Economics
+
+title: Economics  
+subtitle: The User's Guide
+authors: @{Ha-Joon Chang}
+isbn: 978-1-62040-812-4 
+year: 2014
+pages: 364  
+rating: 5  
+tags: #{economics}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-12-24 | 2018-01-07 | San Francisco
+
+### review
+
+The type of book I love. Good intro into economics. Explains what economics are in the simple language and explains all popular theories starting from Adam Smith.
+
+
+## The Antidote
+
+title: The Antidote  
+subtitle: Happiness for People Who Can't Stand Positive Thinking
+authors: @{Oliver Burkeman}
+isbn: 978-0-86547-801-5  
+year: 2012
+pages: 236  
+rating: 4  
+tags: #{happiness, culture}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-01-08 | 2018-01-13 | San Francisco
+
+### review
+
+Good book. The best part was to learn Dia de los Muertos. A lot of other ideas I already was exsposed throuth The School of Life and stoicism.
+
+
+## Seven Brief Lessons on Physics
+
+title: Seven Brief Lessons on Physics  
+authors: @{Carlo Rovelli}
+isbn: 978-0-399-18441-3  
+year: 2016
+pages: 86  
+rating: 4  
+tags: #{science}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-01-14 | 2018-01-14 | San Francisco
+
+### review
+
+Tiny pocket book. I love those on topics I don't know much about. 
+But unfortunately this type of book didn't teach me much. 
+One year after reading it I can't recall anything.
+
+
 ## A Little History of Philosophy
 
 title: A Little History of Philosophy  
@@ -867,6 +934,445 @@ started    | finished   | locations
 ### review
 
 Great book as intro into philosophy. I think these types of books work for me very well.
+
+
+## Answered Prayers
+
+title: Answered Prayers  
+authors: @{Truman Capote}
+isbn: 978-0-679-75182-3  
+year: 1987
+pages: 150  
+rating: 4  
+tags: #{fiction}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-02-10 | 2018-02-15 | San Francisco
+
+### review
+
+I used to love Capote a lot. I've read a lot of him in my early twenties. 
+It's nice to find something from him that I haven't read.
+
+
+## The Elephant in the Brain
+
+title: The Elephant in the Brain  
+subtitle: Hidden Motives in Everyday Life  
+authors: @{Kevin Simler, Robin Hanson}
+isbn: 978-0-19-049599-2  
+year: 2018
+pages: 396  
+rating: 4  
+tags: #{brain}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-02-19 | 2018-02-25 | San Francisco
+
+### review
+
+Books covers very popular topic nowadays. 
+It's an easy enjoyable read. 
+However again, one year later I don't remember anything from it.
+
+
+## 12 Rules for Life
+
+title: 12 Rules for Life  
+subtitle: An Antidote to Chaos
+authors: @{Jordan B. Peterson}
+isbn: 978-0-345-81602-3
+year: 2018
+pages: 408  
+rating: 4  
+tags: #{life}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-01-23 | 2018-03-20 | San Francisco 
+
+### review
+
+Jordan B. Peterson has a bad reputation these days. 
+I'm not sure I like him as a person, but I found it interesting to listen to his lectures or read this book. 
+Book is too long however, can be twice as short.
+
+
+## So Good They Can't Ignore You
+
+title: So Good They Can't Ignore You  
+subtitle: Why Skills Trump Passion in the Quest for Work You Love
+authors: @{Cal Newport}
+isbn: 978-1-45550-912-6
+year: 2012
+pages: 268  
+rating: 3  
+tags: #{work}
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2017-10-01 | 2018-05-14 | San Francisco 
+
+### review
+
+This shouldn't be a book. It should be a blog post. 
+Too long to tell the simple possible idea. 
+It has catchy title, but this is mostly marketing.
+
+
+## Great Thinkers
+
+title: Great Thinkers  
+authors: @{The School of Life}
+isbn: 978-0-9935387-0-4
+year: 2016
+pages: 476  
+rating: 5  
+tags: #{philosophy, history, ideas}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------------
+2018-04-12 | 2018-05-01 | Kyiv, Lviv, Berlin
+
+### review
+
+Once again the type of book I love. Simple language, interesting topic. This is the type of book I would want to reread.
+
+
+## The School of Life Dictionary
+
+title: The School of Life Dictionary  
+authors: @{The School of Life}
+isbn: 978-0-9957535-9-4
+year: 2017
+pages: 278  
+rating: 4  
+tags: #{dictionary}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ---------------------------------
+2018-04-01 | 2018-05-13 | Kyiv, Lviv, Berlin, San Francisco 
+
+### review
+
+I want to see more of books like this. Modern definition for words that are important in our everyday lives.
+
+
+## Relationships
+
+title: Relationships  
+authors: @{The School of Life}
+isbn: 978-0-9935387-4-2  
+year: 2016
+pages: 116  
+rating: 4  
+tags: #{relationships}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-01 | 2018-05-06 | San Francisco 
+
+### review
+
+Love idea behind books like this. Important topic, simple language. 
+
+
+## The Pocket Dalai Lama 
+
+title: The Pocket Dalai Lama  
+authors: @{Dalai Lama}
+isbn: 978-1-61180-441-6
+year: 2017
+pages: 94  
+rating: 4  
+tags: #{wisdom}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-14 | 2018-05-15 | San Francisco 
+
+### review
+
+Simple pocket book. Easy read.
+
+
+## How to Reform Capitalism 
+
+title: How to Reform Capitalism  
+authors: @{The School of Life}
+isbn: 978-0-9957535-7-0
+year: 2017
+pages: 107  
+rating: 4  
+tags: #{capitalism, ideas}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-15 | 2018-05-16 | San Francisco 
+
+### review
+
+I like the idea behind this book, however one year after reading it I don't remeber anything specific about it.
+
+
+## We Are All Weird 
+
+title: We Are All Weird  
+subtitle: The Rise of Tribes and the End of Normal  
+authors: @{Seth Godin}
+isbn: 978-1-59184-824-0  
+year: 2015
+pages: 102  
+rating: 3  
+tags: #{ideas}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-18 | 2018-05-22 | San Francisco 
+
+### review
+
+I like Seth, but again, this is blog post type of book: easy and disposabled reading.
+
+
+## The Drama of the Gifted Child
+
+title: The Drama of the Gifted Child  
+subtitle: The Search for the True Self  
+authors: @{Alice Miller}
+isbn: 978-0-465-01690-7
+year: 2007
+pages: 130  
+rating: 4  
+tags: #{therapy, childhood, psychology}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-22 | 2018-05-26 | San Francisco 
+
+### review
+
+Recommended by my therapist. Needed to read it and I feel that it was ok, 
+but as very common with some types of books one year later I can't tell anything about this one.
+
+
+## Calm
+
+title: Calm  
+authors: @{The School of Life}
+isbn: 978-0-9935387-2-8  
+year: 2016
+pages: 134  
+rating: 3  
+tags: #{mental health}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-05-25 | 2018-06-02 | San Francisco, Los Angeles 
+
+### review
+
+Love idea behind books like this. Important topic, simple language.
+
+
+## Island
+
+title: Island  
+authors: @{Aldous Huxley}
+isbn: 978-0-06-156179-5  
+year: 1972
+pages: 354  
+rating: 5  
+tags: #{utopia, society, ideas}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-06-03 | 2018-06-18 | San Francisco, Los Angeles 
+
+### review
+
+Beautiful novel. So many ideas inside to think over. 
+No need to agree with all of them, but it's great to think and evaluate them based on your own experience.
+
+
+## A World of Three Zeros
+
+title: A World of Three Zeros  
+subtitle: The New Economics of Zero Poverty, Zero Unemployment, and Zero Net Carbon Emissions 
+authors: @{Muhammad Yunus}
+isbn: 978-1-61039-757-5  
+year: 2017
+pages: 288  
+rating: 5  
+tags: #{sex}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-06-23 | 2018-07-04 | San Francisco 
+
+### review
+
+Somehow I just learned about Muhammad Yunus. He is a true inspiration now.
+I can't belive he was focusing on poverty, unmployment and environment for so many years before it became mainstream. And it seems like he developed new models for enterprises before anyone else.
+
+
+## Sex
+
+title: Sex  
+authors: @{The School of Life}
+isbn: 978-0-9935387-6-6  
+year: 2017
+pages: 126  
+rating: 4  
+tags: #{sex}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-07-05 | 2018-07-08 | San Francisco, Los Angeles 
+
+### review
+
+Love idea behind books like this. Important topic, simple language.
+
+
+## Žižek's Jokes
+
+title: Žižek's Jokes  
+authors: @{Slavoj Žižek}
+isbn: 978-0-262-02671-0    
+year: 2012
+pages: 148  
+rating: 4  
+tags: #{novel}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-07-08 | 2018-07-09 | Los Angeles 
+
+### review
+
+Good idea for a pocket book. Just a collection of jokes for an easy weekend read.
+
+
+## Gratitude
+
+title: Gratitude  
+authors: @{Oliver Sacks}
+isbn: 978-0-451-49293-7    
+year: 2017
+pages: 45  
+rating: 3  
+tags: #{pocket}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-07-21 | 2018-07-21 | San Francisco 
+
+### review
+
+It felt artificial. I didn't get a feeling of author's actual gratitude while reading it. 
+
+
+## The Art of Communicating
+
+title: The Art of Communicating  
+authors: @{Thich Nhat Nahn}
+isbn: 978-0-06-222466-8
+year: 2013
+pages: 166  
+rating: 4  
+tags: #{communication}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-10-12 | 2018-10-28 | San Francisco 
+
+### review
+
+Six months later don't remember anything. 
+I think it is a book that restates common knowledge.
+Nothing revolutionary.
+
+
+## A Man Without a Country
+
+title: A Man Without a Country  
+authors: @{Kurt Vonnegut}
+isbn: 978-0-8129-7736-3  
+year: 2005
+pages: 142  
+rating: 4  
+tags: #{novel}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-07-15 | 2018-07-15 | San Francisco, Los Angeles 
+
+### review
+
+My first book from Vonnegut. I might read more of his novels now. I like the style.
+
+
+## Anarchy in the Ukr
+
+title: Anarchy in the Ukr  
+authors: @{Serhii Zhadan}  
+isbn: 978-966-14-7841-0  
+year: 2016  
+pages: 232  
+rating: 3  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2019-01-19 | 2019-02-10 | San Francisco
+
+### review
+
+My first book from Zhadan. I like his poetry and songs, but I didn't like novel at all. 
+
+Maybe I didn't understand it, but for me a lot of scenes from this book were too painful to read but it seemed like Zhadan romanticised his experiences and stories. Things that I wanted to forget from my past - those are the things that he cherished. As I said, maybe I misunderstood him, but book didn't meet my expectations.
 
 
 ## Treatise on Modern Stimulants
@@ -1725,9 +2231,9 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |  
 football   |  ✓  |     |     |     |     |     |  
-reading    |  ✓  |     |     |  ✓  |     |     |    
+reading    |  ✓  |     |     |  ✓  |     |  ✓  |    
 spanish    |     |     |     |     |  ✓  |     |  
-pushups    |     |  ✓  |     |  ✓  |     |     |  
+pushups    |     |  ✓  |     |  ✓  |     |     |  ✓
 edu event  |     |     |     |     |     |     |  
 ent event  |     |     |     |     |     |     |  
 cul event  |     |     |     |     |     |     |  
@@ -1739,7 +2245,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |  
 
