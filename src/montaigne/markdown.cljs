@@ -15,6 +15,7 @@
   (-> (.getPrototypeOf js/Object o)
       (.-toHiccup)
       (set! to-hiccup)))
+
 (def parse-md
   (insta/parser
     "<Blocks> = (Paragraph | Header | List | Ordered | Code | Rule)+
@@ -60,14 +61,14 @@
 
 (defn- output-html [blocks]
   (reduce str
-          (for [b blocks]
-            (case (first b)
-              :List (serialize [:ul (for [li (drop 1 b)] [:li (apply str (map parse-span (drop 1 li)))])])
-              :Ordered (serialize [:ol (for [li (drop 1 b)] [:li (apply str (map parse-span (drop 1 li)))])])
-              :Header (serialize [(first (last b)) (apply str (map parse-span (take (- (count b) 2) (drop 1 b))))])
-              :Code (serialize [:pre [:code (apply str (interpose "<br />" (for [line (drop 1 b)] (apply str (drop 1 line)))))]])
-              :Rule (serialize [:hr])
-              :Paragraph (serialize [:p (apply str (map parse-span (drop 1 b)))])))))
+    (for [b blocks]
+      (case (first b)
+        :List (serialize [:ul (for [li (drop 1 b)] [:li (apply str (map parse-span (drop 1 li)))])])
+        :Ordered (serialize [:ol (for [li (drop 1 b)] [:li (apply str (map parse-span (drop 1 li)))])])
+        :Header (serialize [(first (last b)) (apply str (map parse-span (take (- (count b) 2) (drop 1 b))))])
+        :Code (serialize [:pre [:code (apply str (interpose "<br />" (for [line (drop 1 b)] (apply str (drop 1 line)))))]])
+        :Rule (serialize [:hr])
+        :Paragraph (serialize [:p (apply str (map parse-span (drop 1 b)))])))))
 
 (def markdown-to-html (comp output-html parse-md))
 

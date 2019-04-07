@@ -1,6 +1,6 @@
 # @index
 
-description: My wiki
+description: Personal site, journal, wiki
 
 ### template
 
@@ -38,14 +38,19 @@ description: My wiki
           [:li.mb3  
             [:a.link.f6.b.mb1 {:href "/activities"} "Activities"]]
           [:li.mb3  
-            [:a.link.f6.b.mb1 {:href "/quotes"} "Quotes"]]]
+            [:a.link.f6.b.mb1 {:href "/quotes"} "Quotes"]]
+          [:li.mb3  
+            [:a.link.f6.b.mb1 {:href "/now"} "Now"]]
+            ]
       ]
     ]])
 ```
 
+
 # data
 
 airports: `(:airports (montaigne.fns/http-get-json "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
+author: `"Anton Podviaznikov"`
 
 
 # readings
@@ -1489,6 +1494,28 @@ The book laid out the history of the region and history scientific inqury into i
 I've read it just in few days and couldn't stop reading.
 
 
+## Daring Greatly
+
+title: Daring Greatly  
+subtitle: How the Courage to Be Vulnerable Transforms the Way We Live, Love, Parent and Lead  
+authors: @{Brené Brown}  
+isbn: 978-1-592-40841-2  
+year: 2015  
+pages: 302  
+rating: 5  
+tags: #{vulnerability, shame, guilt, parenting, psychology}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2018-07-27 | 2019-04-07 | San Francisco
+
+### review
+
+I've read all of it except the last chapter in 2018, but for some reason didn't finish the book. Despite this fact I think it's very important, well written book with a lot of great insights and tons fo stories. Vulnerability was the topic I spent a lot thinking in 2018, I think Brené Brown thought it over much more than me. A lot of fresh and clear and simple ideas there.
+
+
 # trips
 
 description: My trips  
@@ -2023,8 +2050,152 @@ Treatise on Modern Stimulants  | 6     | I The Subject at Hand
 
 ### quote
 
-Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become 
-abnormally enlarged, damanged and corrupt the machine, which succumbs.
+Excessive consumption of tobacco, coffee, opium and spirits produces grave disorders and drives one to an early death. The organs, endlessly irritated, endlessly nourished, become hypertrophied; they become abnormally enlarged, damanged and corrupt the machine, which succumbs.
+
+
+## Brown on daring greatly
+
+authors: @{Brené Brown}  
+tags: #{vulnerability, courage}
+
+### sources
+
+book                           | pages | chapter
+------------------------------ | ----  | ---------------------
+Daring Greatly                 | 2     | What It Means to Dare Greatly
+
+### quote
+
+*Perfect* and *bulletproof* are seductive, but they don't exist in the human experience. We must walk into the arena, whatever it may be - a new relationship, an important meeting, our creative process, or a difficult family conversation - with courage and willingness to engage.
+Rather than sitting on the sidelines and hurling judgement and advice, **we must dare to show up and let ourselves been seen**. 
+This is vulnerability. This is *dearing greatly*.
+
+
+# now
+
+description: What am I'm doing now
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:div.mt1.mb0.mh0
+                [:span.f7.ml0.mb0.mr1 (->> entity :location :value first) ",&nbsp;" (->> entity :date :value)]
+              ]
+              ])
+          (reverse %))]
+      ]
+    ]])
+```
+
+@id: `(montaigne.fns/slug (:name %))`  
+
+### @template
+
+```clojure
+(montaigne.fns/html 
+ [:html {:itemscope "" :itemtype "http://schema.org/WebPage"}
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:meta {:itemprop "author" :name "author" :content %author}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (:description %)))
+        [:meta {:name "description" :content (:description %)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"
+              :itemscope ""
+              :itemprop "mainEntity"
+              :itemtype "http://schema.org/BlogPosting"}
+        [:h1.lh-title.f4.athelas {:itemprop "name"} (:name %)]
+        [:article.lh-copy.measure {:itemprop "articleBody"}
+          (->> % :content :value)]
+        [:footer {:class "mt4 cf lh-copy measure f6"}
+          [:p.i.fr
+            [:span.i {:itemprop "locationCreated"} (->> % :location :value first)]
+            [:span "&nbsp;&nbsp;"]
+            [:span.i {:itemprop "datePublished"} (->> % :date :value)]
+          ]
+        ]
+        ]    
+    ]])
+```
+
+
+## Update from Sept 29, 2018
+
+date: 2018-09-29  
+location: @{San Francisco} 
+
+### content
+
+It has been over 4 years since I moved to San Francisco. It’s the longest stretch of time I’ve spent in a single city outside of my home country.
+
+I’m here by myself for the first time in my adult life.
+
+I do have more free time than usual which I spend thinking, reading, programming, trying find new hobbies.
+
+The most important part is that I’m trying to reflect on my readings, experiences, and ideas.
+The best day for me is the one when I have a buzz of various ideas and thoughts in my head.
+
+I’m thinking a lot nowadays about influence of technology on our lives, what the future will bring us and what changes I want to see in myself and society. 
+I am also thinking a lot about Ukraine, its past and future.
+
+
+## Update from April 7, 2019
+
+date: 2019-04-07  
+location: @{San Francisco}
+
+### content
+
+It has been almost 5 years since I moved to San Francisco.
+It’s the longest stretch of time I’ve spent in a single city outside of my home country.
+
+I write some poetry as therapeutic exercise.
+I write some longer essays that might look like serious things, but they are not.
+I read books. Travel a bit.
+Trying to find people and causes I can support.
 
 
 # activities

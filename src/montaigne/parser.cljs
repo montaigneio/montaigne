@@ -85,11 +85,7 @@
         (println e)
         (println s)
         (println "...eval code failed")
-        {:value ""}
-      )
-    )
-  )
-)        
+        {:value ""}))))        
 
 
 (def mntgn-parser
