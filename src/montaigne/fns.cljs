@@ -91,3 +91,43 @@
 )
 ;
 (def http-get-json (memoize get-json-private))
+
+; great circle using haversine formula
+(defn convert-degrees-to-radians [degrees]
+  (/
+    (* degrees js/Math.PI)
+    180))
+
+(defn sin [a]
+  (.sin js/Math a))
+
+(defn cos [a]
+  (.cos js/Math a))
+
+(defn atan [a b]
+  (.atan2 js/Math a b))
+
+(defn sqrt [a]
+  (.sqrt js/Math a))
+
+(defn floor [a]
+  (if (not (nil? a))
+    (.floor js/Math a)))
+(def EART_RADIUS_KM 6371)
+
+(defn calc-distance [lat1 lon1 lat2 lon2]
+  (let [dlat (convert-degrees-to-radians (- lat2 lat1))
+        dlon (convert-degrees-to-radians (- lon2 lon1))
+        lat1-rad (convert-degrees-to-radians lat1)
+        lat2-rad (convert-degrees-to-radians lat2)
+        dlat-sin (sin (/ dlat 2))
+        dlon-sin (sin (/ dlon 2))
+        lat1-cos (cos lat1-rad)
+        lat2-cos (cos lat2-rad)
+        a (+ (* dlat-sin dlat-sin)
+             (* dlon-sin dlon-sin lat1-cos lat2-cos))
+        c (* 2 (atan (sqrt a) (sqrt (- 1 a))))
+        distance (* EART_RADIUS_KM c)]
+        (floor distance)
+        ))
+        

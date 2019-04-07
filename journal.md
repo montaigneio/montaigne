@@ -968,6 +968,8 @@ description: My trips
 @itinerary.airport-from-lat: `(:lat (:airport-from %))`
 @itinerary.airport-to-lon: `(:lon (:airport-to %))`
 @itinerary.airport-to-lat: `(:lat (:airport-to %))`
+@itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
+@distance: `(apply + (map :distance (->> % :itinerary :value)))`
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
 @days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
@@ -1011,6 +1013,10 @@ description: My trips
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Days:"]
               [:dd {:class "dib ml1"} (->> % :days)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Distance:"]
+              [:dd {:class "dib ml1"} (->> % :distance)]
             ]
             
             ]]
