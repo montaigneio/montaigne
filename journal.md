@@ -641,6 +641,29 @@ It describes requirenments for the organizations of the future and some practica
 However, I found book a bit longer than needed. It had double focus: both theory and a lot of practical case studies, and that seemed too much for me.
 
 
+## Ill Fares the Land
+
+title: Ill Fares the Land  
+authors: @{Tony Judt}  
+isbn: 9781101223703  
+year: 2010  
+pages: 237  
+rating: 5  
+tags: #{history}  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-07 | 2016-08-13 | San Francisco 
+
+### review
+
+Very good book with some recipes for society. Will going to reread it in the future.
+
+Also I really liked the amount of quotes in this book.
+
+
 ## The Power of Habit
 
 title: The Power of Habit  
@@ -664,29 +687,6 @@ Book describes habits of individuals, organizations and societies.
 It was interesting to read, but at the end I didn't get many insights that would remain with me for a long time.
 
 The book easily could have been shorter.
-
-
-## Ill Fares the Land
-
-title: Ill Fares the Land  
-authors: @{Tony Judt}  
-isbn: 9781101223703  
-year: 2010  
-pages: 237  
-rating: 5  
-tags: #{history}  
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-08-07 | 2016-08-13 | San Francisco 
-
-### review
-
-Very good book with some recipes for society. Will going to reread it in the future.
-
-Also I really liked the amount of quotes in this book.
 
 
 ## Brave New World
@@ -790,7 +790,7 @@ authors: @{Tymothy Snyder}
 isbn: 978-0-8041-9011-4  
 year: 2017  
 pages: 126  
-rating: 3  
+rating: 2  
 tags: #{politics}  
 
 ### readings
@@ -803,6 +803,74 @@ started    | finished   | locations
 
 Too simple and too tied to the things that were going on in the USA during 2016.
 My expectations were much higher, especially given authors background as a historian.
+
+
+## Four Futures
+
+title: Four Futures  
+subtitle: Life After Capitalism 
+authors: @{Peter Frase}  
+isbn: 978-1-78168-813-7  
+year: 2016
+pages: 150  
+rating: 4
+tags: #{future, capitalism, utopia}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2017-06-14 | 2017-06-18 | San Francisco 
+
+### review
+
+Suprisingly good book. Clever idea to outline several possible future scenarios. 
+Mad Max one was the one I didn't like for sure. This book made me watch a movie.
+
+
+## Mating in Captivity
+
+title: Mating in Captivity  
+subtitle: Unlocking Erotic Intelligence 
+authors: @{Esther Perel}  
+isbn: 978-0-06-075364-1  
+year: 2007
+pages: 242  
+rating: 4
+tags: #{relationships, sex}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2017-07-22 | 2017-09-30 | San Francisco 
+
+### review
+
+I like Perel's talks a lot. But not sure I really like style of the book. 
+I think some of the ideas I didn't agree with. 
+Also it took me a while to finish this book. Ironically I was going through breakup while reading this book.
+
+
+## Love Style Life
+
+title: Love Style Life  
+authors: @{Garance Doré}  
+isbn: 978-0-8129-9637-1  
+year: 2015
+pages: 256  
+rating: 4
+tags: #{biography}
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2017-09-30 | 2017-10-05 | San Francisco 
+
+### review
+
+New genre for me. Read a book about something I didn't pay attention too for a long time now. Book about fashion, style and juts life from famous French fashion person. Easy entertaing read. I like the most parts of her career progress and some remarks on relationships.
 
 
 ## The Disappearence of Childhood
