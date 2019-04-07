@@ -933,7 +933,11 @@ description: My trips
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
       (if (not (nil? (:description %)))
         [:meta {:name "description" :content (:description %)}]) 
-      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]
+      [:script {:src "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js"}]
+      [:link {:rel "stylesheet" :type "text/css" :href "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css"}]
+      [:script {:src "https://unpkg.com/mapbox@1.0.0-beta10/dist/mapbox-sdk.min.js"}]
+      ]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
         [:div {:class "dtc v-mid pt0"}
@@ -959,6 +963,59 @@ description: My trips
               ]
               ])
           %)]
+        [:div#map {:class "w-50-ns w-40 h-100 dib ma0" :style "position:fixed;top:0;right:0;"}]  
+      ]
+      [:script
+        (str 
+        "
+        mapboxgl.accessToken = 'pk.eyJ1IjoiYW50b24tcG9kdmlhem5pa292IiwiYSI6ImNqaGJmYnZxNTAxcWQzN3FvYzd3aHR0YzYifQ.wS4Vf6XVQSUJ9ZME1M6rLw';
+        var map = new mapboxgl.Map({
+          container: 'map',
+          style: 'mapbox://styles/mapbox/light-v9',
+          center: [-56, 37.8],
+          zoom: 1.0, // starting zoom
+          attributionControl: false
+        });
+        map.addControl(new mapboxgl.FullscreenControl());
+        map.on('load', function() {"
+          (apply str (map-indexed 
+            (fn [idx entity]
+              (str
+              "map.addLayer(
+                    {
+                      'id': '" 
+                      idx
+                      "',
+                      'type': 'circle',
+                      'source': {
+                        'type': 'geojson',
+                        'data': {
+                            'type': 'FeatureCollection',
+                            'features': [
+                              {
+                                'type': 'Feature',
+                                'geometry': {
+                                  'type': 'Point',
+                                  'coordinates': ["
+                                    (->> entity :itinerary :value first :airport-to-lon)
+                                    ","
+                                    (->> entity :itinerary :value first :airport-to-lat)
+                                  "]
+                                }
+                              }
+                            ]}},
+                      'paint': {
+                          'circle-radius': 6,
+                          'circle-color': '#B42222'
+                      },
+                      'filter': ['==', '$type', 'Point'],
+                  });"
+                )
+            )
+          %))
+          
+        "});"
+        )
       ]
     ]])
 ```
