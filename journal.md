@@ -953,7 +953,9 @@ description: My trips
             [:li.mb3
               [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
               [:div.mt1.mb0.mh0
-                [:span.f7.ml0.mb0.mr1 "from " (:started entity) " to " (:finished entity)]
+                [:span.f7.ml0.mb0.mr0 "from " (:started entity) " to " (:finished entity)]
+                [:span.f7.ml0.mb0.mr0 "; travelled " (:distance entity) " kms"]
+                [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float (:carbon entity) 2) " tons of CO2"]
               ]
               ])
           %)]
@@ -969,7 +971,9 @@ description: My trips
 @itinerary.airport-to-lon: `(:lon (:airport-to %))`
 @itinerary.airport-to-lat: `(:lat (:airport-to %))`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
+@itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
+@carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
 @days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
@@ -1016,7 +1020,11 @@ description: My trips
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Distance:"]
-              [:dd {:class "dib ml1"} (->> % :distance)]
+              [:dd {:class "dib ml1"} (->> % :distance) " km"]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Carbon:"]
+              [:dd {:class "dib ml1"} (->> % :carbon) " tons of CO2"]
             ]
             
             ]]
@@ -1026,22 +1034,27 @@ description: My trips
             [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
-                  (map 
-                    (fn [column]
-                      [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column])
-                    (->> % :itinerary :columns))]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "from"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "to"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "date"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "type"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "flight"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "aircraft"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "distance"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]]
               ]
               [:tbody {:class "lh-copy"}
-                (map 
+                (map
                   (fn [row]
                     [:tr
-                      (map 
-                        (fn [column-name]
-                          [:td (get row (keyword column-name))]
-                        )
-                      (->> % :itinerary :columns)
-                      )
-                    ])
+                      [:td (->> row :from)]
+                      [:td (->> row :to)]
+                      [:td (->> row :date)]
+                      [:td (->> row :type)]
+                      [:td (->> row :flight)]
+                      [:td (->> row :aircraft)]
+                      [:td (->> row :distance)]
+                      [:td (->> row :carbon)]])
                   (->> % :itinerary :value)
                 )
               ]

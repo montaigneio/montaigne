@@ -111,8 +111,8 @@
   (.sqrt js/Math a))
 
 (defn floor [a]
-  (if (not (nil? a))
-    (.floor js/Math a)))
+  (.floor js/Math a))
+
 (def EART_RADIUS_KM 6371)
 
 (defn calc-distance [lat1 lon1 lat2 lon2]
@@ -131,3 +131,24 @@
         (floor distance)
         ))
         
+(defn kms-to-miles [kms]
+  (* kms 0.621371))        
+
+(defn format-float [n points]
+  (js/parseFloat (.toFixed n points)))
+
+; source: https://www.coolearth.org/cool-earth-carbon/ https://carbonfund.org/individuals/
+; Carbon Fund estimates they offset 1 metric tonne per $10 USD
+; Cool Earth estimates they mitigate 1 metric tonne per 25 pence (.32 USD in Dec 2018)
+; carbon impact by metric tonnes, offset cost, mitigation cost
+(defn calc-carbon [distance]
+  (let [miles (kms-to-miles distance)]
+    ; source: http://lipasto.vtt.fi/yksikkopaastot/henkiloliikennee/ilmaliikennee/ilmae.htm
+    ; if short-haul, 14.7 ounces/miles = .000416738 metric tonnes/mile
+    ; if long-haul, 10.1 ounces/miles = .0002863302 metric tonnes/mile
+    (if (> 288 miles)
+      (format-float (* miles 0.000416738) 2)
+      (format-float (* miles 0.0002863302) 2)
+    )
+  )
+)
