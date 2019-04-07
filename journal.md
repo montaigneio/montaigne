@@ -358,7 +358,7 @@ title: Homage to Catalonia
 authors: @{George Orwell}  
 isbn: 978-1-84902-597-3  
 year: 1938  
-rating: 4  
+rating: 3  
 
 ### readings
 
@@ -1140,7 +1140,7 @@ started    | finished   | locations
 I want to see more of books like this. Modern definition for words that are important in our everyday lives.
 
 
-## Relationships
+## Relationships by The School of Life
 
 title: Relationships  
 authors: @{The School of Life}
@@ -1269,7 +1269,7 @@ started    | finished   | locations
 Love idea behind books like this. Important topic, simple language.
 
 
-## Island
+## Island by Huxley
 
 title: Island  
 authors: @{Aldous Huxley}
@@ -1314,7 +1314,7 @@ Somehow I just learned about Muhammad Yunus. He is a true inspiration now.
 I can't belive he was focusing on poverty, unmployment and environment for so many years before it became mainstream. And it seems like he developed new models for enterprises before anyone else.
 
 
-## Sex
+## Sex by The School of Life
 
 title: Sex  
 authors: @{The School of Life}
@@ -1342,7 +1342,7 @@ authors: @{Slavoj Žižek}
 isbn: 978-0-262-02671-0    
 year: 2012
 pages: 148  
-rating: 4  
+rating: 3  
 tags: #{novel}
 
 ### readings
@@ -1356,7 +1356,7 @@ started    | finished   | locations
 Good idea for a pocket book. Just a collection of jokes for an easy weekend read.
 
 
-## Gratitude
+## Gratitude by Sacks
 
 title: Gratitude  
 authors: @{Oliver Sacks}
