@@ -45,7 +45,7 @@ description: My wiki
 
 # data
 
-airports: `(:airports (montaigne.fns/get-json-private "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
+airports: `(:airports (montaigne.fns/http-get-json "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
 
 
 # readings
@@ -962,8 +962,8 @@ description: My trips
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
-@itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %data first :value)))`
-@itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %data first :value)))`
+@itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %airports)))`
+@itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %airports)))`
 @itinerary.airport-from-lon: `(:lon (:airport-from %))`
 @itinerary.airport-from-lat: `(:lat (:airport-from %))`
 @itinerary.airport-to-lon: `(:lon (:airport-to %))`

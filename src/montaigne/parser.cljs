@@ -392,7 +392,7 @@
           (str "(let [% " 
             (prn-str record) 
             "%% " (prn-str (remove-code-attrs (dissoc ent :attrs)))
-            " %data " (prn-str data)
+            ; " %data " (prn-str data)
             "]" code-value ")")]
         (:value (eval-safe code-to-eval))))        
 
@@ -441,6 +441,15 @@
         entity entity-def-attrs))
     plain-entities))
 
+(defn build-collection-attr-eval-code [collection collection-attr]
+  (if (= "data" (:name collection))
+      ; name of the variable will be `%prop-name`
+      (str "(def %" (:name collection-attr) " " (:value collection-attr) ")")
+      (let [ents (map #(dissoc % :attrs) (:entities collection))]
+        (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")"))
+  )
+)
+
 ; TODO here we need to update collection attributes
 (defn evaluate-collection-attributes [collection]
   (debug "evaluate-collection-attributes" collection)
@@ -448,17 +457,18 @@
     (fn [collection collection-attr]
         (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
         (if (= "code" (:type collection-attr))
+          
           (let [attr-name (keyword (:name collection-attr))
-                ents (map #(dissoc % :attrs) (:entities collection))
+                ; ents (map #(dissoc % :attrs) (:entities collection))
                 ; TODO we need to pass collection name and collection props to eval
-                code-to-eval
-                  (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")")
+                code-to-eval (build-collection-attr-eval-code collection collection-attr)
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
                   (println "evaluated collection attr")
                   (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
           ; put back original attribute
           (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
+          
           ))
     ; reset :attrs
     (assoc collection :attrs [])
@@ -516,9 +526,9 @@
         collection-attrs (map transform-collection-attr (get-collection-attributes content))
         data-collection (evaluate-collection name content collection-attrs {})]
       ;data collection
-      (println "xxx" (:name data-collection))
-      (println "xxx1" (:name (first (:attrs data-collection))))
-      (println "xxx2" (str (:value (first (:attrs data-collection)))))
+      ; (println "xxx" (:name data-collection))
+      ; (println "xxx1" (:name (first (:attrs data-collection))))
+      ; (println "xxx2" (str (:value (first (:attrs data-collection)))))
       (into [] (:attrs data-collection))
       
   ))

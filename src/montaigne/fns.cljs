@@ -43,16 +43,16 @@
 (defn html [hiccup-str]
   (serialize hiccup-str))
 
+(def eval-state (empty-state))
+
 (defn eval-str [s]
   (eval
-    (empty-state)
+    eval-state
     (read-string s)
     {:eval        js-eval
-      ;  :load (fn [_ cb] (cb {:lang :clj :source "(ns foo.core) (defn add [a b] (+ a b))"}))
      :source-map  false
      :verbose     true
      :context     :expr
-      ;  :ns 'foo.core
      :load-macros true}
     (fn [result]
         result
@@ -84,9 +84,7 @@
   (let [resp (request "GET" url)
         body (.getBody resp)
         json-resp (decode body)]
-      (println "json")
-      (println (count (:airports json-resp))) 
-      ;(pprint json-resp) 
+      (println "get-json-finished" url)
       json-resp
     
   )
