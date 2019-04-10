@@ -352,13 +352,15 @@
         ))
 
 (defn parse-doc [doc]
+  (println "parse doc start...")
   (let [doc-str (str doc "\n\n\n\n")
         original-parsed (mntgn-parser doc-str)
-        parsed (insta/transform
-                  {}
-                  original-parsed)]
+        ; parsed (insta/transform
+        ;           {}
+        ;           original-parsed)
+                  ]
         (println "parsed doc...")
-        parsed
+        original-parsed
         ))
 
 (defn remove-code-attrs [ent]
@@ -599,7 +601,7 @@
       )))
 
 (defn parse [filename]
-  (let [doc (slurp filename)
+  (let [doc (fns/read-file filename)
         parsed (parse-doc doc)
         transformed (evaluate parsed)]
         (println "parsed doc")

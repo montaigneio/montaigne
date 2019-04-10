@@ -1320,10 +1320,11 @@ started    | finished   | locations
 
 ### review
 
-I like it because it's an autobiography with a lot of personal details. Was interesting to read on career in chess and martial arts.
+I like it because it's an autobiography with a lot of personal details.
+Was interesting to read on career in chess and martial arts.
 
 
-## Economics
+## Economics User's Guide
 
 title: Economics  
 subtitle: The User's Guide
@@ -1343,7 +1344,8 @@ started    | finished   | locations
 
 ### review
 
-The type of book I love. Good intro into economics. Explains what economics are in the simple language and explains all popular theories starting from Adam Smith.
+The type of book I love. Good intro into economics.
+Explains what economics are in the simple language and explains all popular theories starting from Adam Smith.
 
 
 ## The Antidote
@@ -1366,7 +1368,8 @@ started    | finished   | locations
 
 ### review
 
-Good book. The best part was to learn Dia de los Muertos. A lot of other ideas I already was exsposed throuth The School of Life and stoicism.
+Good book. The best part was to learn Dia de los Muertos.
+A lot of other ideas I already was exsposed throuth The School of Life and stoicism.
 
 
 ## Seven Brief Lessons on Physics
@@ -1412,7 +1415,8 @@ started    | finished   | locations
 
 ### review
 
-Great book as intro into philosophy. I think these types of books work for me very well.
+Great book as intro into philosophy.
+I think these types of books work for me very well.
 
 
 ## Answered Prayers

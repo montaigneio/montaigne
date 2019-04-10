@@ -4,6 +4,7 @@
             [cljs.tools.reader :refer [read-string]]
             [cljs.js :refer [empty-state eval js-eval]]
             [cljs.env :refer [*compiler*]]
+            [cljs-node-io.core :as io :refer [slurp spit]]
             ["@thi.ng/hiccup" :as hiccup :refer [serialize]]
             [cljs-time.format :as date-format]
             [cljs-time.core :as date-core]
@@ -19,6 +20,11 @@
 (def ^:private +slug-tr-map+
   (zipmap "ąàáäâãåæăćčĉęèéëêĝĥìíïîĵłľńňòóöőôõðøśșšŝťțŭùúüűûñÿýçżźž"
           "aaaaaaaaaccceeeeeghiiiijllnnoooooooossssttuuuuuunyyczzz"))
+
+(defn read-file [filename]
+  (let [content (slurp filename)]
+    (println "read file")
+    content))
 
 (defn slug
   "Transform text into a URL slug."
