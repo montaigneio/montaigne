@@ -166,6 +166,10 @@ description: Books I've read
               [:dt {:class "dib gray"} "Rating:"]
               [:dd {:class "dib ml1"} (->> % :rating :value)]
             ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Review date:"]
+              [:dd {:class "dib ml1"} (->> % :reviewdate :value)]
+            ]
           ]]
         [:section
           [:h2.f6 "readings"]
@@ -203,6 +207,29 @@ description: Books I've read
 ```
 
 
+## Istanbul by Pamuk
+
+title: Istanbul  
+subtitle: Memories and the City  
+authors: @{Orhan Pamuk}  
+isbn: 978-0-307-38648-9  
+year: 2003  
+pages: 356
+rating: 4  
+tags: #{Istanbul, Turkey, memoir}  
+reviewdate: 2017-03-04
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2015-08-02 | 2015-10-04 | San Francisco
+
+### review
+
+Great book that helps to understand tranformation for Istanbul and Turkey through the XX century. It's interesting in the context of continuous globalization and westernization of the developing countries around the world.
+
+
 ## Dear Professor Einstein
 
 title: Dear Professor Einstein  
@@ -213,6 +240,7 @@ year: 2002
 pages: 200
 rating: 4  
 tags: #{letters, children}  
+reviewdate: 2017-03-06
 
 ### readings
 
@@ -225,6 +253,283 @@ started    | finished   | locations
 Good book that shows how humane Einstein was.
 
 
+## The Black Swan
+
+title: The Black Swan  
+subtitle: The Impact of the Highly Improbable  
+authors: @{Nassim Nicholas Taleb}
+isbn: 978-0-679-60418-1  
+year: 2010  
+pages: 400
+rating: 3
+tags: #{statistics}
+reviewdate: 2017-03-05
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-06 | 2016-09-06 | San Francisco 
+
+### review
+
+Nassim Taleb seems like a very smart person but:
+
+- book was exremely long, especially to present one main idea
+- the style is quite arrogant, which I didn't enjoy at all
+
+I liked that he quoted a lot of people in his book, but because of 2 reasons stated above I'm not looking forward to read his other books. 
+It was very painful experience and took me half a year to finish it.
+
+
+## Chaos Monkeys
+
+title: Chaos Monkeys  
+subtitle: Obscene Fortune and Random Failure in Silicon Valley  
+authors: @{Antonio García Martínez}
+isbn: 978-0-06-245819-3  
+year: 2016  
+pages: 533  
+rating: 3  
+tags: #{startups, Silicon Valley}
+reviewdate: 2017-03-05  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-01 | 2016-08-21 | San Francisco 
+
+### review
+
+Good read if you want to have insight about life of startup founder, product manager/engineer in the Silicon Valley. Has a lot of pretty intimate details and a lot of humor (but not the type I like).
+
+The book itself is too long. Easily can be done in 10 blog posts or shorter stories.
+
+
+## Siddhartha
+
+title: Siddhartha  
+authors: @{Hermann Hesse}  
+isbn: 978-1-62793-640-8  
+year: 1922  
+pages: 136  
+rating: 5  
+tags: #{philosophy, wisdom, religion}  
+reviewdate: 2017-02-28
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-11 | 2016-03-13 | San Francisco 
+
+### review
+
+Great book that I'm planning to re-read from time to time.
+
+
+## Bruce Lee Striking Thoughts
+
+title: Bruce Lee Striking Thoughts  
+subtitle: Bruce Lee's Wisdom for Daily Living  
+authors: @{Bruce Lee}  
+isbn: 978-1-4629-1792-1  
+year: 1973  
+pages: 250  
+rating: 5  
+tags: #{wisdom, diaries}
+reviewdate: 2017-03-05
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-14 | 2016-03-19 | San Francisco 
+
+### review
+
+Outstanding book with a lot of wisdowm and personal discoveries. 
+Bruce Lee connects East and West.
+
+Reminds me of Meditations by Marcus Aurelius. 
+It's both a diary and collecion of insights that can be open and read any day.
+
+
+## Bertrand Russell's Best
+
+title: Bertrand Russell's Best  
+authors: @{Bertrand Russell}  
+isbn: 978-0-415-47358-3  
+year: 1958
+pages: 128  
+rating: 5
+tags: #{wisdom, philosophy}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-05-19 | 2016-05-30 | San Francisco 
+
+### review
+
+I've only discovered Bertrand Russell in 2016.
+He immediatley became and inspiration and a role model.
+
+
+## The Course of Love
+
+title: The Course of Love  
+authors: @{Alain de Botton}  
+isbn: 978-1-5011-3425-8  
+year: 2016
+pages: 226  
+rating: 4
+tags: #{relationships, love, adultery}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-06-20 | 2016-06-28 | San Francisco 
+
+### review
+
+Novel about modern relationships, with all the real challenges and every day issues.
+
+
+## Reinventing Organizations
+
+title: Reinventing Organizations  
+subtitle: A Guide to Creating Organizations Inspired by the Next Stage of Human Consciousness
+authors: @{Frederic Laloux}  
+isbn: 978-2-960133-53-0  
+year: 2014
+pages: 378  
+rating: 4
+tags: #{organizations}
+reviewdate: 2017-03-04
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-06-14 | 2016-08-29 | San Francisco 
+
+### review
+
+Great book that briefly explains history of organizations and shows us how organizations of the future would look like.
+
+It describes requirenments for the organizations of the future and some practical advices how to set the up.
+
+However, I found book a bit longer than needed. It had double focus: both theory and a lot of practical case studies, and that seemed too much for me.
+
+
+## Ill Fares the Land
+
+title: Ill Fares the Land  
+authors: @{Tony Judt}  
+isbn: 9781101223703  
+year: 2010  
+pages: 237  
+rating: 5  
+tags: #{history}  
+reviewdate: 2017-03-03
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-07 | 2016-08-13 | San Francisco 
+
+### review
+
+Very good book with some recipes for society. Will going to reread it in the future.
+
+Also I really liked the amount of quotes in this book.
+
+
+## The Power of Habit
+
+title: The Power of Habit  
+subtitle: Why We Do What We Do in Life and Business  
+authors: @{Charles Duhigg}  
+isbn: 978-0-679-60385-6  
+year: 212  
+pages: 286  
+rating: 3  
+tags: #{habit}
+reviewdate: 2017-03-04
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | ------------- 
+2016-09-10 | 2016-09-14 | San Francisco 
+
+### review
+
+Book describes habits of individuals, organizations and societies. 
+It was interesting to read, but at the end I didn't get many insights that would remain with me for a long time.
+
+The book easily could have been shorter.
+
+
+## Brave New World
+
+title: Brave New World  
+authors: @{Aldous Huxley}  
+isbn: 978-0-06-085052-4  
+year: 1932  
+pages: 152  
+rating: 5  
+tags: #{dystopia, anti-utopia}
+reviewdate: 2017-03-02
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-09-17 | 2016-09-27 | San Francisco 
+
+### review
+
+Great distopia written in early XX century. Suprisingly the world in the last 30 years become very close to the one described by Huxley.
+
+The best book that explains Brave New World is Amusing Ourlselves to Death by Neil Postman.
+
+
+## Fluent Forever
+
+title: Fluent Forever
+subtitle: How to Learn Any Language Fast and Never Forget It
+authors: @{Gabriel Wyner}
+isbn: 978-0-385-34810-2  
+year: 2014  
+pages: 326
+rating: 4
+tags: #{languages, learning}
+reviewdate: 2017-03-05
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-09-01 | 2016-09-03 | Hong Kong
+
+### review
+
+Good book that lays out one of the methods to te language learning.
+
+Both style and method made sense to me when I was reading it.
+
+Also, it was first time that I properly read and was introduced to Spaced repetition.
+I wish I knew about this system when I was in the university.
+
+
 ## Building a Bridge to the 18th Century
 
 title: Building a Bridge to the 18th Century  
@@ -235,6 +540,7 @@ year: 1999
 pages: 224  
 rating: 5  
 tags: #{philosophy, history, media, education}
+reviewdate: 2016-10-25
 
 ### readings
 
@@ -272,7 +578,8 @@ isbn: 9780143036531
 year: 1985  
 pages: 208  
 rating: 5  
-tags: #{media, entertainment}  
+tags: #{media, entertainment, television, technology}  
+reviewdate: 2017-02-25
 
 ### readings
 
@@ -296,8 +603,9 @@ authors: @{Haruki Murakami}
 isbn: 978-0-307-38983-1  
 year: 2008  
 pages: 194  
-rating: 5  
+rating: 4  
 tags: @{running}  
+reviewdate: 2016-10-17
 
 ### readings
 
@@ -330,6 +638,91 @@ Few interesting things that I noticed:
  He shows how setting up routine and rules for himself was paramount.
 
 
+## Creative Schools
+
+title: Creative Schools  
+subtitle: The Grassroots Revolution That's Transforming Education
+authors: #{Ken Robinson, Lou Aronica}  
+isbn: 978-0-14-31080601
+year: 2016
+pages: 320  
+rating: 5
+tags: #{education}
+reviewdate: 2016-11-23
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-11-17 | 2016-11-24 | San Francisco
+
+### review
+
+Reading this book I deeply felt that it is not about the revolution in education.
+It's a book about any complex adaptive human system. It's a book about how to _change_ such systems. We live in the age when it's easy to see that a lot of systems surrounding us are broken in some ways and often do more harm than good. We see that such systems need change.
+
+Broken systems vary depending on the country you live in but quite often they include not only education but health care, media, government, judiciary etc.
+
+It's a nice to have a framework how to think about systems and change. How to see problems with existing ones, how to came up (or find) with better ideas for the future and how to introduce changes in the different levels.
+
+
+## Native Realm
+
+title: Native Realm  
+subtitle: A Search for Self-Definition  
+authors: #{Czesław Miłosz}
+isbn: 978-0-374-52830-0  
+year: 1968
+pages: 300
+rating: 5
+tags: #{Eastern Europe, wisdom, philosophy}
+reviewdate: 2016-12-03
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-11-24 | 2016-11-26 | San Francisco
+
+### review
+
+Fascinating book because it's both autobiography, but also book on philosophy.
+
+Miłosz shares his story of life and formation of his personality and outlook. His account is extremely valuable since he was born in the Polish family in the Lithuanian part of the Russian empire, saw WWI, grew up during independent Poland, experienced WWII as a poet in Nazi-occupied Warsaw. He spent a lot of time in the West (eventually migrating to the US) and in the communist Poland.
+
+His life is a great example how a human being can live in different systems (imperialism, fascism, communism and capitalism) but still hold to the sacred values. In fact, he shows us that is possible to transcend horrors of our human-made systems.
+
+His story is both about losing and finding faith in humanity. His philosophy is about searching of new explanations for the world and good, seeking new narratives that would reconcile scientific outlook and world religions.
+
+Being Eastern European and living through different systems and cultures his shares his insights on Russia, America, and France. He gives glimpses of hope to other Eastern European and I believe any developing country. In his mind, historical tragedy and past events are not the final verdicts. Those are merely challenges that help us grow because it's only in the time of turbulence and change that you can really grow.
+
+
+## Revolution by Russell Brand
+
+title: Revolution
+authors: #{Russell Brand}
+isbn: 978-1-101-88291-7  
+year: 2014
+pages: 320
+rating: 4
+tags: #{revolution, wisdom}
+reviewdate: 2016-12-08
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-11-27 | 2016-12-04 | San Francisco
+
+### review
+
+Serious book written in the funny style. Russell Brand basically shares with us things he believes in, mostly concerning how the modern world should look like and how we can get there.
+
+His book is a good account of meaningful quotes (and their simple interpretations) of wise people of our time and from the past. But it is also an account of ideas and implementation policies that are available right now. He collected those ideas from different spheres of life - politics, economy, ecology, culture, religion - and presented them in easy to grasp form.
+
+What this book does is show us that better future is possible and that so many people working on it and believe in it and that it will happen soon.
+
+
 ## Conscientious Objections
 
 title: Conscientious Objections  
@@ -340,6 +733,7 @@ year: 1988
 pages: 201  
 rating: 5  
 tags: @{technology, medium}  
+reviewdate: 2016-12-25
 
 ### readings
 
@@ -357,13 +751,93 @@ His essays and observations draw a picture of quite sad future. A lot of this pr
 However, what I liked about this book is that he tries to stay optimistic. He reminds us that civilized society is very vulnerable and we should pay attention to dangers. And he tries to provide us with a mindset how to do just that.
 
 
+## The Animal Farm
+
+title: The Animal Farm  
+authors: @{George Orwell}  
+isbn: 978-1-943138-42-5  
+year: 1945  
+pages: 122
+rating: 5  
+tags: #{socialism, society, revolution}
+reviewdate: 2016-12-26
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-12-10 | 2016-12-10 | San Francisco
+
+### review
+
+A comprehensive history of Russian revolution in a short, simple book that anyone can understand. 
+I think in this fact lies the beauty of Orwell’s work. 
+People of all ages can appreciate and visualize even the most complex social changes.
+
+It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
+
+Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
+This book is a reminder to us how events usually unfold and what happens at the end. 
+And what kind of people typically end-up on top in any system regarding of the title.
+
+
+## Myths to Live By
+
+title: Myths to Live By  
+authors: #{Joseph Campbell}  
+isbn: 978-0-14-019461-6
+year: 1972
+pages: 276
+rating: 5
+tags: #{myths, narrative, religion}
+reviewdate: 2017-02-20
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2016-12-10 | 2016-12-22 | San Francisco
+
+### review
+
+Great collection of essays on various topics united by the idea of myths.
+
+Joseph Campbell explains why we need myths, what role they played in different cultures from East to West and why we would need new ones for the future.
+
+
+## Letting Go by Hawkins
+
+title: Letting Go  
+subtitle: The Pathway of Surrender
+authors: #{David Hawkins}
+isbn: 978-1-4019-4501-5
+year: 2013
+pages: 368
+rating: 5
+tags: #{psychology, Self}
+reviewdate: 2017-02-19  
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-01-16 | 2017-02-01 | San Francisco
+
+### review
+
+The part that I liked the most is the description of stages of spiritual development and their connection to chakras though corresponding energy levels.
+
+
 ## Homage to Catalonia
 
 title: Homage to Catalonia  
 authors: @{George Orwell}  
 isbn: 978-1-84902-597-3  
-year: 1938  
+year: 1938 
+pages: 175 
 rating: 3  
+tags: #{socialism, propaganda}
+reviewdate: 2017-02-25
 
 ### readings
 
@@ -389,33 +863,6 @@ Also, I really like that Orwell was optimistic even in the end.
 He was wounded, needed to leave country, but at the end he still believed in human nature and better future.
 
 
-## The Animal Farm
-
-title: The Animal Farm  
-authors: @{George Orwell}  
-isbn: 978-1-943138-42-5  
-year: 1945  
-rating: 5  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2016-12-10 | 2016-12-10 | San Francisco
-
-### review
-
-A comprehensive history of Russian revolution in a short, simple book that anyone can understand. 
-I think in this fact lies the beauty of Orwell’s work. 
-People of all ages can appreciate and visualize even the most complex social changes.
-
-It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
-
-Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
-This book is a reminder to us how events usually unfold and what happens at the end. 
-And what kind of people typically end-up on top in any system regarding of the title.
-
-
 ## To the Castle and Back
 
 title: To the Castle and Back  
@@ -425,6 +872,7 @@ year: 2006
 pages: 383  
 rating: 5  
 tags: @{Eastern Europe, politics}  
+reviewdate: 2017-05-28
 
 ### readings
 
@@ -459,264 +907,6 @@ If society is corrupt, politicians are corrupt.
 If society is uneducated, politicians are profane.
 
 
-## Technopoly
-
-title: Technopoly  
-subtitle: The Surrender of Culture to Technology  
-authors: @{Neil Postman}
-isbn: 978-0-679-74540-2  
-year: 1992  
-pages: 222  
-rating: 5
-tags: #{techonlogy, culture}
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-04-25 | 2017-04-30 | San Francisco
-
-
-## The Little Prince
-
-title: The Little Prince  
-authors: @{Antoine de Saint-Exupéry}  
-isbn: 978-0-15-601219-5  
-year: 1943  
-rating: 5  
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | -------------
-2017-05-13 | 2017-05-13 | San Francisco
-
-### review
-
-One of the most beautiful and simple books about life, love, death; 
-about being a child and being an adult; about friendship, people and happiness.
-
-When I was in 10th grade at school, I remember literature teacher was very enthusiastic about this book. 
-She was telling us about it all the time. 
-I didn't find it interesting back then. 
-I didn't understand the story about little prince, talking foxes, flowers and snakes. 
-Form didn't appeal to me and I probably had nothing to learn from it at that time. 
-This time was different. I would recommend this book to everyone. 
-It's a pure beauty. Just in few pages it shows what is important in life and what is not.
-
-
-## The Little Book of Hygge
-
-title: The Little Book of Hygge  
-subtitle: The Danish Way to Live Well  
-authors: @{Meik Wiking}  
-isbn: 978-0-241-28391-2  
-year: 2016  
-pages: 288   
-rating: 3  
-tags: #{Denmark, lifestyle}
-
-### review
-
-Not much to say about this one. Too simple.
-
-
-## The Black Swan
-
-title: The Black Swan  
-subtitle: The Impact of the Highly Improbable  
-authors: @{Nassim Nicholas Taleb}
-isbn: 978-0-679-60418-1  
-year: 2010  
-pages: 400
-rating: 3
-tags: #{statistics}
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-03-06 | 2016-09-06 | San Francisco 
-
-### review
-
-Nasim Taleb seems like a very smart person but:
-
-- book was exremely long, especially to present one main idea
-- the style is quite arrogant, which I didn't enjoy at all
-
-I liked that he quoted a lot of people in his book, but because of 2 reasons stated above I'm not looking forward to read his other books. 
-It was very painful experience and took me half a year to finish it.
-
-
-## Chaos Monkeys
-
-title: Chaos Monkeys  
-subtitle: Obscene Fortune and Random Failure in Silicon Valley  
-authors: @{Antonio García Martínez}
-isbn: 978-0-06-245819-3  
-year: 2016  
-pages: 533  
-rating: 3  
-tags: #{startups, Silicon Valley}
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-08-01 | 2016-08-21 | San Francisco 
-
-### review
-
-Good read if you want to have insight about life of startup founder, product manager/engineer in the Silicon Valley. Has a lot of pretty intimate details and a lot of humor (but not the type I like).
-
-The book itself is too long. Easily can be done in 10 blog posts or shorter stories.
-
-
-## Siddhartha
-
-title: Siddhartha  
-authors: @{Hermann Hesse}  
-isbn: 978-1-62793-640-8  
-year: 1922  
-pages: 136  
-rating: 5  
-tags: #{philosophy, wisdom, religion}  
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-03-11 | 2016-03-13 | San Francisco 
-
-### review
-
-Great book that I'm planning to re-read from time to time.
-
-
-## Bruce Lee Striking Thoughts
-
-title: Bruce Lee Striking Thoughts  
-subtitle: Bruce Lee's Wisdom for Daily Living  
-authors: @{Bruce Lee}  
-isbn: 978-1-4629-1792-1  
-year: 1973  
-pages: 250  
-rating: 5  
-tags: #{wisdom, diaries}
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-03-14 | 2016-03-19 | San Francisco 
-
-### review
-
-Outstanding book with a lot of wisdowm and personal discoveries. 
-Bruce Lee connects East and West.
-
-Reminds me of Meditations by Marcus Aurelius. 
-It's both a diary and collecion of insights that can be open and read any day.
-
-
-## Reinventing Organizations
-
-title: Reinventing Organizations  
-subtitle: A Guide to Creating Organizations Inspired by the Next Stage of Human Consciousness  
-authors: @{Frederic Laloux}  
-isbn: 978-2-960133-53-0  
-year: 2014
-pages: 378  
-rating: 4
-tags: #{organizations}
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | ------------- 
-2016-06-14 | 2016-08-29 | San Francisco 
-
-### review
-
-Great book that briefly explains history of organizations and shows us how organizations of the future would look like.
-
-It describes requirenments for the organizations of the future and some practical advices how to set the up.
-
-However, I found book a bit longer than needed. It had double focus: both theory and a lot of practical case studies, and that seemed too much for me.
-
-
-## Ill Fares the Land
-
-title: Ill Fares the Land  
-authors: @{Tony Judt}  
-isbn: 9781101223703  
-year: 2010  
-pages: 237  
-rating: 5  
-tags: #{history}  
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-08-07 | 2016-08-13 | San Francisco 
-
-### review
-
-Very good book with some recipes for society. Will going to reread it in the future.
-
-Also I really liked the amount of quotes in this book.
-
-
-## The Power of Habit
-
-title: The Power of Habit  
-subtitle: Why We Do What We Do in Life and Business  
-authors: @{Charles Duhigg}  
-isbn: 978-0-679-60385-6  
-year: 212  
-pages: 286  
-rating: 3  
-tags: #{habit}
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | ------------- 
-2016-09-10 | 2016-09-14 | San Francisco 
-
-### review
-
-Book describes habits of individuals, organizations and societies. 
-It was interesting to read, but at the end I didn't get many insights that would remain with me for a long time.
-
-The book easily could have been shorter.
-
-
-## Brave New World
-
-title: Brave New World  
-authors: @{Aldous Huxley}  
-isbn: 978-0-06-085052-4  
-year: 1932  
-pages: 152  
-rating: 5  
-tags: #{dystopia, anti-utopia}
-
-### readings
-
-started    | finished   | locations 
----------- | ---------- | ------------- 
-2016-09-17 | 2016-09-27 | San Francisco 
-
-### review
-
-Great distopia written in early XX century. Suprisingly the world in the last 30 years become very close to the one described by Huxley.
-
-The best book that explains Brave New World is Amusing Ourlselves to Death by Neil Postman.
-
-
 ## The Medium is the Massage
 
 title: The Medium is the Massage  
@@ -727,6 +917,7 @@ isbn: 978-1-58423-070-0
 pages: 159  
 rating: 4  
 tags: #{media} 
+reviewdate: 2017-04-17
 
 ### readings
 
@@ -750,6 +941,7 @@ year: 1996
 pages: 98  
 rating: 4  
 tags: #{Buddhism, religion, Hinduism}
+reviewdate: 2017-04-17
 
 ### readings
 
@@ -764,6 +956,187 @@ Introduction to Buddhism and especially Zen Buddhism. Very easy explanation of t
 I really like the idea that Buddhism is Hinduism for export, that is Hinduism that stripped from culture and can be used as religion by people of different cultures.
 
 
+## The Magic Mountain
+
+title: The Magic Mountain
+authors: @{Thomas Mann}
+isbn: 978-0-679-7728703
+year: 1924  
+pages: 700  
+rating: 4 
+tags: #{society, philosophy, fiction}
+reviewdate: 2017-05-27
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-03-25 | 2017-04-14 | Gili, Indonesia and San Francisco, USA
+
+### review
+
+First book of Thomas Mann for me.
+
+I discovered for myself new type of novel reading this book.
+The novel is fictional and tells us a story. 
+But what is more interesting is that Thomas Mann exists in the book himself.
+He comments on events and characters, he expresses his own sibjective judgements in parallel to objectively narrating the story. 
+Author spends a lot of time on side topics: like philosophy, chemistry etc.
+
+The bigger topic that crosses the whole book is Mann's philosophical reflections on the topic if time and space.
+
+Magic Mountain reminded me of The Dead Souls by Gogol.
+It is a story with a characters that were mostly unlikable to me, especially at the beginning.
+Those characters seem to be not the roel models, they had problems and some not impressive features. However, book had a lot of different characters, and maybe it was the Mann's point to show us, that no one is ideal in reality.
+
+
+## The Little Book of Hygge
+
+title: The Little Book of Hygge  
+subtitle: The Danish Way to Live Well  
+authors: @{Meik Wiking}  
+isbn: 978-0-241-28391-2  
+year: 2016  
+pages: 288   
+rating: 3  
+tags: #{Denmark, lifestyle}
+reviewdate: 2019-04-06
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-13 | 2017-04-21 | San Francisco
+
+### review
+
+Not much to say about this one. Too simple.
+
+
+## Technopoly
+
+title: Technopoly  
+subtitle: The Surrender of Culture to Technology  
+authors: @{Neil Postman}
+isbn: 978-0-679-74540-2  
+year: 1992  
+pages: 222  
+rating: 5
+tags: #{techonlogy, culture}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-04-25 | 2017-04-30 | San Francisco
+
+## review
+
+One of the books that I'll want to reread. Very relevant nowadays.
+
+
+## The Book by Alan Watts
+
+title: The Book  
+subtitle: On the Taboo Against Knowing Who You Are
+authors: @{Alan Watts}
+isbn: 978-0-679-72300-4  
+year: 1966  
+pages: 160  
+rating: 4
+tags: #{Self, religion}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-05-09 | 2017-05-13 | San Francisco
+
+## review
+
+One of the great books from Alan Watts. Very human and approachable style
+
+
+## The Art of Loving
+
+title: The Art of Loving  
+authors: @{Erich Fromm}
+isbn: 978-0-06-112973-5  
+year: 1956  
+pages: 124  
+rating: 5
+tags: #{love, relationship, parents}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-05-09 | 2017-05-13 | San Francisco
+
+## review
+
+Fromm explains different types of love in easy to understand language.
+I loved this book when I've read it. So small but very dense.
+
+
+## The Little Prince
+
+title: The Little Prince  
+authors: @{Antoine de Saint-Exupéry}  
+isbn: 978-0-15-601219-5  
+year: 1943  
+pages: 86
+rating: 5  
+tags: #{adulthood, life, wisdom}
+reviewdate: 2017-05-28
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-05-13 | 2017-05-13 | San Francisco
+
+### review
+
+One of the most beautiful and simple books about life, love, death; 
+about being a child and being an adult; about friendship, people and happiness.
+
+When I was in 10th grade at school, I remember literature teacher was very enthusiastic about this book. 
+She was telling us about it all the time. 
+I didn't find it interesting back then. 
+I didn't understand the story about little prince, talking foxes, flowers and snakes. 
+Form didn't appeal to me and I probably had nothing to learn from it at that time. 
+This time was different. I would recommend this book to everyone. 
+It's a pure beauty. Just in few pages it shows what is important in life and what is not.
+
+
+## The Unbearable Lightness of Being
+
+title: The Unbearable Lightness of Being  
+authors: @{Milan Kundera}  
+isbn: 978-0-06-093213-8  
+year: 1984  
+pages: 314
+rating: 5  
+tags: #{fiction, relationship, sex, adultdery}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-05-16 | 2017-05-26 | San Francisco
+
+### review
+
+First time I've read Kundera. Very engaging read. Storyline is interesting.
+I enjoyed historical context too. Questions raised in the book were hard.
+I also liked Kundera's philosophical meditations, that reminded me of Thomas Mann style.
+
+
 ## China Disruptors
 
 title: China's Disruptors  
@@ -774,6 +1147,7 @@ year: 2015
 pages: 256  
 rating: 4  
 tags: #{China, technology, business}  
+reviewdate: 2017-06-08
 
 ### readings
 
@@ -797,6 +1171,7 @@ year: 2017
 pages: 126  
 rating: 2  
 tags: #{politics}  
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -820,6 +1195,7 @@ year: 2016
 pages: 150  
 rating: 4
 tags: #{future, capitalism, utopia}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -833,6 +1209,28 @@ Suprisingly good book. Clever idea to outline several possible future scenarios.
 Mad Max one was the one I didn't like for sure. This book made me watch a movie.
 
 
+## Man's Search for Meaning
+
+title: Man's Search for Meaning  
+authors: @{Victor Frankl}
+isbn: 978-0-8070-1429-5  
+year: 1946  
+pages: 165  
+rating: 5
+tags: #{meaning, life, purpose, senses}
+reviewdate: 2019-04-09
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2017-07-04 | 2017-07-22 | Hong Kong, San Francisco
+
+## review
+
+Must read. Classic.
+
+
 ## Mating in Captivity
 
 title: Mating in Captivity  
@@ -843,6 +1241,7 @@ year: 2007
 pages: 242  
 rating: 4
 tags: #{relationships, sex}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -866,6 +1265,7 @@ year: 2015
 pages: 256  
 rating: 4
 tags: #{biography}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -887,6 +1287,7 @@ year: 1994
 pages: 176  
 rating: 5  
 tags: #{childhood}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -909,6 +1310,7 @@ year: 2008
 pages: 264  
 rating: 4  
 tags: #{autobiography, chess}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -931,6 +1333,7 @@ year: 2014
 pages: 364  
 rating: 5  
 tags: #{economics}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -953,6 +1356,7 @@ year: 2012
 pages: 236  
 rating: 4  
 tags: #{happiness, culture}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -974,6 +1378,7 @@ year: 2016
 pages: 86  
 rating: 4  
 tags: #{science}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -997,6 +1402,7 @@ year: 2012
 pages: 252  
 rating: 5  
 tags: #{philosophy, ideas}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1018,6 +1424,7 @@ year: 1987
 pages: 150  
 rating: 4  
 tags: #{fiction}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1041,6 +1448,7 @@ year: 2018
 pages: 396  
 rating: 4  
 tags: #{brain}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1065,6 +1473,7 @@ year: 2018
 pages: 408  
 rating: 4  
 tags: #{life}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1089,6 +1498,7 @@ year: 2012
 pages: 268  
 rating: 3  
 tags: #{work}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1112,6 +1522,7 @@ year: 2016
 pages: 476  
 rating: 5  
 tags: #{philosophy, history, ideas}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1133,6 +1544,7 @@ year: 2017
 pages: 278  
 rating: 4  
 tags: #{dictionary}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1154,6 +1566,7 @@ year: 2016
 pages: 116  
 rating: 4  
 tags: #{relationships}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1175,6 +1588,7 @@ year: 2017
 pages: 94  
 rating: 4  
 tags: #{wisdom}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1196,6 +1610,7 @@ year: 2017
 pages: 107  
 rating: 4  
 tags: #{capitalism, ideas}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1218,6 +1633,7 @@ year: 2015
 pages: 102  
 rating: 3  
 tags: #{ideas}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1240,6 +1656,7 @@ year: 2007
 pages: 130  
 rating: 4  
 tags: #{therapy, childhood, psychology}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1253,7 +1670,7 @@ Recommended by my therapist. Needed to read it and I feel that it was ok,
 but as very common with some types of books one year later I can't tell anything about this one.
 
 
-## Calm
+## Calm by The School Of Life
 
 title: Calm  
 authors: @{The School of Life}
@@ -1262,6 +1679,7 @@ year: 2016
 pages: 134  
 rating: 3  
 tags: #{mental health}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1283,6 +1701,7 @@ year: 1972
 pages: 354  
 rating: 5  
 tags: #{utopia, society, ideas}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1306,6 +1725,7 @@ year: 2017
 pages: 288  
 rating: 5  
 tags: #{sex}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1328,6 +1748,7 @@ year: 2017
 pages: 126  
 rating: 4  
 tags: #{sex}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1349,6 +1770,7 @@ year: 2012
 pages: 148  
 rating: 3  
 tags: #{novel}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1370,6 +1792,7 @@ year: 2017
 pages: 45  
 rating: 3  
 tags: #{pocket}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1391,6 +1814,7 @@ year: 2013
 pages: 166  
 rating: 4  
 tags: #{communication}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1414,6 +1838,7 @@ year: 2005
 pages: 142  
 rating: 4  
 tags: #{novel}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1434,6 +1859,8 @@ isbn: 978-966-14-7841-0
 year: 2016  
 pages: 232  
 rating: 3  
+tags: #{Ukraine}
+reviewdate: 2019-04-06
 
 ### readings
 
@@ -1456,6 +1883,7 @@ isbn: 978-1-939663-38-2
 year: 1839  
 pages: 80  
 rating: 3  
+reviewdate: 2019-03-20
 
 ### readings
 
@@ -1480,6 +1908,7 @@ year: 2019
 pages: 364  
 rating: 5  
 tags: #{Polynesia, history, travel, ocean, culture}
+reviewdate: 2019-04-01
 
 ### readings
 
@@ -1504,6 +1933,7 @@ year: 2015
 pages: 302  
 rating: 5  
 tags: #{vulnerability, shame, guilt, parenting, psychology}
+reviewdate: 2019-04-07
 
 ### readings
 
@@ -1925,6 +2355,74 @@ from | to  | date       | type   | flight | aircraft
 ---- | --- | ---------- | ------ | ------ | -------------- 
 SFO  | PDX | 2015-04-18 | flight | UA464  | A320  
 PDX  | SFO | 2015-04-22 | flight | UA995  | 737-800  
+
+
+## Provo 2015
+
+from: @{San Francisco}  
+to: @{Salt Lake City, Provo}  
+purpose: React Week  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+OAK  | SLC | 2015-03-07 | flight | DL1082 | 
+SLC  | OAK | 2015-03-15 | flight | DL1082 | 
+
+
+## Cancun Second Time 2014
+
+from: @{San Francisco}  
+to: @{Cancun, Playa del Carmen}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | LAX | 2014-12-04 | flight | UA478  | A319
+LAX  | CUN | 2014-12-04 | flight | UA1276 | 737-900 
+CUN  | SFO | 2014-12-07 | flight | UA1118 | 737-900
+
+
+## NYC First Trip 2012
+
+from: @{San Francisco}  
+to: @{New York}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | JFK | 2012-06-15 | flight | DL2340 |   
+
+
+## Berlin First Trip 2011
+
+from: @{Podgorica}  
+to: @{Berlin, Berlgrade}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+BEG  | VIE | 2011-11-11 | flight | OS772  |   
+VIE  | TXL | 2011-11-11 | flight | OS291  |   
+TXL  | VIE | 2011-11-20 | flight | OS272  |   
+VIE  | BEG | 2011-11-20 | flight | OS735  |   
+
+
+## Munich and Prague 2011
+
+from: @{Podgorica}  
+to: @{Berlgrade, Munich, Prague}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+BEG  | FMM | 2011-08-23 | flight | W64105 |   
+FMM  | BEG | 2011-08-30 | flight | W64106 |   
 
 
 # quotes
@@ -2492,7 +2990,37 @@ no sugar   |     |     |     |     |     |     |
 ## week 6
 
 start: 2019-04-07  
-end: 2019-04-14
+end: 2019-04-13
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |  
+football   |     |     |     |     |     |     |  
+reading    |  ✓  |     |  ✓  |     |     |     |    
+spanish    |     |     |     |     |     |     |  
+pushups    |  ✓  |     |     |     |     |     |  
+edu event  |     |     |     |     |     |     |  
+ent event  |     |     |     |     |     |     |  
+cul event  |     |     |     |     |     |     |  
+cycling    |  ✓  |     |     |     |     |     |  
+tennis     |     |     |     |     |     |     |  
+ping-pong  |     |  ✓  |     |     |     |     |  
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |  ✓  |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |  
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 7
+
+start: 2019-04-14  
+end: 2019-04-20
 
 ### activities
 
@@ -2517,4 +3045,3 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 no alcohol |     |     |     |     |     |     |    
 no coffee  |     |     |     |     |     |     |  
 no sugar   |     |     |     |     |     |     |    
-
