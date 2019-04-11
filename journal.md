@@ -253,58 +253,49 @@ started    | finished   | locations
 Good book that shows how humane Einstein was.
 
 
-## The Black Swan
+## Sapiens
 
-title: The Black Swan  
-subtitle: The Impact of the Highly Improbable  
-authors: @{Nassim Nicholas Taleb}
-isbn: 978-0-679-60418-1  
-year: 2010  
-pages: 400
-rating: 3
-tags: #{statistics}
-reviewdate: 2017-03-05
+title: Sapiens
+subtitle: A Brief History of Humankind    
+authors: @{Yuval Noah Harari}  
+asin: B00ICN066A  
+year: 2015  
+pages: 415  
+rating: 5  
+tags: #{philosophy, wisdom, religion}  
+reviewdate: 2017-02-28
 
 ### readings
 
 started    | finished   | locations 
 ---------- | ---------- | ------------- 
-2016-03-06 | 2016-09-06 | San Francisco 
+2016-02-01 | 2016-02-23 | San Francisco 
 
 ### review
 
-Nassim Taleb seems like a very smart person but:
-
-- book was exremely long, especially to present one main idea
-- the style is quite arrogant, which I didn't enjoy at all
-
-I liked that he quoted a lot of people in his book, but because of 2 reasons stated above I'm not looking forward to read his other books. 
-It was very painful experience and took me half a year to finish it.
+With this book I finally got hooked into non-fiction.
 
 
-## Chaos Monkeys
+## Where Does The World Goes
 
-title: Chaos Monkeys  
-subtitle: Obscene Fortune and Random Failure in Silicon Valley  
-authors: @{Antonio García Martínez}
-isbn: 978-0-06-245819-3  
-year: 2016  
-pages: 533  
+title: Куди рухається світ
+authors: @{Ярослав Грицак}  
+isbn: 9789664653999  
+year: 2015  
+pages: 192  
 rating: 3  
-tags: #{startups, Silicon Valley}
-reviewdate: 2017-03-05  
+tags: #{history, sociedty, modernity}  
+reviewdate: 2017-02-28
 
 ### readings
 
 started    | finished   | locations 
 ---------- | ---------- | ------------- 
-2016-08-01 | 2016-08-21 | San Francisco 
+2016-02-23 | 2016-02-23 | San Francisco 
 
 ### review
 
-Good read if you want to have insight about life of startup founder, product manager/engineer in the Silicon Valley. Has a lot of pretty intimate details and a lot of humor (but not the type I like).
-
-The book itself is too long. Easily can be done in 10 blog posts or shorter stories.
+One day read. Good book for Ukrainian market but not a break through global-wise.
 
 
 ## Siddhartha
@@ -316,7 +307,7 @@ year: 1922
 pages: 136  
 rating: 5  
 tags: #{philosophy, wisdom, religion}  
-reviewdate: 2017-02-28
+reviewdate: 2019-04-10
 
 ### readings
 
@@ -354,6 +345,50 @@ Bruce Lee connects East and West.
 
 Reminds me of Meditations by Marcus Aurelius. 
 It's both a diary and collecion of insights that can be open and read any day.
+
+
+## The Stranger
+
+title: The Stranger  
+authors: @{Albert Camus}  
+isbn: 978-1-4629-1792-1  
+year: 1942  
+pages: 123  
+rating: 3  
+tags: #{novel, meditations}
+reviewdate: 2019-04-10
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-19 | 2016-03-21 | San Francisco 
+
+### review
+
+Very unsusual book on unsual topic. I guess reminds other works from Camus.
+
+
+## The Prophet
+
+title: The Prophet  
+authors: @{Kahlil Gibran}  
+isbn: 9780001000391  
+year: 1923  
+pages: 127  
+rating: 5  
+tags: #{wisdom}
+reviewdate: 2019-04-10
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-22 | 2016-03-22 | San Francisco 
+
+### review
+
+Beautiful book. The one to read multiple times during the life.
 
 
 ## Bertrand Russell's Best
@@ -476,6 +511,60 @@ Book describes habits of individuals, organizations and societies.
 It was interesting to read, but at the end I didn't get many insights that would remain with me for a long time.
 
 The book easily could have been shorter.
+
+
+## The Black Swan
+
+title: The Black Swan  
+subtitle: The Impact of the Highly Improbable  
+authors: @{Nassim Nicholas Taleb}
+isbn: 978-0-679-60418-1  
+year: 2010  
+pages: 400
+rating: 3
+tags: #{statistics}
+reviewdate: 2017-03-05
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-03-06 | 2016-09-06 | San Francisco 
+
+### review
+
+Nassim Taleb seems like a very smart person but:
+
+- book was exremely long, especially to present one main idea
+- the style is quite arrogant, which I didn't enjoy at all
+
+I liked that he quoted a lot of people in his book, but because of 2 reasons stated above I'm not looking forward to read his other books. 
+It was very painful experience and took me half a year to finish it.
+
+
+## Chaos Monkeys
+
+title: Chaos Monkeys  
+subtitle: Obscene Fortune and Random Failure in Silicon Valley  
+authors: @{Antonio García Martínez}
+isbn: 978-0-06-245819-3  
+year: 2016  
+pages: 533  
+rating: 3  
+tags: #{startups, Silicon Valley}
+reviewdate: 2017-03-05  
+
+### readings
+
+started    | finished   | locations 
+---------- | ---------- | ------------- 
+2016-08-01 | 2016-08-21 | San Francisco 
+
+### review
+
+Good read if you want to have insight about life of startup founder, product manager/engineer in the Silicon Valley. Has a lot of pretty intimate details and a lot of humor (but not the type I like).
+
+The book itself is too long. Easily can be done in 10 blog posts or shorter stories.
 
 
 ## Brave New World
@@ -776,7 +865,7 @@ People of all ages can appreciate and visualize even the most complex social cha
 
 It seems that Orwell did describe Russian revolution very closely with fall of the capitalist empire, communist revolution, Marx, collectivization, fight between Trotsky and Stalin, dictatorship and full counter-revolution and come back to the similar state as it was before 1917 but with a different name.
 
-Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them. 
+Also, it seems, that even if it accounts for the Russian revolution, the pattern is the same for all them.
 This book is a reminder to us how events usually unfold and what happens at the end. 
 And what kind of people typically end-up on top in any system regarding of the title.
 
@@ -882,12 +971,12 @@ started    | finished   | locations
 
 ### review
 
-Havel is a role model. 
-He shows us what a public figure, a politician and a citizen can be. 
-He is definitely not afraid to think deeper and to express himself. 
-He is not afraid to formulate unpopular opinions. 
-He tries to understand pluses and minuses of each system. 
-E.x. he is for continous political integration, but he thinks globalization is a problem. 
+Havel is a role model.
+He shows us what a public figure, a politician and a citizen can be.
+He is definitely not afraid to think deeper and to express himself.
+He is not afraid to formulate unpopular opinions.
+He tries to understand pluses and minuses of each system.
+E.x. he is for continous political integration, but he thinks globalization is a problem.
 He recognized the pitfalls of both Soviet regime and consumerism society that both causes normalization and standartization of people.
 
 It was interesting for me to read his book for several reasons: 
@@ -896,14 +985,14 @@ It was interesting for me to read his book for several reasons:
 - to learn about his thoughts
 - to take a look at his diary
 
-The diary of the President was an interesting read on itself. 
+The diary of the President was an interesting read on itself.
 It contained his agenda for a lot of days and it showed him as a real simple very likable human, which is quite opposite of the politicians of the day.
 
-Havel wanted to be a role model. 
-He wanted to remind his fellow citizens of better and bigger ideals, he wanted to inspire them to improve. 
-Politicians of today mostly move in opposite direction. 
-They just represent the worst parts of our society and our people. 
-If society is corrupt, politicians are corrupt. 
+Havel wanted to be a role model.
+He wanted to remind his fellow citizens of better and bigger ideals, he wanted to inspire them to improve.
+Politicians of today mostly move in opposite direction.
+They just represent the worst parts of our society and our people.
+If society is corrupt, politicians are corrupt.
 If society is uneducated, politicians are profane.
 
 
@@ -1031,7 +1120,7 @@ started    | finished   | locations
 ---------- | ---------- | -------------
 2017-04-25 | 2017-04-30 | San Francisco
 
-## review
+### review
 
 One of the books that I'll want to reread. Very relevant nowadays.
 
@@ -1054,9 +1143,9 @@ started    | finished   | locations
 ---------- | ---------- | -------------
 2017-05-09 | 2017-05-13 | San Francisco
 
-## review
+### review
 
-One of the great books from Alan Watts. Very human and approachable style
+One of the great books from Alan Watts. Very human and approachable style.
 
 
 ## The Art of Loving
@@ -1076,7 +1165,7 @@ started    | finished   | locations
 ---------- | ---------- | -------------
 2017-05-09 | 2017-05-13 | San Francisco
 
-## review
+### review
 
 Fromm explains different types of love in easy to understand language.
 I loved this book when I've read it. So small but very dense.
@@ -1137,7 +1226,7 @@ I enjoyed historical context too. Questions raised in the book were hard.
 I also liked Kundera's philosophical meditations, that reminded me of Thomas Mann style.
 
 
-## China Disruptors
+## China's Disruptors
 
 title: China's Disruptors  
 subtitle: How Alibaba, Xiaomi, Tencent and Others Companies are Changing the Rules of Business  
@@ -1226,7 +1315,7 @@ started    | finished   | locations
 ---------- | ---------- | -------------
 2017-07-04 | 2017-07-22 | Hong Kong, San Francisco
 
-## review
+### review
 
 Must read. Classic.
 
@@ -1492,7 +1581,7 @@ I'm not sure I like him as a person, but I found it interesting to listen to his
 Book is too long however, can be twice as short.
 
 
-## So Good They Can't Ignore You
+## So Good They Cant Ignore You
 
 title: So Good They Can't Ignore You  
 subtitle: Why Skills Trump Passion in the Quest for Work You Love
@@ -1765,7 +1854,7 @@ started    | finished   | locations
 Love idea behind books like this. Important topic, simple language.
 
 
-## Žižek's Jokes
+## Žižek Jokes
 
 title: Žižek's Jokes  
 authors: @{Slavoj Žižek}
@@ -2116,7 +2205,7 @@ description: My trips
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Carbon:"]
-              [:dd {:class "dib ml1"} (->> % :carbon) " tons of CO2"]
+              [:dd {:class "dib ml1"} ((montaigne.fns/format-float (:carbon %) 2) " tons of CO2"]
             ]
             
             ]]
@@ -2265,6 +2354,33 @@ SFO  | HKG | 2017-06-29 | flight | UA869  | 777-300
 HKG  | SFO | 2017-07-10 | flight | UA862  | 777-300  
 
 
+## New York City October 2017
+
+from: @{San Francisco}  
+to: @{New York}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | JFK | 2017-10-05 | flight | AA18   | 
+JFK  | SFO | 2017-10-08 | flight | AA177  | 
+
+
+## Phoenix May 2017
+
+from: @{San Francisco}  
+to: @{Phoenix}
+purpose: wedding
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | PHX | 2017-05-19 | flight | AA649  | 
+PHX  | SFO | 2017-05-22 | flight | AA1642 | 
+
+
 ## New York City May 2017
 
 from: @{San Francisco}  
@@ -2347,6 +2463,20 @@ DEN  | STL | 2015-09-23 | flight | UA3395 | ERJ-145
 STL  | SFO | 2015-09-28 | flight | UA6421 | ERJ-170  
 
 
+## Istanbul Family Trip 2015
+
+from: @{San Francisco}  
+to: @{Istanbul}  
+purpose: family trip  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | IST | 2015-08-15 | flight | TK0080 | 
+IST  | SFO | 2015-09-01 | flight | TK0079 | 
+
+
 ## Portland First Trip 2015
 
 from: @{San Francisco}  
@@ -2361,10 +2491,24 @@ SFO  | PDX | 2015-04-18 | flight | UA464  | A320
 PDX  | SFO | 2015-04-22 | flight | UA995  | 737-800  
 
 
+## Las Vegas First Trip 2015
+
+from: @{San Francisco}  
+to: @{Las Vegas}  
+purpose: Microconf  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | LAS | 2015-04-12 | flight | UA1662 | 737-900  
+LAS  | SFO | 2015-04-15 | flight | UA1528 | 737-900  
+
+
 ## Provo 2015
 
 from: @{San Francisco}  
-to: @{Salt Lake City, Provo}  
+to: @{Salt Lake City, Provo, Park City}  
 purpose: React Week  
 
 ### itinerary
@@ -2383,10 +2527,48 @@ to: @{Cancun, Playa del Carmen}
 ### itinerary
 
 from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
+---- | --- | ---------- | ------ | ------ | ---------
 SFO  | LAX | 2014-12-04 | flight | UA478  | A319
 LAX  | CUN | 2014-12-04 | flight | UA1276 | 737-900 
 CUN  | SFO | 2014-12-07 | flight | UA1118 | 737-900
+
+
+## Macedonia 2014
+
+from: @{Istanbul}  
+to: @{Skopje}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | ---------
+SAW  | SAW | 2014-03-23 | flight | PC711  | 
+
+
+## Istanbul 2014
+
+from: @{Kharkiv}  
+to: @{Istanbul}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | ---------
+HRK  | SAW | 2014-01-26 | flight | PC751  | 
+
+
+## Washington DC First Trip 2013
+
+from: @{New York}  
+to: @{Washington DC}
+purpose: Clojure/conj  
+
+### itinerary
+
+from          | to            | date       | type  
+------------- | --------------| ---------- | ------
+New York      | Washington DC | 2013-11-13 | bus   
+Washington DC | New York      | 2013-11-17 | bus   
 
 
 ## NYC First Trip 2012
@@ -2399,6 +2581,19 @@ to: @{New York}
 from | to  | date       | type   | flight | aircraft 
 ---- | --- | ---------- | ------ | ------ | -------------- 
 SFO  | JFK | 2012-06-15 | flight | DL2340 |   
+
+
+## Leaving Montenegro
+
+from: @{Podgorica}  
+to: @{Kyiv}  
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+TGD  | BUD | 2011-12-28 | flight | MA495  | 737-600
+BUD  | KBP | 2011-12-29 | flight | MA110  | 737-800  
 
 
 ## Berlin First Trip 2011
@@ -2691,12 +2886,12 @@ location: @{San Francisco}
 
 ### content
 
-It has been almost 5 years since I moved to San Francisco.
+It has been almost 5 years since I moved to San Francisco. 
 It’s the longest stretch of time I’ve spent in a single city outside of my home country.
 
 I write some poetry as therapeutic exercise.
-I write some longer essays that might look like serious things, but they are not.
-I read books. Travel a bit.
+I write some longer essays that might look like serious things, but they are not. 
+I read books. Travel a bit. 
 Trying to find people and causes I can support.
 
 
