@@ -206,6 +206,95 @@ description: Books I've read
     ]])
 ```
 
+## Zero to One
+
+title: Zero to One  
+subtitle: Notes on Startups, or How to Build the Future  
+authors: @{Peter Thiel, Blake Masters}
+isnb: 9780804139298  
+year: 2014  
+pages: 195  
+rating: 4
+tags: #{startups}
+reviewdate: 2019-04-11
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2014-09-23 | 2014-10-01 | San Francisco
+
+### review
+
+Peter Thiel of course in controversial figure but the book is great. The best part for me was to learn about optimism of people in the 60s and how that changed few generations later. 
+
+
+## A Guide to the Good Life
+
+title: A Guide to the Good Life  
+subtitle: The Ancient Art of Stoic Joy  
+authors: @{William Irvine}
+isnb: 9780195374612  
+year: 2008  
+pages: 326  
+rating: 4
+tags: #{stoicism, wisdwom}
+reviewdate: 2019-04-11
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2014-11-10 | 2014-12-01 | San Francisco
+
+### review
+
+Great book. Recommended by a friend. Enoyed it very much. It was my intro into stoicism.
+
+
+## Gory govoriat
+
+title: Гори говорять  
+authors: @{Улас Самчук}  
+isbn: 9667112004  
+year: 1934  
+pages: 272
+rating: 4  
+tags: #{Ukraine}  
+reviewdate: 2019-04-11
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2015-01-01 | 2015-01-15 | San Francisco
+
+### review
+
+One of the best Ukrainian novels of XX century. I like Samchuk as an author.
+
+
+## Volyn
+
+title: Волинь  
+authors: @{Улас Самчук}  
+isbn: 9667631834  
+year: 1937  
+pages: 632
+rating: 4  
+tags: #{Ukraine}  
+reviewdate: 2019-04-11
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | -------------
+2015-01-15 | 2015-01-22 | San Francisco
+
+### review
+
+My second novel from Samchuk. Very engaging.
+
 
 ## Istanbul by Pamuk
 
@@ -2323,6 +2412,27 @@ from | to  | date       | type   | flight | aircraft
 SFO  | MEX | 2018-10-05 | flight | UA412  | A320  
 MEX  | TIJ | 2018-10-08 | flight | Y4813  | A320  
 SAN  | SFO | 2018-10-09 | flight | UA662  | 737-800  
+
+
+## Europe Summer 2018
+
+from: @{San Francisco}  
+to: @{Kyiv, Barcelona, Santorini, Athens, Copenhagen}
+
+### itinerary
+
+from      | to        | date       | type   | flight | aircraft 
+----------| --------- | ---------- | ------ | ------ | -------------- 
+SFO       | MUC       | 2018-08-10 | flight | LH459  | 
+MUC       | KBP       | 2018-08-11 | flight | LH2546 | 
+KBP       | BCN       |            | flight |        | 
+BCN       | ATH       | 2018-08-24 | flight | VY8100 | 
+Athens    | Santorini | 2018-08-24 | boat   |        | 
+Santorini | Athens    | 2018-08-30 | boat   |        | 
+ATH       | ARN       | 2018-09-04 | flight | A3760  | 
+ARN       |           | 2018-09-04 | flight |        | 
+CPH       | KEF       | 2018-09-05 | flight | WW903  | 
+KEF       | SFO       | 2018-09-05 | flight | WW161  | 
 
 
 ## Ukraine First Trip in Years
