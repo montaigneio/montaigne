@@ -2425,12 +2425,12 @@ from      | to        | date       | type   | flight | aircraft
 ----------| --------- | ---------- | ------ | ------ | -------------- 
 SFO       | MUC       | 2018-08-10 | flight | LH459  | 
 MUC       | KBP       | 2018-08-11 | flight | LH2546 | 
-KBP       | BCN       |            | flight |        | 
+KBP       | BCN       | 2018-08-17 | flight | PS991  | 
 BCN       | ATH       | 2018-08-24 | flight | VY8100 | 
 Athens    | Santorini | 2018-08-24 | boat   |        | 
 Santorini | Athens    | 2018-08-30 | boat   |        | 
 ATH       | ARN       | 2018-09-04 | flight | A3760  | 
-ARN       |           | 2018-09-04 | flight |        | 
+ARN       | CPH       | 2018-09-04 | flight | SK1423 | 
 CPH       | KEF       | 2018-09-05 | flight | WW903  | 
 KEF       | SFO       | 2018-09-05 | flight | WW161  | 
 
@@ -2449,6 +2449,19 @@ JFK  | MUC | 2017-11-17 | flight | LH411  | A340-600
 MUC  | KBP | 2017-11-18 | flight | LH2544 | A320  
 KBP  | FRA | 2017-11-27 | flight | LH1493 | A321  
 FRA  | SFO | 2017-11-27 | flight | LH9052 | 777-300  
+
+
+## Tijuna and San Diego First Trip 2018
+
+from: @{San Francisco}  
+to: @{San Diego, Tijuan}
+
+### itinerary
+
+from | to  | date       | type   | flight | aircraft 
+---- | --- | ---------- | ------ | ------ | -------------- 
+SFO  | SAN | 2018-02-02 | flight | VX1958 | 
+SAN  | SFO |  | flight |   | 
 
 
 ## Hong Kong Birthday Trip
