@@ -3056,7 +3056,8 @@ description: Log of my activities
             [:li.mb3
               [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
               [:div.mt1.mb0.mh0
-                [:span.f7.ml0.mb0.mr1 "from " (:from entity) " to " (:to entity)]
+                [:span.f7.ml0.mb0.mr1 "from " (->> entity :start :value) " to " (->> entity :end :value)]
+                [:span.f7.ml0.mb0.mr1 "activities " (:activities-count entity)]
               ]
               ])
           %)]
@@ -3065,6 +3066,8 @@ description: Log of my activities
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
+@activities.count: `(count (filter (fn [col-pair] (= "✓" (clojure.string/trim (second col-pair)))) %))`
+@activities-count: `(apply + (map :count (->> % :activities :value)))`
 
 ### @template
 
@@ -3100,6 +3103,10 @@ description: Log of my activities
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "End:"]
               [:dd {:class "dib ml1"} (->> % :end :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Activities:"]
+              [:dd {:class "dib ml1"} (->> % :activities-count)]
             ]
           ]]
         [:section
@@ -3342,28 +3349,59 @@ no sugar   |     |     |     |     |     |     |
 ## week 7
 
 start: 2019-04-14  
-end: 2019-04-20
+end: 2019-04-20  
 
 ### activities
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |     |     |     |     |     |     |  
-football   |     |     |     |     |     |     |  
+dance      |     |     |     |     |     |     |    
+football   |     |     |     |     |     |     |    
 reading    |     |     |     |     |     |     |    
-spanish    |     |     |     |     |     |     |  
-pushups    |     |     |     |     |     |     |  
-edu event  |     |     |     |     |     |     |  
-ent event  |     |     |     |     |     |     |  
-cul event  |     |     |     |     |     |     |  
-cycling    |     |     |     |     |     |     |  
-tennis     |     |     |     |     |     |     |  
-ping-pong  |     |     |     |     |     |     |  
+spanish    |     |     |     |     |     |     |    
+pushups    |     |     |     |     |     |     |    
+edu event  |     |     |     |     |     |     |    
+ent event  |  ✓  |     |     |     |     |     |    
+cul event  |     |     |     |     |     |     |    
+cycling    |     |     |     |     |     |     |    
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 8
+
+start: 2019-04-21  
+end: 2019-04-27  
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |    
+football   |     |     |     |     |     |     |    
+reading    |     |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |    
+pushups    |     |     |     |     |     |     |    
+edu event  |     |     |     |     |     |     |    
+ent event  |     |     |     |     |     |     |    
+cul event  |     |     |     |     |     |     |    
+cycling    |     |     |     |     |     |     |    
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
 
 ### intake
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 no alcohol |     |     |     |     |     |     |    
-no coffee  |     |     |     |     |     |     |  
+no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |    
+
