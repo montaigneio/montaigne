@@ -4,18 +4,12 @@ This is a _prototype_.
 
 Montaigne is a document system developed for keeping personal journals and wikis.
 
-It comes with document format, format parser and CLI tool to generate web site from markdown document.
+It comes with document format, format parser and CLI tool to generate web site from the markdown documents.
 
 ## TODO
 
- - [x] support for date types
- - [x] support for people, tags types
  - [ ] support for places type??
- - [x] multiline support for template properties. Only one works now
  - [ ] document evaluation order
- - [x] define dynamic columns
- - [x] render multiline as markdown
- - [x] define dynamic pages 
  - [ ] support for fully dynamic pages `# tags/{tag}`
  - [ ] define cli commands
  - [ ] `parse` should only parse, `eval` should eval code blocks

@@ -83,18 +83,13 @@
     s/unauthorized (p/rejected :unauthorized)))
 
 
-; TODO do memoization for async calls. just in case
-; https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json
 (defn get-json-private [url]
-  (println "get-json" url)
+  (println "get-json start" url)
   (let [resp (request "GET" url)
         body (.getBody resp)
         json-resp (decode body)]
-      (println "get-json-finished" url)
-      json-resp
-    
-  )
-)
+      (println "get-json finished" url)
+      json-resp))
 ;
 (def http-get-json (memoize get-json-private))
 
@@ -134,8 +129,7 @@
              (* dlon-sin dlon-sin lat1-cos lat2-cos))
         c (* 2 (atan (sqrt a) (sqrt (- 1 a))))
         distance (* EART_RADIUS_KM c)]
-        (floor distance)
-        ))
+        (floor distance)))
         
 (defn kms-to-miles [kms]
   (* kms 0.621371))        
@@ -154,7 +148,4 @@
     ; if long-haul, 10.1 ounces/miles = .0002863302 metric tonnes/mile
     (if (> 288 miles)
       (format-float (* miles 0.000416738) 2)
-      (format-float (* miles 0.0002863302) 2)
-    )
-  )
-)
+      (format-float (* miles 0.0002863302) 2))))

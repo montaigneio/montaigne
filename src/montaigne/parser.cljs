@@ -221,31 +221,31 @@
                   :type  "code"
                   :value attr-value})
             {:name  attr-name
-            :value value-as-str}
+             :value value-as-str}
             ))))
 
 (defn is-number [str-value]
   (> (js/parseInt str-value) 0))
 
 (defn is-clojure-code [value-as-str]
-    (and
-        (clojure.string/starts-with? value-as-str "```clojure")
-        (clojure.string/ends-with? value-as-str "```")))
+  (and
+    (clojure.string/starts-with? value-as-str "```clojure")
+    (clojure.string/ends-with? value-as-str "```")))
 
 (defn is-people [v]
-    (and 
-        (clojure.string/starts-with? v "@{")
-        (clojure.string/ends-with? v "}")))
+  (and 
+    (clojure.string/starts-with? v "@{")
+    (clojure.string/ends-with? v "}")))
 
 (defn is-locations [v]
-    (and 
-        (clojure.string/starts-with? v "*{")
-        (clojure.string/ends-with? v "}")))        
+  (and 
+    (clojure.string/starts-with? v "*{")
+    (clojure.string/ends-with? v "}")))        
 
 (defn is-tags [v]
-    (and 
-        (clojure.string/starts-with? v "#{")
-        (clojure.string/ends-with? v "}")))                
+  (and 
+    (clojure.string/starts-with? v "#{")
+    (clojure.string/ends-with? v "}")))                
 
 (defn parse-array [v prefix type-key]
     (let [cleaned-v (-> v (strip-prefix prefix) (strip-suffix "}"))

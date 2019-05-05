@@ -72,7 +72,6 @@
 
 (def markdown-to-html (comp output-html parse-md))
 
-
 (defn to-html
   "Parses markup into HTML."
   [markup]
@@ -81,6 +80,4 @@
     (catch js/Object e
         (println "failed to parse markdown" e)
         (println markup)
-        markup
-    )
-  ))
+        markup)))

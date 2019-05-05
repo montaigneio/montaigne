@@ -3355,14 +3355,14 @@ end: 2019-04-20
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-dance      |     |     |     |     |     |     |    
+dance      |     |     |     |     |     |  ✓  |    
 football   |     |     |     |     |     |     |    
 reading    |     |     |     |     |     |     |    
 spanish    |     |     |     |     |     |     |    
 pushups    |     |     |     |     |     |     |    
-edu event  |     |     |     |     |     |     |    
-ent event  |  ✓  |     |     |     |     |     |    
-cul event  |     |     |     |     |     |     |    
+edu event  |     |     |  ✓  |     |     |     |    
+ent event  |  ✓  |     |     |  ✓  |  ✓  |  ✓  |  ✓ 
+cul event  |     |  ✓  |     |     |     |     |    
 cycling    |     |     |     |     |     |     |    
 tennis     |     |     |     |     |     |     |    
 ping-pong  |     |     |     |     |     |     |    
@@ -3371,7 +3371,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |     |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |     |     |  ✓  |     |    
 no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |    
 
@@ -3380,6 +3380,66 @@ no sugar   |     |     |     |     |     |     |
 
 start: 2019-04-21  
 end: 2019-04-27  
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |    
+football   |     |     |     |     |     |     |    
+reading    |     |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |    
+pushups    |     |     |     |     |     |     |  ✓ 
+edu event  |     |     |     |     |     |     |    
+ent event  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
+cul event  |     |     |     |     |     |  ✓  |  ✓ 
+cycling    |     |     |     |     |     |     |  ✓ 
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |     |     |     |  ✓  |  ✓  |    
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 9
+
+start: 2019-04-28  
+end: 2019-05-04  
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |    
+football   |     |     |     |     |  ✓  |     |    
+reading    |     |     |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
+spanish    |     |     |     |     |  ✓  |     |    
+pushups    |     |     |     |  ✓  |  ✓  |  ✓  |  ✓ 
+edu event  |     |     |     |     |     |     |    
+ent event  |  ✓  |  ✓  |  ✓  |     |     |     |    
+cul event  |     |     |     |     |     |     |    
+cycling    |     |     |     |     |  ✓  |     |  ✓ 
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |     |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 10
+
+start: 2019-05-05  
+end: 2019-05-011  
 
 ### activities
 
@@ -3404,4 +3464,3 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 no alcohol |     |     |     |     |     |     |    
 no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |    
-
