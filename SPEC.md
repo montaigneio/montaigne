@@ -38,7 +38,7 @@ Entities are items inside collection. So in our example `Amusing Ourselves to De
 ...
 ```
 
-Both `collections` and `entities` support 
+Both `collections` and `entities` support:
 
  - inline attributes
  - multine attributes
@@ -62,8 +62,8 @@ In the same way we can define attributes for the entity:
 ## Amusing Ourselves to Death
 
 title: Amusing Ourselves to Death  
-Authors: Neil Postman
-ISBN: 9780143036531
+authors: Neil Postman
+isbn: 9780143036531
 
 ...
 ```

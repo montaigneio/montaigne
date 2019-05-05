@@ -14,8 +14,8 @@ description: Personal site, journal, wiki
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -49,8 +49,8 @@ description: Personal site, journal, wiki
 
 # data
 
-airports: `(:airports (montaigne.fns/http-get-json "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
 author: `"Anton Podviaznikov"`
+airports: `(:airports (montaigne.fns/http-get-json "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
 
 
 # readings
@@ -69,8 +69,8 @@ description: Books I've read
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -89,31 +89,31 @@ description: Books I've read
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} 
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
                 [:span (->> entity :title :value)]
                 [:span " by "]
                 [:span (clojure.string/join ", " (->> entity :authors :value))]
               ]
               [:div.mt1.mb0.mh0
-                [:small.f7.ml0.mb0.mr1.gray (:stars entity)]
-                (if (not (nil? (->> entity :days)))
-                  [:small.f7.ml0.mb0.mr1.gray (:days entity) " days"])
+                [:small.f7.ml0.mb0.mr1.gray (->> entity :stars :value)]
+                (if (not (nil? (->> entity :days :value)))
+                  [:small.f7.ml0.mb0.mr1.gray (->> entity :days :value) " days"])
                 (if (not (nil? (->> entity :pages :value)))
                   [:small.f7.ml0.mb0.mr1.gray (->> entity :pages :value) " pages"])
               ]
-              ])
+            ])
           (reverse %))]
       ]
     ]])
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
-@readings.duration: `(montaigne.fns/duration-in-days (:started %) (:finished %))`
-@readings.year: `(montaigne.fns/get-year (:finished %))`
+@readings.duration: `(montaigne.fns/duration-in-days (->> % :started :value) (->> % :finished :value))`
+@readings.year: `(montaigne.fns/get-year (->> % :finished :value))`
 @stars: `(apply str (repeat (->> % :rating :value) "★&nbsp;"))`
 @started: `(:started (last (->> % :readings :value)))`  
 @finished: `(:finished (last (->> % :readings :value)))`  
-@days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
+@days: `(montaigne.fns/duration-in-days (->> % :started :value) (->> % :finished :value))`  
 
 ### @template
 
@@ -127,8 +127,8 @@ description: Books I've read
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -2144,8 +2144,8 @@ description: My trips
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}]) 
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}]) 
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]
       [:script {:src "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js"}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css"}]
@@ -2168,11 +2168,11 @@ description: My trips
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
               [:div.mt1.mb0.mh0
-                [:span.f7.ml0.mb0.mr0 "from " (:started entity) " to " (:finished entity)]
-                [:span.f7.ml0.mb0.mr0 "; travelled " (:distance entity) " kms"]
-                [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float (:carbon entity) 2) " tons of CO2"]
+                [:span.f7.ml0.mb0.mr0 "from " (->> entity :started :value) " to " (->> entity :finished :value)]
+                [:span.f7.ml0.mb0.mr0 "; travelled " (->> entity :distance :value) " kms"]
+                [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float  (->> entity :carbon :value) 2) " tons of CO2"]
               ]
               ])
           %)]
@@ -2246,8 +2246,8 @@ description: My trips
 @carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
 @started: `(:date (first (->> % :itinerary :value)))`  
 @finished: `(:date (last (->> % :itinerary :value)))`  
-@days: `(montaigne.fns/duration-in-days (:started %) (:finished %))`  
-@year: `(montaigne.fns/get-year (:started %))`
+@days: `(montaigne.fns/duration-in-days (->> % :started :value) (->> % :finished :value))`  
+@year: `(montaigne.fns/get-year (->> % :started :value))`
 
 ### @template
 
@@ -2261,16 +2261,16 @@ description: My trips
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
         [:div {:class "dtc v-mid pt0"}
           [:a.link {:href "/"}
-            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}]
           ]
-        ]]
+        ]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
         [:h1.lh-title.f4.athelas (:name %)]
@@ -2278,26 +2278,24 @@ description: My trips
           [:div.pv2
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Started:"]
-              [:dd {:class "dib ml1"} (->> % :started)]
+              [:dd {:class "dib ml1"} (->> % :started :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Finished:"]
-              [:dd {:class "dib ml1"} (->> % :finished)]
+              [:dd {:class "dib ml1"} (->> % :finished :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Days:"]
-              [:dd {:class "dib ml1"} (->> % :days)]
+              [:dd {:class "dib ml1"} (->> % :days :value)]
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Distance:"]
-              [:dd {:class "dib ml1"} (->> % :distance) " km"]
+              [:dd {:class "dib ml1"} (->> % :distance :value) " km"]
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Carbon:"]
-              [:dd {:class "dib ml1"} ((montaigne.fns/format-float (:carbon %) 2) " tons of CO2"]
-            ]
-            
-            ]]
+              [:dd {:class "dib ml1"} (montaigne.fns/format-float (->> % :carbon :value) 2) " tons of CO2"]
+            ]]]
         [:section
           [:h2.f6 "itinerary"]
           [:article.lh-copy.measure
@@ -2329,9 +2327,11 @@ description: My trips
                 )
               ]
             ]
-          ]]
+          ]
+        ]
       ]
-    ]])
+    ]
+  ])
 ```
 
 
@@ -2342,10 +2342,10 @@ to: Temecula
 
 ### itinerary
 
-from | to   | date       | type   | flight | aircraft | emissions 
----- | ---- | ---------- | ------ | ------ | -------- | ---------- 
-SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 | 192.2 lbs CO2 
-SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 | 192.2 lbs CO2 
+from | to   | date       | type   | flight | aircraft 
+---- | ---- | ---------- | ------ | ------ | -------- 
+SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 
+SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 
 
 
 ### summary
@@ -2763,8 +2763,8 @@ description: My collection of quotes
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -2783,7 +2783,7 @@ description: My collection of quotes
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]])
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]])
           %)]
       ]
     ]])
@@ -2803,8 +2803,8 @@ description: My collection of quotes
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -2907,8 +2907,8 @@ description: What am I'm doing now
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -2927,7 +2927,7 @@ description: What am I'm doing now
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr1 (->> entity :location :value first) ",&nbsp;" (->> entity :date :value)]
               ]
@@ -2952,8 +2952,8 @@ description: What am I'm doing now
       [:meta {:itemprop "author" :name "author" :content %author}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -2977,7 +2977,7 @@ description: What am I'm doing now
             [:span.i {:itemprop "datePublished"} (->> % :date :value)]
           ]
         ]
-        ]    
+      ]
     ]])
 ```
 
@@ -3034,8 +3034,8 @@ description: Log of my activities
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -3054,10 +3054,10 @@ description: Log of my activities
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (:id entity)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr1 "from " (->> entity :start :value) " to " (->> entity :end :value)]
-                [:span.f7.ml0.mb0.mr1 "activities " (:activities-count entity)]
+                [:span.f7.ml0.mb0.mr1 "activities " (->> entity :activities-count :value)]
               ]
               ])
           %)]
@@ -3081,8 +3081,8 @@ description: Log of my activities
       [:title (:name %)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (:description %)))
-        [:meta {:name "description" :content (:description %)}])
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}

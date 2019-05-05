@@ -15,7 +15,6 @@ It comes with document format, format parser and CLI tool to generate web site f
  - [ ] `parse` should only parse, `eval` should eval code blocks
  - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props
  - [ ] when we parse people, places and tags we need to store them as top level index with arrays of pathes to sources. Actually we only need it for places in order to batch them
- - [ ] normalize attributes interface. Some have {:value ""} and some are just plain
  - [ ] make executable
  
 ## Ideas

@@ -354,22 +354,17 @@
 (defn parse-doc [doc]
   (println "parse doc start...")
   (let [doc-str (str doc "\n\n\n\n")
-        original-parsed (mntgn-parser doc-str)
-        ; parsed (insta/transform
-        ;           {}
-        ;           original-parsed)
-                  ]
+        original-parsed (mntgn-parser doc-str)]
         (println "parsed doc...")
         original-parsed
         ))
 
 (defn remove-code-attrs [ent]
- (reduce 
+ (reduce
   (fn [new-ent attr]
-   (if (not (= "code" (second (:type attr))))
-    (assoc new-ent (first attr) (second attr))
-    new-ent)
-  )
+    (if (not (= "code" (second (:type attr))))
+      (assoc new-ent (first attr) (second attr))
+      new-ent))
   {} ent))
 
 (defn eval-attr [ent code-value data]
@@ -378,7 +373,6 @@
   (let [code-to-eval 
           (str "(let [% " 
               (prn-str (remove-code-attrs (dissoc ent :attrs))) 
-            ; " %data " (prn-str data)
             "]" code-value ")")]
         (:value (eval-safe code-to-eval))))
 
@@ -433,7 +427,7 @@
                   (let [attr-name (keyword (:name ent-def-attr))
                         attr-val (eval-attr ent (:value ent-def-attr) data)
                         new-attr {:name attr-name :value attr-val}]
-                        (assoc ent attr-name attr-val :attrs (concat (:attrs ent) [new-attr])))
+                        (assoc ent attr-name new-attr :attrs (concat (:attrs ent) [new-attr])))
                 :else ent
             )))
         entity entity-def-attrs))
@@ -445,8 +439,7 @@
       (str "(def %" (:name collection-attr) " " (:value collection-attr) ")")
       (let [ents (map #(dissoc % :attrs) (:entities collection))]
         (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")"))
-  )
-)
+  ))
 
 ; TODO here we need to update collection attributes
 (defn evaluate-collection-attributes [collection]
@@ -455,15 +448,12 @@
     (fn [collection collection-attr]
         (println "eval collection code attr" (:type collection-attr) (keyword (:name collection-attr)))
         (if (= "code" (:type collection-attr))
-          
           (let [attr-name (keyword (:name collection-attr))
-                ; ents (map #(dissoc % :attrs) (:entities collection))
-                ; TODO we need to pass collection name and collection props to eval
                 code-to-eval (build-collection-attr-eval-code collection collection-attr)
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
                   (println "evaluated collection attr")
-                  (assoc collection attr-name attr-val :attrs (concat (:attrs collection) [new-attr])))
+                  (assoc collection attr-name new-attr :attrs (concat (:attrs collection) [new-attr])))
           ; put back original attribute
           (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
           
@@ -480,14 +470,12 @@
         (println "eval page code attr" (:type page-attr) (keyword (:name page-attr)))
         (if (= "code" (:type page-attr))
           (let [attr-name (keyword (:name page-attr))
-                ; TODO we need to path collection name and collection props to eval
                 code-to-eval
                   (str "(let [% '" (prn-str all-records) 
-                              ; " %data " (prn-str data)
                               "]" (:value page-attr) ")")
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
-                  (assoc page attr-name attr-val :attrs (concat (:attrs page) [new-attr])))
+                  (assoc page attr-name new-attr :attrs (concat (:attrs page) [new-attr])))
           ; put back original attribute
           (assoc page :attrs (concat (:attrs page) [page-attr]))
           ))
@@ -523,10 +511,6 @@
         content (->> data-collection :content second :content)
         collection-attrs (map transform-collection-attr (get-collection-attributes content))
         data-collection (evaluate-collection name content collection-attrs {})]
-      ;data collection
-      ; (println "xxx" (:name data-collection))
-      ; (println "xxx1" (:name (first (:attrs data-collection))))
-      ; (println "xxx2" (str (:value (first (:attrs data-collection)))))
       (into [] (:attrs data-collection))
       
   ))
@@ -581,21 +565,21 @@
           (if (= "index" (:name collection))
             (do
               (spit (str "public/index.html")
-                    (:template collection))
+                    (->> collection :template :value))
             )
             (do
               (mkdir-safe (str "public/" (:name collection) "/"))
               (spit (str "public/" (:name collection) "/index.html")
-                    (:template collection))
+                    (->> collection :template :value))
             )
           )
           
           (doall
             (map
               (fn [entity]
-                  (println (str "public/" (:name collection) "/" (:id entity) "/"))
-                  (mkdir-safe (str "public/" (:name collection) "/" (:id entity) "/"))
-                  (spit (str "public/" (:name collection) "/" (:id entity) "/index.html") (:template entity)))
+                  (println (str "public/" (:name collection) "/" (->> entity :id :value) "/"))
+                  (mkdir-safe (str "public/" (:name collection) "/" (->> entity :id :value) "/"))
+                  (spit (str "public/" (:name collection) "/" (->> entity :id :value) "/index.html") (->> entity :template :value)))
               (:entities collection))))
       collections
       )))
