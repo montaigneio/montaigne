@@ -108,8 +108,8 @@ description: Books I've read
 ```
 
 @id: `(montaigne.fns/slug (:name %))`  
-@readings.duration: `(montaigne.fns/duration-in-days (->> % :started :value) (->> % :finished :value))`
-@readings.year: `(montaigne.fns/get-year (->> % :finished :value))`
+@readings.duration: `(montaigne.fns/duration-in-days (->> % :started) (->> % :finished))`
+@readings.year: `(montaigne.fns/get-year (->> % :finished))`
 @stars: `(apply str (repeat (->> % :rating :value) "★&nbsp;"))`
 @started: `(:started (last (->> % :readings :value)))`  
 @finished: `(:finished (last (->> % :readings :value)))`  
@@ -2236,11 +2236,16 @@ description: My trips
 @id: `(montaigne.fns/slug (:name %))`  
 @itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %airports)))`
 @itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %airports)))`
+@itinerary.country-from: `(:country (:airport-from %))`
+@itinerary.city-from: `(:city (:airport-from %))`
+@itinerary.country-to: `(:country (:airport-to %))`
+@itinerary.city-to: `(:city (:airport-to %))`
 @itinerary.airport-from-lon: `(:lon (:airport-from %))`
 @itinerary.airport-from-lat: `(:lat (:airport-from %))`
 @itinerary.airport-to-lon: `(:lon (:airport-to %))`
 @itinerary.airport-to-lat: `(:lat (:airport-to %))`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
+@itinerary.duration: `(:date %prev)`
 @itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
 @carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
@@ -2309,7 +2314,14 @@ description: My trips
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "flight"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "aircraft"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "distance"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "country from"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "city from"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "country to"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "city to"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "layover"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "duration"]
+]
               ]
               [:tbody {:class "lh-copy"}
                 (map
@@ -2322,7 +2334,13 @@ description: My trips
                       [:td (->> row :flight)]
                       [:td (->> row :aircraft)]
                       [:td (->> row :distance)]
-                      [:td (->> row :carbon)]])
+                      [:td (->> row :carbon)]
+                      [:td (->> row :country-from)]
+                      [:td (->> row :city-from)]
+                      [:td (->> row :country-to)]
+                      [:td (->> row :city-to)]
+                      [:td (->> row :layover)]
+                      [:td (->> row :duration)]])
                   (->> % :itinerary :value)
                 )
               ]
@@ -2337,8 +2355,7 @@ description: My trips
 
 ## Temecula Feb 2019
 
-from: San Francisco  
-to: Temecula
+type: work  
 
 ### itinerary
 
@@ -2355,8 +2372,6 @@ First time in this part of SoCal. Didn't do much since it was work event.
 
 ## Vail Feb 2019
 
-from: San Francisco  
-to: Vail  
 type: friends  
 
 ### itinerary
@@ -2373,24 +2388,22 @@ First time in Colorado. Great weather, great slops - exactly as I like.
 
 ## Buenos Aires and Paris
 
-from: *{San Francisco}$  
-to: *{Buenos Aires, New York, Paris}
+type: tourism  
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200 
-EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400 
-EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600 
-MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS 
-CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9 
+from | to  | date       | type   | flight | aircraft       | city-to  | layover 
+---- | --- | ---------- | ------ | ------ | -------------- | -------- | -------- 
+SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200        | New York |  
+EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400        |          |  
+EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600       |          | true 
+MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS |          |  
+CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9          |          |  
 
 
 ## Tijuana 2018 Last Trip
 
-from: *{San Francisco}  
-to: *{San Diego, Tijuana}
+type: tourism  
 
 ### itinerary
 
@@ -2402,8 +2415,7 @@ SAN  | SFO | 2018-11-15 | flight | UA334  | 737-900
 
 ## Mexico City and Tijuana 2018
 
-from: *{San Francisco}  
-to: *{Mexico City, Tijuana, San Diego}
+type: tourism  
 
 ### itinerary
 
@@ -2416,8 +2428,7 @@ SAN  | SFO | 2018-10-09 | flight | UA662  | 737-800
 
 ## Europe Summer 2018
 
-from: @{San Francisco}  
-to: @{Kyiv, Barcelona, Santorini, Athens, Copenhagen}
+type: family  
 
 ### itinerary
 
@@ -2437,8 +2448,7 @@ KEF       | SFO       | 2018-09-05 | flight | WW161  |
 
 ## Ukraine First Trip in Years
 
-from: @{San Francisco}  
-to: @{Kyiv, Kharkiv}
+type: family  
 
 ### itinerary
 
@@ -2451,10 +2461,14 @@ KBP  | FRA | 2017-11-27 | flight | LH1493 | A321
 FRA  | SFO | 2017-11-27 | flight | LH9052 | 777-300  
 
 
+### summary
+
+Add train to Kharkiv
+
+
 ## Tijuna and San Diego First Trip 2018
 
-from: @{San Francisco}  
-to: @{San Diego, Tijuan}
+type: friends and work  
 
 ### itinerary
 
@@ -2466,8 +2480,7 @@ SAN  | SFO |  | flight |   |
 
 ## Hong Kong Birthday Trip
 
-from: @{San Francisco}  
-to: @{Hong Kong}
+type: tourism  
 
 ### itinerary
 
@@ -2479,8 +2492,7 @@ HKG  | SFO | 2017-07-10 | flight | UA862  | 777-300
 
 ## New York City October 2017
 
-from: @{San Francisco}  
-to: @{New York}
+type: tourism  
 
 ### itinerary
 
@@ -2492,8 +2504,6 @@ JFK  | SFO | 2017-10-08 | flight | AA177  |
 
 ## Phoenix May 2017
 
-from: @{San Francisco}  
-to: @{Phoenix}
 purpose: wedding
 
 ### itinerary
@@ -2506,8 +2516,7 @@ PHX  | SFO | 2017-05-22 | flight | AA1642 |
 
 ## New York City May 2017
 
-from: @{San Francisco}  
-to: @{New York}
+type: friends  
 
 ### itinerary
 
@@ -2517,10 +2526,13 @@ SFO  | JFK | 2017-05-04 | flight | DL1144 | 717-200
 JFK  | SFO | 2017-05-11 | flight | DL426  | A320  
 
 
-## Indonesia 2017
+## Gili and Bali 2017
 
-from: @{San Francisco}  
-to: @{Singapore, Bali, Gili}
+type: tourism  
+
+### summary
+
+Add boat ride to Gili
 
 ### itinerary
 
@@ -2534,8 +2546,7 @@ SIN  | SFO | 2017-04-09 | flight | SQ2    | 777-300
 
 ## Hong Kong Second Trip
 
-from: @{San Francisco}  
-to: @{Hong Kong}
+type: tourism  
 
 ### itinerary
 
@@ -2547,8 +2558,7 @@ HKG  | SFO | 2016-11-07 | flight | CX0870 | 777-300
 
 ## Hong Kong First Trip 2016
 
-from: @{San Francisco}  
-to: @{Hong Kong}
+type: tourism  
 
 ### itinerary
 
@@ -2560,8 +2570,7 @@ HKG  | SFO | 2016-09-06 | flight | CX0892 | A350-900
 
 ## London First Trip 2016
 
-from: @{San Francisco}  
-to: @{London}
+type: tourism  
 
 ### itinerary
 
@@ -2573,8 +2582,6 @@ LHR  | SFO | 2016-05-15 | flight | OS7857 | 777-200
 
 ## STL 2015
 
-from: @{San Francisco}  
-to: @{St. Louis}  
 purpose: StrangeLoop conference  
 
 ### itinerary
@@ -2588,8 +2595,6 @@ STL  | SFO | 2015-09-28 | flight | UA6421 | ERJ-170
 
 ## Istanbul Family Trip 2015
 
-from: @{San Francisco}  
-to: @{Istanbul}  
 purpose: family trip  
 
 ### itinerary
@@ -2602,8 +2607,6 @@ IST  | SFO | 2015-09-01 | flight | TK0079 |
 
 ## Portland First Trip 2015
 
-from: @{San Francisco}  
-to: @{Portland}  
 purpose: Clojure/West conference  
 
 ### itinerary
@@ -2616,8 +2619,6 @@ PDX  | SFO | 2015-04-22 | flight | UA995  | 737-800
 
 ## Las Vegas First Trip 2015
 
-from: @{San Francisco}  
-to: @{Las Vegas}  
 purpose: Microconf  
 
 ### itinerary
@@ -2630,8 +2631,6 @@ LAS  | SFO | 2015-04-15 | flight | UA1528 | 737-900
 
 ## Provo 2015
 
-from: @{San Francisco}  
-to: @{Salt Lake City, Provo, Park City}  
 purpose: React Week  
 
 ### itinerary
@@ -2642,10 +2641,9 @@ OAK  | SLC | 2015-03-07 | flight | DL1082 |
 SLC  | OAK | 2015-03-15 | flight | DL1082 | 
 
 
-## Cancun Second Time 2014
+## Cancun and Playa del Carmen Second Time 2014
 
-from: @{San Francisco}  
-to: @{Cancun, Playa del Carmen}  
+type: tourism  
 
 ### itinerary
 
@@ -2656,10 +2654,14 @@ LAX  | CUN | 2014-12-04 | flight | UA1276 | 737-900
 CUN  | SFO | 2014-12-07 | flight | UA1118 | 737-900
 
 
+### summary
+
+Add Playa del Carmen bus
+
+
 ## Macedonia 2014
 
-from: @{Istanbul}  
-to: @{Skopje}  
+type: tourism  
 
 ### itinerary
 
@@ -2670,8 +2672,7 @@ SAW  | SAW | 2014-03-23 | flight | PC711  |
 
 ## Istanbul 2014
 
-from: @{Kharkiv}  
-to: @{Istanbul}  
+type: tourism  
 
 ### itinerary
 
@@ -2682,8 +2683,6 @@ HRK  | SAW | 2014-01-26 | flight | PC751  |
 
 ## Washington DC First Trip 2013
 
-from: @{New York}  
-to: @{Washington DC}
 purpose: Clojure/conj  
 
 ### itinerary
@@ -2696,8 +2695,7 @@ Washington DC | New York      | 2013-11-17 | bus
 
 ## NYC First Trip 2012
 
-from: @{San Francisco}  
-to: @{New York}  
+type: tourism  
 
 ### itinerary
 
@@ -2708,21 +2706,19 @@ SFO  | JFK | 2012-06-15 | flight | DL2340 |
 
 ## Leaving Montenegro
 
-from: @{Podgorica}  
-to: @{Kyiv}  
+type: tourism  
 
 ### itinerary
 
 from | to  | date       | type   | flight | aircraft 
 ---- | --- | ---------- | ------ | ------ | -------------- 
-TGD  | BUD | 2011-12-28 | flight | MA495  | 737-600
+TGD  | BUD | 2011-12-28 | flight | MA495  | 737-600  
 BUD  | KBP | 2011-12-29 | flight | MA110  | 737-800  
 
 
 ## Berlin First Trip 2011
 
-from: @{Podgorica}  
-to: @{Berlin, Berlgrade}  
+purpose: Google Dev Conf  
 
 ### itinerary
 
@@ -2734,10 +2730,19 @@ TXL  | VIE | 2011-11-20 | flight | OS272  |
 VIE  | BEG | 2011-11-20 | flight | OS735  |   
 
 
+### summary
+
+Add bus ride to Belgrade.
+
+
 ## Munich and Prague 2011
 
-from: @{Podgorica}  
-to: @{Berlgrade, Munich, Prague}  
+type: tourism  
+
+### summary
+
+Add bus ride to Belgrade.
+
 
 ### itinerary
 
@@ -3439,7 +3444,37 @@ no sugar   |     |     |     |     |     |     |
 ## week 10
 
 start: 2019-05-05  
-end: 2019-05-011  
+end: 2019-05-11  
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |  ✓  |     |     |     |     |     |    
+football   |  ✓  |     |     |     |     |     |    
+reading    |  ✓  |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |    
+pushups    |  ✓  |     |     |     |     |     |    
+edu event  |     |     |     |     |     |     |    
+ent event  |     |     |     |     |     |     |    
+cul event  |     |     |     |     |     |     |    
+cycling    |     |     |     |     |     |     |    
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 11
+
+start: 2019-05-12  
+end: 2019-05-16  
 
 ### activities
 

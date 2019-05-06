@@ -377,15 +377,15 @@
         (:value (eval-safe code-to-eval))))
 
 
-(defn eval-nested-attr [record ent code-value data]
-  (debug "eval-nested-attr" record)
+(defn eval-nested-attr [row prev-row ent code-value data]
+  (debug "eval-nested-attr" row)
   (debug "eval-nested-attr-with-data" (:name data))
   (let [code-to-eval 
           (str "(let [% " 
-            (prn-str record) 
-            "%% " (prn-str (remove-code-attrs (dissoc ent :attrs)))
-            ; " %data " (prn-str data)
-            "]" code-value ")")]
+               (prn-str row) 
+               " %prev " (prn-str prev-row)
+               " %% " (prn-str (remove-code-attrs (dissoc ent :attrs)))
+               "]" code-value ")")]
         (:value (eval-safe code-to-eval))))        
 
 (defn evaluate-def-attribute-for-each-entity [plain-entities entity-def-attrs data]
@@ -402,15 +402,18 @@
                           nested-attr (keyword (second tokens))
                           code-value (:value ent-def-attr)
                           old-attr (get ent main-attr)
+                          old-attr-val (:value old-attr)
                           updated-value 
-                            (into [] 
-                              (map 
-                                (fn [row]
-                                  (let [attr-val (eval-nested-attr row ent code-value data)]
-                                    (debug "new nested attr value" attr-val)
-                                    (assoc row nested-attr attr-val))
-                                )
-                                (:value old-attr)))
+                          (into [] 
+                                (map-indexed 
+                                 (fn [idx row]
+                                   (let [
+                                         prev (if (> 0 idx) (get old-attr-val (dec idx)) nil)
+                                         attr-val (eval-nested-attr row prev ent code-value data)]
+                                     (debug "new nested attr value" attr-val)
+                                     (assoc row nested-attr attr-val))
+                                   )
+                                 old-attr-val))
                           updated-columns 
                           (if (empty? (:columns old-attr)) 
                             [] 
