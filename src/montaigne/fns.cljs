@@ -35,13 +35,23 @@
           (cue/replace #"\s+" "_")))
 
 (defn str-to-date [v]
-  (cljs-time.format/parse (cljs-time.format/formatters :date) v))
+  (try
+    (cljs-time.format/parse (cljs-time.format/formatters :date) v)
+    (catch js/Object _)))
 
 (defn duration-in-days [d1 d2]
   (if (and
-        (not (nil? d1))
-        (not (nil? d2)))
-    (inc (date-core/in-days (date-core/interval (str-to-date d1) (str-to-date d2))))))
+       (not (nil? d1))
+       (not (nil? d2))
+       (not (= "" d1))
+       (not (= "" d2))
+       )
+    (let [dd1 (str-to-date d1)
+          dd2 (str-to-date d2)]
+      (if (and
+           (not (nil? dd1))
+           (not (nil? dd2)))
+        (inc (date-core/in-days (date-core/interval dd1 dd2)))))))
 
 (defn get-year [s]
   (.getYear (str-to-date s)))

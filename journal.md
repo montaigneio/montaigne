@@ -2245,7 +2245,7 @@ description: My trips
 @itinerary.airport-to-lon: `(:lon (:airport-to %))`
 @itinerary.airport-to-lat: `(:lat (:airport-to %))`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
-@itinerary.duration: `(:date %prev)`
+@visited-cities: `(into [] (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row))})(->> % :itinerary :value)))`
 @itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
 @carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
@@ -2302,6 +2302,18 @@ description: My trips
               [:dd {:class "dib ml1"} (montaigne.fns/format-float (->> % :carbon :value) 2) " tons of CO2"]
             ]]]
         [:section
+          [:h2.f6 "visited cities"]
+          [:article.lh-copy.measure
+            (map (fn [row]
+              [:dl {:class "f6 lh-title mv2"}
+                  [:dt {:class "dib gray"} (:city row)]
+                  [:dd {:class "dib ml1"} (:days row) " days"]
+                ]
+            )(->> % :visited-cities :value))
+]
+
+        ]
+        [:section
           [:h2.f6 "itinerary"]
           [:article.lh-copy.measure
             [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
@@ -2315,12 +2327,7 @@ description: My trips
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "aircraft"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "distance"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "country from"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "city from"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "country to"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "city to"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "layover"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "duration"]
 ]
               ]
               [:tbody {:class "lh-copy"}
@@ -2335,12 +2342,7 @@ description: My trips
                       [:td (->> row :aircraft)]
                       [:td (->> row :distance)]
                       [:td (->> row :carbon)]
-                      [:td (->> row :country-from)]
-                      [:td (->> row :city-from)]
-                      [:td (->> row :country-to)]
-                      [:td (->> row :city-to)]
-                      [:td (->> row :layover)]
-                      [:td (->> row :duration)]])
+                      [:td (->> row :layover)]])
                   (->> % :itinerary :value)
                 )
               ]
