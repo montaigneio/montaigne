@@ -2334,15 +2334,15 @@ description: My trips
                 (map
                   (fn [row]
                     [:tr
-                      [:td (->> row :from)]
-                      [:td (->> row :to)]
-                      [:td (->> row :date)]
-                      [:td (->> row :type)]
-                      [:td (->> row :flight)]
-                      [:td (->> row :aircraft)]
-                      [:td (->> row :distance)]
-                      [:td (->> row :carbon)]
-                      [:td (->> row :layover)]])
+                      [:td.nowrap (->> row :from)]
+                      [:td.nowrap (->> row :to)]
+                      [:td.nowrap (->> row :date)]
+                      [:td.nowrap (->> row :type)]
+                      [:td.nowrap (->> row :flight)]
+                      [:td.nowrap (->> row :aircraft)]
+                      [:td.nowrap (->> row :distance)]
+                      [:td.nowrap (->> row :carbon)]
+                      [:td.nowrap (->> row :layover)]])
                   (->> % :itinerary :value)
                 )
               ]
@@ -2434,18 +2434,18 @@ type: family
 
 ### itinerary
 
-from      | to        | date       | type   | flight | aircraft 
-----------| --------- | ---------- | ------ | ------ | -------------- 
-SFO       | MUC       | 2018-08-10 | flight | LH459  | 
-MUC       | KBP       | 2018-08-11 | flight | LH2546 | 
-KBP       | BCN       | 2018-08-17 | flight | PS991  | 
-BCN       | ATH       | 2018-08-24 | flight | VY8100 | 
-Athens    | Santorini | 2018-08-24 | boat   |        | 
-Santorini | Athens    | 2018-08-30 | boat   |        | 
-ATH       | ARN       | 2018-09-04 | flight | A3760  | 
-ARN       | CPH       | 2018-09-04 | flight | SK1423 | 
-CPH       | KEF       | 2018-09-05 | flight | WW903  | 
-KEF       | SFO       | 2018-09-05 | flight | WW161  | 
+from      | to        | date       | type   | flight | aircraft       | layover 
+----------| --------- | ---------- | ------ | ------ | -------------- | --------
+SFO       | MUC       | 2018-08-10 | flight | LH459  |                |  
+MUC       | KBP       | 2018-08-11 | flight | LH2546 |                |  
+KBP       | BCN       | 2018-08-17 | flight | PS991  |                |  
+BCN       | ATH       | 2018-08-24 | flight | VY8100 |                |  
+Athens    | Santorini | 2018-08-24 | boat   |        |                |  
+Santorini | Athens    | 2018-08-30 | boat   |        |                |  
+ATH       | ARN       | 2018-09-04 | flight | A3760  |                | true
+ARN       | CPH       | 2018-09-04 | flight | SK1423 |                |  
+CPH       | KEF       | 2018-09-05 | flight | WW903  |                |  
+KEF       | SFO       | 2018-09-05 | flight | WW161  |                |  
 
 
 ## Ukraine First Trip in Years
@@ -3123,7 +3123,7 @@ description: Log of my activities
               [:thead
                 [:tr
                   (map (fn [column]
-                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white nowrap"} column]
                   )
                 (->> % :activities :columns))]
               ]
@@ -3132,7 +3132,7 @@ description: Log of my activities
                   [:tr
                     (map 
                       (fn [column-name]
-                        [:td (get row (keyword column-name))]
+                        [:td.nowrap (get row (keyword column-name))]
                       )
                     (->> % :activities :columns)
                     )
@@ -3150,7 +3150,7 @@ description: Log of my activities
               [:thead
                 [:tr
                   (map (fn [column]
-                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} column]
+                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white nowrap"} column]
                   )
                 (->> % :intake :columns))]
               ]
@@ -3159,7 +3159,7 @@ description: Log of my activities
                   [:tr
                     (map 
                       (fn [column-name]
-                        [:td (get row (keyword column-name))]
+                        [:td.nowrap (get row (keyword column-name))]
                       )
                     (->> % :intake :columns)
                     )
