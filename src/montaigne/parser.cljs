@@ -436,6 +436,7 @@
         entity entity-def-attrs))
     plain-entities))
 
+;; TODO when we eval collection we want to eval entitties as %ent and %coll
 (defn build-collection-attr-eval-code [collection collection-attr]
   (if (= "data" (:name collection))
       ; name of the variable will be `%prop-name`

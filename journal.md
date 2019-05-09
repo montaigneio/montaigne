@@ -50,7 +50,7 @@ description: Personal site, journal, wiki
 # data
 
 author: `"Anton Podviaznikov"`
-airports: `(:airports (montaigne.fns/http-get-json "https://cdn.rawgit.com/konsalex/Airport-Autocomplete-JS/3dbde72e/src/airports.json"))`
+airports: `(:airports (montaigne.fns/http-get-json "https://ohgodhelp.us/js/airports.json"))`
 
 
 # readings
@@ -2125,7 +2125,7 @@ started    | finished   | locations
 
 ### review
 
-I've read all of it except the last chapter in 2018, but for some reason didn't finish the book. Despite this fact I think it's very important, well written book with a lot of great insights and tons fo stories. Vulnerability was the topic I spent a lot thinking in 2018, I think Brené Brown thought it over much more than me. A lot of fresh and clear and simple ideas there.
+I've read all of it except the last chapter in 2018, but for some reason didn't finish the book. Despite this fact I think it's very important, well written book with a lot of great insights and tons fo stories. Vulnerability was the topic I spent a lot of time thinking in 2018, I think Brené Brown thought it over much more than me. A lot of fresh and clear and simple ideas there.
 
 
 # trips
@@ -2171,6 +2171,7 @@ description: My trips
               [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr0 "from " (->> entity :started :value) " to " (->> entity :finished :value)]
+                [:span.f7.ml0.mb0.mr0 "; days " (->> entity :days :value)]
                 [:span.f7.ml0.mb0.mr0 "; travelled " (->> entity :distance :value) " kms"]
                 [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float  (->> entity :carbon :value) 2) " tons of CO2"]
               ]
@@ -2204,22 +2205,31 @@ description: My trips
                         'type': 'geojson',
                         'data': {
                             'type': 'FeatureCollection',
-                            'features': [
-                              {
-                                'type': 'Feature',
-                                'geometry': {
-                                  'type': 'Point',
-                                  'coordinates': ["
-                                    (->> entity :itinerary :value first :airport-to-lon)
-                                    ","
-                                    (->> entity :itinerary :value first :airport-to-lat)
-                                  "]
-                                }
-                              }
-                            ]}},
+                            'features': ["
+                            (clojure.string/join ", " 
+                              (map 
+                              (fn [city]
+                                (if (and 
+                                  (not (nil? (:lon city)))
+                                  (not (nil? (:lat city)))
+                                  )
+                                (str "{
+                                    'type': 'Feature',
+                                    'geometry': {
+                                      'type': 'Point',
+                                      'coordinates': ["
+                                        (:lon city)
+                                        ","
+                                        (:lat city)
+                                      "]
+                                    }
+                                  }"))
+                              ) (->> entity :visited-cities :value)))
+                              
+                            "]}},
                       'paint': {
                           'circle-radius': 6,
-                          'circle-color': '#B42222'
+                          'circle-color': '#ffa3d7'
                       },
                       'filter': ['==', '$type', 'Point'],
                   });"
@@ -2236,21 +2246,22 @@ description: My trips
 @id: `(montaigne.fns/slug (:name %))`  
 @itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %airports)))`
 @itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %airports)))`
-@itinerary.country-from: `(:country (:airport-from %))`
-@itinerary.city-from: `(:city (:airport-from %))`
-@itinerary.country-to: `(:country (:airport-to %))`
-@itinerary.city-to: `(:city (:airport-to %))`
-@itinerary.airport-from-lon: `(:lon (:airport-from %))`
-@itinerary.airport-from-lat: `(:lat (:airport-from %))`
-@itinerary.airport-to-lon: `(:lon (:airport-to %))`
-@itinerary.airport-to-lat: `(:lat (:airport-to %))`
+@itinerary.country-from: `(or (->> % :airport-from :country) (last (clojure.string/split (:from %) "," )))`
+@itinerary.city-from: `(or (->> % :airport-from :city) (first (clojure.string/split (:from %) ",")))`
+@itinerary.country-to: `(->> % :airport-to :country)`
+@itinerary.city-to: `(->> % :airport-to :city)`
+@itinerary.airport-from-lon: `(->> % :airport-from :lon)`
+@itinerary.airport-from-lat: `(->> % :airport-from :lat)`
+@itinerary.airport-to-lon: `(->> % :airport-to :lon)`
+@itinerary.airport-to-lat: `(->> % :airport-to :lat)`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
-@visited-cities: `(into [] (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row))})(->> % :itinerary :value)))`
+@itinerary-without-layover: `(into [] (filter (fn [row] (clojure.string/blank? (:layover row)) ) (->> % :itinerary :value)))`
+@visited-cities: `(into [] (drop 1 (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :lat (:airport-from-lat row) :lon (:airport-from-lon row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row))})(->> % :itinerary-without-layover :value))))`
 @itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
 @carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
-@started: `(:date (first (->> % :itinerary :value)))`  
-@finished: `(:date (last (->> % :itinerary :value)))`  
+@started: `(->> % :itinerary :value first :date)`  
+@finished: `(->> % :itinerary :value last :date)`  
 @days: `(montaigne.fns/duration-in-days (->> % :started :value) (->> % :finished :value))`  
 @year: `(montaigne.fns/get-year (->> % :started :value))`
 
@@ -2306,7 +2317,7 @@ description: My trips
           [:article.lh-copy.measure
             (map (fn [row]
               [:dl {:class "f6 lh-title mv2"}
-                  [:dt {:class "dib gray"} (:city row)]
+                  [:dt {:class "dib gray"} (:city row) ", " (:country row)]
                   [:dd {:class "dib ml1"} (:days row) " days"]
                 ]
             )(->> % :visited-cities :value))
@@ -2323,10 +2334,10 @@ description: My trips
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "to"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "date"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "type"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "flight"]
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "aircraft"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "distance"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "data"]
+
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "layover"]
 ]
               ]
@@ -2338,10 +2349,9 @@ description: My trips
                       [:td.nowrap (->> row :to)]
                       [:td.nowrap (->> row :date)]
                       [:td.nowrap (->> row :type)]
-                      [:td.nowrap (->> row :flight)]
-                      [:td.nowrap (->> row :aircraft)]
                       [:td.nowrap (->> row :distance)]
                       [:td.nowrap (->> row :carbon)]
+                      [:td.nowrap (->> row :data)]
                       [:td.nowrap (->> row :layover)]])
                   (->> % :itinerary :value)
                 )
@@ -2355,16 +2365,40 @@ description: My trips
 ```
 
 
+## Volunteering in Ukraine 2019
+
+type: work  
+
+### itinerary
+
+from                | to                  | date       | type   | data   | layover 
+------------------- | ------------------- | ---------- | ------ | ------ | -------- 
+SFO                 | IST                 | 2019-04-13 | flight | TK80   | 
+IST                 | KBP                 | 2019-04-15 | flight | TK459  | 
+Kyiv, Ukraine       | Kramatorsk, Ukraine | 2019-04-18 | train  |        | 
+Kramatorsk, Ukraine | Kyiv, Ukraine       | 2019-04-18 | train  |        |  
+Kyiv, Ukraine       | Lviv, Ukraine       | 2019-04-26 | car    |        | 
+Lviv, Ukraine       | Pylypets, Ukraine   | 2019-04-27 | car    |        | 
+Pylypets, Ukraine   | Lviv, Ukraine       | 2019-04-29 | car    |        | 
+Lviv, Ukraine       | Kyiv, Ukraine       | 2019-04-30 | car    |        | 
+KBP                 | IST                 | 2019-04-30 | flight | TK460  | true
+IST                 | SFO                 | 2019-05-01 | flight | TK79   | 
+
+### summary
+
+Volunteering trip.
+
+
 ## Temecula Feb 2019
 
 type: work  
 
 ### itinerary
 
-from | to   | date       | type   | flight | aircraft 
----- | ---- | ---------- | ------ | ------ | -------- 
-SFO  | SAN  | 2019-02-24 | flight | AS1956 | A318/321 
-SAN  | SFO  | 2019-03-01 | flight | AS1969 | A318/321 
+from | to   | date       | type   | data 
+---- | ---- | ---------- | ------ | ----------------- 
+SFO  | SAN  | 2019-02-24 | flight | AS1956, A318/321 
+SAN  | SFO  | 2019-03-01 | flight | AS1969, A318/321 
 
 
 ### summary
@@ -2378,10 +2412,10 @@ type: friends
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | --------  
-SFO  | DEN | 2019-02-14 | flight | UA1013 | 777-200 
-DEN  | SFO | 2019-02-18 | flight | UA571  | 757-200 
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ---------------  
+SFO  | DEN | 2019-02-14 | flight | UA1013, 777-200 
+DEN  | SFO | 2019-02-18 | flight | UA571, 757-200 
 
 ### summary
 
@@ -2394,13 +2428,13 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft       | city-to  | layover 
----- | --- | ---------- | ------ | ------ | -------------- | -------- | -------- 
-SFO  | EWR | 2018-11-15 | flight | UA535  | 757-200        | New York |  
-EWR  | EZE | 2018-11-17 | flight | UA979  | 767-400        |          |  
-EZE  | MAD | 2018-12-23 | flight | IB6856 | A340-600       |          | true 
-MAD  | ORY | 2018-12-24 | flight | IB3436 | A320 SHARKLETS |          |  
-CDG  | OAK | 2019-01-05 | flight | DY7079 | 787-9          |          |  
+from | to  | date       | type   | data                   | city-to  | layover 
+---- | --- | ---------- | ------ | ---------------------- | -------- | -------- 
+SFO  | EWR | 2018-11-15 | flight | UA535, 757-200         | New York |  
+EWR  | EZE | 2018-11-17 | flight | UA979, 767-400         |          |  
+EZE  | MAD | 2018-12-23 | flight | IB6856, A340-600       |          |  
+MAD  | ORY | 2018-12-24 | flight | IB3436, A320 SHARKLETS |          | true 
+CDG  | OAK | 2019-01-05 | flight | DY7079, 787-9          |          |  
 
 
 ## Tijuana 2018 Last Trip
@@ -2409,10 +2443,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | SAN | 2018-10-12 | flight | UA361  | 737-900  
-SAN  | SFO | 2018-11-15 | flight | UA334  | 737-900  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | -------------
+SFO  | SAN | 2018-10-12 | flight | UA361, 737-900  
+SAN  | SFO | 2018-11-15 | flight | UA334, 737-900  
 
 
 ## Mexico City and Tijuana 2018
@@ -2421,11 +2455,11 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | MEX | 2018-10-05 | flight | UA412  | A320  
-MEX  | TIJ | 2018-10-08 | flight | Y4813  | A320  
-SAN  | SFO | 2018-10-09 | flight | UA662  | 737-800  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ---------------- 
+SFO  | MEX | 2018-10-05 | flight | UA412, A320  
+MEX  | TIJ | 2018-10-08 | flight | Y4813, A320  
+SAN  | SFO | 2018-10-09 | flight | UA662, 737-800  
 
 
 ## Europe Summer 2018
@@ -2434,18 +2468,18 @@ type: family
 
 ### itinerary
 
-from      | to        | date       | type   | flight | aircraft       | layover 
-----------| --------- | ---------- | ------ | ------ | -------------- | --------
-SFO       | MUC       | 2018-08-10 | flight | LH459  |                |  
-MUC       | KBP       | 2018-08-11 | flight | LH2546 |                |  
-KBP       | BCN       | 2018-08-17 | flight | PS991  |                |  
-BCN       | ATH       | 2018-08-24 | flight | VY8100 |                |  
-Athens    | Santorini | 2018-08-24 | boat   |        |                |  
-Santorini | Athens    | 2018-08-30 | boat   |        |                |  
-ATH       | ARN       | 2018-09-04 | flight | A3760  |                | true
-ARN       | CPH       | 2018-09-04 | flight | SK1423 |                |  
-CPH       | KEF       | 2018-09-05 | flight | WW903  |                |  
-KEF       | SFO       | 2018-09-05 | flight | WW161  |                |  
+from              | to                | date       | type   | data   | layover 
+------------------| ----------------- | ---------- | ------ | ------ | --------
+SFO               | MUC               | 2018-08-10 | flight | LH459  |  
+MUC               | KBP               | 2018-08-11 | flight | LH2546 |  
+KBP               | BCN               | 2018-08-17 | flight | PS991  |  
+BCN               | ATH               | 2018-08-24 | flight | VY8100 |  
+Athens, Greece    | Santorini, Greece | 2018-08-24 | boat   |        |  
+Santorini, Greece | Athens, Greece    | 2018-08-30 | boat   |        |  
+ATH               | ARN               | 2018-09-04 | flight | A3760  | 
+ARN               | CPH               | 2018-09-04 | flight | SK1423 | true 
+CPH               | KEF               | 2018-09-05 | flight | WW903  |  
+KEF               | SFO               | 2018-09-05 | flight | WW161  | true 
 
 
 ## Ukraine First Trip in Years
@@ -2454,13 +2488,13 @@ type: family
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | EWR | 2017-11-16 | flight | UA1796 | 777-200  
-JFK  | MUC | 2017-11-17 | flight | LH411  | A340-600  
-MUC  | KBP | 2017-11-18 | flight | LH2544 | A320  
-KBP  | FRA | 2017-11-27 | flight | LH1493 | A321  
-FRA  | SFO | 2017-11-27 | flight | LH9052 | 777-300  
+from | to  | date       | type   | data             | layover 
+---- | --- | ---------- | ------ | ---------------- | -------- 
+SFO  | EWR | 2017-11-16 | flight | UA1796, 777-200  | 
+JFK  | MUC | 2017-11-17 | flight | LH411, A340-600  | 
+MUC  | KBP | 2017-11-18 | flight | LH2544, A320     | true
+KBP  | FRA | 2017-11-27 | flight | LH1493, A321     | 
+FRA  | SFO | 2017-11-27 | flight | LH9052, 777-300  | true
 
 
 ### summary
@@ -2474,10 +2508,10 @@ type: friends and work
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | SAN | 2018-02-02 | flight | VX1958 | 
-SAN  | SFO |  | flight |   | 
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------------  
+SFO  | SAN | 2018-02-02 | flight | VX1958, A320  
+SAN  | SFO | 2018-02-10 | flight | VX1979, A320  
 
 
 ## Hong Kong Birthday Trip
@@ -2486,10 +2520,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | HKG | 2017-06-29 | flight | UA869  | 777-300  
-HKG  | SFO | 2017-07-10 | flight | UA862  | 777-300  
+from | to  | date       | type   | data
+---- | --- | ---------- | ------ | --------------
+SFO  | HKG | 2017-06-29 | flight | UA869, 777-300  
+HKG  | SFO | 2017-07-10 | flight | UA862, 777-300  
 
 
 ## New York City October 2017
@@ -2498,10 +2532,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | JFK | 2017-10-05 | flight | AA18   | 
-JFK  | SFO | 2017-10-08 | flight | AA177  | 
+from | to  | date       | type   | data  
+---- | --- | ---------- | ------ | ------
+SFO  | JFK | 2017-10-05 | flight | AA18  
+JFK  | SFO | 2017-10-08 | flight | AA177 
 
 
 ## Phoenix May 2017
@@ -2510,10 +2544,10 @@ purpose: wedding
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | PHX | 2017-05-19 | flight | AA649  | 
-PHX  | SFO | 2017-05-22 | flight | AA1642 | 
+from | to  | date       | type   | data
+---- | --- | ---------- | ------ | ------
+SFO  | PHX | 2017-05-19 | flight | AA649 
+PHX  | SFO | 2017-05-22 | flight | AA1642 
 
 
 ## New York City May 2017
@@ -2522,10 +2556,10 @@ type: friends
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | JFK | 2017-05-04 | flight | DL1144 | 717-200   
-JFK  | SFO | 2017-05-11 | flight | DL426  | A320  
+from | to  | date       | type   | data  
+---- | --- | ---------- | ------ | ---------------
+SFO  | JFK | 2017-05-04 | flight | DL1144, 717-200   
+JFK  | SFO | 2017-05-11 | flight | DL426, A320  
 
 
 ## Gili and Bali 2017
@@ -2538,12 +2572,12 @@ Add boat ride to Gili
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | SIN | 2017-03-24 | flight | SQ1    | 777-300   
-SIN  | DPS | 2017-03-25 | flight | SQ946  | A330-300  
-DPS  | SIN | 2017-04-09 | flight | SQ943  | A330-300   
-SIN  | SFO | 2017-04-09 | flight | SQ2    | 777-300  
+from | to  | date       | type   | data            | layover 
+---- | --- | ---------- | ------ | --------------- | -------------- 
+SFO  | SIN | 2017-03-24 | flight | SQ1, 777-300    | 
+SIN  | DPS | 2017-03-25 | flight | SQ946, A330-300 | true
+DPS  | SIN | 2017-04-09 | flight | SQ943, A330-300 |  
+SIN  | SFO | 2017-04-09 | flight | SQ2, 777-300    | true
 
 
 ## Hong Kong Second Trip
@@ -2552,10 +2586,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | HKG | 2016-10-29 | flight | CX0879 | 777-300  
-HKG  | SFO | 2016-11-07 | flight | CX0870 | 777-300  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ---------------- 
+SFO  | HKG | 2016-10-29 | flight | CX0879, 777-300  
+HKG  | SFO | 2016-11-07 | flight | CX0870, 777-300  
 
 
 ## Hong Kong First Trip 2016
@@ -2564,10 +2598,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | HKG | 2016-08-24 | flight | CX0873 | 777-300  
-HKG  | SFO | 2016-09-06 | flight | CX0892 | A350-900  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ----------------- 
+SFO  | HKG | 2016-08-24 | flight | CX0873, 777-300  
+HKG  | SFO | 2016-09-06 | flight | CX0892, A350-900  
 
 
 ## London First Trip 2016
@@ -2576,10 +2610,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | LHR | 2016-05-06 | flight | OS7856 | 777-200  
-LHR  | SFO | 2016-05-15 | flight | OS7857 | 777-200  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ---------------- 
+SFO  | LHR | 2016-05-06 | flight | OS7856, 777-200  
+LHR  | SFO | 2016-05-15 | flight | OS7857, 777-200  
 
 
 ## STL 2015
@@ -2588,11 +2622,11 @@ purpose: StrangeLoop conference
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | DEN | 2015-09-23 | flight | UA1736 | 737-900  
-DEN  | STL | 2015-09-23 | flight | UA3395 | ERJ-145  
-STL  | SFO | 2015-09-28 | flight | UA6421 | ERJ-170  
+from | to  | date       | type   | data            | layover
+---- | --- | ---------- | ------ | --------------- | --------
+SFO  | DEN | 2015-09-23 | flight | UA1736, 737-900 | 
+DEN  | STL | 2015-09-23 | flight | UA3395, ERJ-145 |  true
+STL  | SFO | 2015-09-28 | flight | UA6421, ERJ-170 | 
 
 
 ## Istanbul Family Trip 2015
@@ -2601,10 +2635,10 @@ purpose: family trip
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | IST | 2015-08-15 | flight | TK0080 | 
-IST  | SFO | 2015-09-01 | flight | TK0079 | 
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------ 
+SFO  | IST | 2015-08-15 | flight | TK0080 
+IST  | SFO | 2015-09-01 | flight | TK0079  
 
 
 ## Portland First Trip 2015
@@ -2613,10 +2647,10 @@ purpose: Clojure/West conference
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | PDX | 2015-04-18 | flight | UA464  | A320  
-PDX  | SFO | 2015-04-22 | flight | UA995  | 737-800  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ---------------
+SFO  | PDX | 2015-04-18 | flight | UA464, A320  
+PDX  | SFO | 2015-04-22 | flight | UA995, 737-800  
 
 
 ## Las Vegas First Trip 2015
@@ -2625,10 +2659,10 @@ purpose: Microconf
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | LAS | 2015-04-12 | flight | UA1662 | 737-900  
-LAS  | SFO | 2015-04-15 | flight | UA1528 | 737-900  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------------------- 
+SFO  | LAS | 2015-04-12 | flight | UA1662, 737-900  
+LAS  | SFO | 2015-04-15 | flight | UA1528, 737-900  
 
 
 ## Provo 2015
@@ -2637,10 +2671,10 @@ purpose: React Week
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-OAK  | SLC | 2015-03-07 | flight | DL1082 | 
-SLC  | OAK | 2015-03-15 | flight | DL1082 | 
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------
+OAK  | SLC | 2015-03-07 | flight | DL1082 
+SLC  | OAK | 2015-03-15 | flight | DL1082  
 
 
 ## Cancun and Playa del Carmen Second Time 2014
@@ -2649,11 +2683,11 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | ---------
-SFO  | LAX | 2014-12-04 | flight | UA478  | A319
-LAX  | CUN | 2014-12-04 | flight | UA1276 | 737-900 
-CUN  | SFO | 2014-12-07 | flight | UA1118 | 737-900
+from | to  | date       | type   | data            | layover 
+---- | --- | ---------- | ------ | --------------- | --------
+SFO  | LAX | 2014-12-04 | flight | UA478, A319     | 
+LAX  | CUN | 2014-12-04 | flight | UA1276, 737-900 | true 
+CUN  | SFO | 2014-12-07 | flight | UA1118, 737-900 | 
 
 
 ### summary
@@ -2661,26 +2695,16 @@ CUN  | SFO | 2014-12-07 | flight | UA1118 | 737-900
 Add Playa del Carmen bus
 
 
-## Macedonia 2014
+## Istanbul and Macedonia 2014
 
 type: tourism  
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | ---------
-SAW  | SAW | 2014-03-23 | flight | PC711  | 
-
-
-## Istanbul 2014
-
-type: tourism  
-
-### itinerary
-
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | ---------
-HRK  | SAW | 2014-01-26 | flight | PC751  | 
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------ 
+HRK  | SAW | 2014-01-26 | flight | PC751 
+SAW  | SKP | 2014-03-23 | flight | PC711  
 
 
 ## Washington DC First Trip 2013
@@ -2689,21 +2713,21 @@ purpose: Clojure/conj
 
 ### itinerary
 
-from          | to            | date       | type  
-------------- | --------------| ---------- | ------
-New York      | Washington DC | 2013-11-13 | bus   
-Washington DC | New York      | 2013-11-17 | bus   
+from                         | to                           | date       | type  
+---------------------------- | -----------------------------| ---------- | ------
+New York, United States      | Washington DC, United States | 2013-11-13 | bus   
+Washington DC, United States | New York, United States      | 2013-11-17 | bus   
 
 
-## NYC First Trip 2012
+## New York City First Trip 2012
 
 type: tourism  
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-SFO  | JFK | 2012-06-15 | flight | DL2340 |   
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | ------ 
+SFO  | JFK | 2012-06-15 | flight | DL2340    
 
 
 ## Leaving Montenegro
@@ -2712,10 +2736,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-TGD  | BUD | 2011-12-28 | flight | MA495  | 737-600  
-BUD  | KBP | 2011-12-29 | flight | MA110  | 737-800  
+from | to  | date       | type   | data 
+---- | --- | ---------- | ------ | -------------- 
+TGD  | BUD | 2011-12-28 | flight | MA495, 737-600   
+BUD  | KBP | 2011-12-29 | flight | MA110, 737-800  
 
 
 ## Berlin First Trip 2011
@@ -2724,12 +2748,12 @@ purpose: Google Dev Conf
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-BEG  | VIE | 2011-11-11 | flight | OS772  |   
-VIE  | TXL | 2011-11-11 | flight | OS291  |   
-TXL  | VIE | 2011-11-20 | flight | OS272  |   
-VIE  | BEG | 2011-11-20 | flight | OS735  |   
+from | to  | date       | type   | data  | layover
+---- | --- | ---------- | ------ | ----- | --------
+BEG  | VIE | 2011-11-11 | flight | OS772 |   
+VIE  | TXL | 2011-11-11 | flight | OS291 | true 
+TXL  | VIE | 2011-11-20 | flight | OS272 |   
+VIE  | BEG | 2011-11-20 | flight | OS735 | true 
 
 
 ### summary
@@ -2748,10 +2772,12 @@ Add bus ride to Belgrade.
 
 ### itinerary
 
-from | to  | date       | type   | flight | aircraft 
----- | --- | ---------- | ------ | ------ | -------------- 
-BEG  | FMM | 2011-08-23 | flight | W64105 |   
-FMM  | BEG | 2011-08-30 | flight | W64106 |   
+from                   | to                     | date       | type   | data   | layover     
+---------------------- | ---------------------- | ---------- | ------ | ------ | ---------
+BEG                    | FMM                    | 2011-08-23 | flight | W64105 |   
+Munich, Germany        | Prague, Czech Republic | 2011-08-24 | bus    |        | 
+Prague, Czech Republic | Munich, Germany        | 2011-08-27 | bus    |        | 
+FMM                    | BEG                    | 2011-08-30 | flight | W64106 |   
 
 
 # quotes
@@ -3113,7 +3139,7 @@ description: Log of my activities
             ]
             [:dl {:class "f6 lh-title mv2"}
               [:dt {:class "dib gray"} "Activities:"]
-              [:dd {:class "dib ml1"} (->> % :activities-count)]
+              [:dd {:class "dib ml1"} (->> % :activities-count :value)]
             ]
           ]]
         [:section
@@ -3128,16 +3154,13 @@ description: Log of my activities
                 (->> % :activities :columns))]
               ]
               [:tbody {:class "lh-copy"}
-                (map (fn [row]
-                  [:tr
-                    (map 
-                      (fn [column-name]
-                        [:td.nowrap (get row (keyword column-name))]
-                      )
-                    (->> % :activities :columns)
-                    )
-                  ]
-                  )
+                (map 
+                  (fn [row]
+                    [:tr
+                      (map 
+                        (fn [column-name]
+                          [:td.nowrap (get row (keyword column-name))])
+                      (->> % :activities :columns))])
                   (->> % :activities :value)
                 )
               ]
@@ -3149,22 +3172,18 @@ description: Log of my activities
           [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
               [:thead
                 [:tr
-                  (map (fn [column]
-                    [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white nowrap"} column]
-                  )
-                (->> % :intake :columns))]
+                  (map 
+                    (fn [column]
+                      [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white nowrap"} column])
+                  (->> % :intake :columns))]
               ]
               [:tbody {:class "lh-copy"}
                 (map (fn [row]
                   [:tr
                     (map 
                       (fn [column-name]
-                        [:td.nowrap (get row (keyword column-name))]
-                      )
-                    (->> % :intake :columns)
-                    )
-                  ]
-                  )
+                        [:td.nowrap (get row (keyword column-name))])
+                      (->> % :intake :columns))])
                   (->> % :intake :value)
                 )
               ]
@@ -3454,9 +3473,9 @@ Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |    
 football   |  ✓  |     |     |     |     |     |    
-reading    |  ✓  |     |     |     |     |     |    
+reading    |  ✓  |  ✓  |     |     |     |     |    
 spanish    |     |     |     |     |     |     |    
-pushups    |  ✓  |     |     |     |     |     |    
+pushups    |  ✓  |  ✓  |     |     |     |     |    
 edu event  |     |     |     |     |     |     |    
 ent event  |     |     |     |     |     |     |    
 cul event  |     |     |     |     |     |     |    
@@ -3468,7 +3487,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |     |     |     |     |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |    
 no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |    
 
