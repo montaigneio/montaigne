@@ -33,6 +33,8 @@ description: Personal site, journal, wiki
         [:ul {:class "ph0 pv4 mt0 list measure"}
           [:li.mb3
             [:a.link.f6.b.mb1 {:href "/readings"} "Readings"]]
+          [:li.mb3
+            [:a.link.f6.b.mb1 {:href "/poems"} "Poems"]]
           [:li.mb3  
             [:a.link.f6.b.mb1 {:href "/trips"} "Trips"]]
           [:li.mb3  
@@ -51,6 +53,173 @@ description: Personal site, journal, wiki
 
 author: `"Anton Podviaznikov"`
 airports: `(:airports (montaigne.fns/http-get-json "https://ohgodhelp.us/js/airports.json"))`
+
+
+# poems
+
+description: My poems
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+                [:span (->> entity :title :value)]
+              ]
+              [:div.mt1.mb0.mh0
+                (if (not (nil? (->> entity :date :value)))
+                  [:small.f7.ml0.mb0.mr1.gray "written on "(->> entity :date :value) " "])
+                (if (not (nil? (->> entity :locations :value)))
+                  [:small.f7.ml0.mb0.mr1.gray "in " (->> entity :locations :value)])
+              ]
+            ])
+          (reverse %))]
+      ]
+    ]])
+```
+
+@id: `(montaigne.fns/slug (:name %))`  
+
+### @template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (->> % :title :value)]
+        [:header
+          [:div.pv2
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Date:"]
+              [:dd {:class "dib ml1"} (->> % :date :value)]
+            ]
+            [:dl {:class "f6 lh-title mv2"}
+              [:dt {:class "dib gray"} "Locations:"]
+              [:dd {:class "dib ml1"} (->> % :locations :value)]
+            ]
+          ]]
+        (if (not (nil? (->> % :poem :value)))
+          [:section
+            [:article.lh-copy.measure
+              (->> % :poem :value)]])
+      ]
+    ]])
+```
+
+## A Little Prayer
+
+title: A Little Prayer  
+description: A modern prayer  
+date: 2018-01-29
+lastmod: 2018-02-23
+locations: San Francisco
+
+### poem
+
+In the senseless world  
+of bigotry and desire  
+we follow leaders  
+we do not admire.  
+
+
+We follow people  
+we didn’t elect  
+they abuse our brothers  
+that we cannot protect.  
+
+
+We do not pray  
+since there is no one to pray to  
+we do not obey  
+since there are no rules too.  
+
+
+But please, do say a little prayer  
+make a small did  
+shed a little tear  
+you’ll be happier a bit.  
+
+
+Please do avoid distractions  
+and all angry news  
+do not you live in abstractions  
+and your anxiety will be reduced.  
+
+
+Do not try to impress others  
+you’ll only lose yourself  
+and if you do not do that dear  
+there would be no one left.  
+
+
+Please always seek the Truth  
+be the best person you can  
+and after each mistake  
+stand up and be a Man.  
+
+
+Do not follow trends  
+they will come and go  
+try to make new friends  
+with them, you’ll grow.  
+
+
+When using your mind  
+don’t forget about heart  
+try being kind  
+and not hit people hard.  
+
+
+Pray, pray, pray dear  
+pray for yourself  
+it all depends on your dear  
+ability to discover sense.  
 
 
 # readings
@@ -2163,7 +2332,7 @@ description: My trips
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f3.athelas (:name %)]
+        [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]
@@ -2172,8 +2341,8 @@ description: My trips
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr0 "from " (->> entity :started :value) " to " (->> entity :finished :value)]
                 [:span.f7.ml0.mb0.mr0 "; days " (->> entity :days :value)]
-                [:span.f7.ml0.mb0.mr0 "; travelled " (->> entity :distance :value) " kms"]
-                [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float  (->> entity :carbon :value) 2) " tons of CO2"]
+                [:span.f7.ml0.mb0.mr0 "; travelled " (->> entity :distance :value) " km"]
+                [:span.f7.ml0.mb0.mr0 "; emission " (montaigne.fns/format-float  (->> entity :carbon :value) 2) " tons of CO" [:sub "2"]]
               ]
               ])
           %)]
@@ -2195,7 +2364,7 @@ description: My trips
           (apply str (map-indexed 
             (fn [idx entity]
               (str
-              "map.addLayer(
+              "\nmap.addLayer(
                     {
                       'id': '" 
                       idx
@@ -2215,6 +2384,9 @@ description: My trips
                                   )
                                 (str "{
                                     'type': 'Feature',
+                                    'properties': {
+                                      'description':'"  (:city city) "'
+                                    },
                                     'geometry': {
                                       'type': 'Point',
                                       'coordinates': ["
@@ -2237,7 +2409,36 @@ description: My trips
             )
           %))
           
-        "});"
+        "
+        
+        map.on('click', 'places', function (e) {
+          var coordinates = e.features[0].geometry.coordinates.slice();
+          var description = e.features[0].properties.description;
+          
+          // Ensure that if the map is zoomed out such that multiple
+          // copies of the feature are visible, the popup appears
+          // over the copy being pointed to.
+          while (Math.abs(e.lngLat.lng - coordinates[0]) > 180) {
+          coordinates[0] += e.lngLat.lng > coordinates[0] ? 360 : -360;
+          }
+          
+          new mapboxgl.Popup()
+          .setLngLat(coordinates)
+          .setHTML(description)
+          .addTo(map);
+        });
+        
+        // Change the cursor to a pointer when the mouse is over the places layer.
+        map.on('mouseenter', 'places', function () {
+          map.getCanvas().style.cursor = 'pointer';
+        });
+        
+        // Change it back to a pointer when it leaves.
+        map.on('mouseleave', 'places', function () {
+          map.getCanvas().style.cursor = '';
+        });
+        
+        });"
         )
       ]
     ]])
@@ -2255,8 +2456,8 @@ description: My trips
 @itinerary.airport-to-lon: `(->> % :airport-to :lon)`
 @itinerary.airport-to-lat: `(->> % :airport-to :lat)`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
-@itinerary-without-layover: `(into [] (filter (fn [row] (clojure.string/blank? (:layover row)) ) (->> % :itinerary :value)))`
-@visited-cities: `(into [] (drop 1 (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :lat (:airport-from-lat row) :lon (:airport-from-lon row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row))})(->> % :itinerary-without-layover :value))))`
+@visited-cities-with-layover: `(into [] (drop 1 (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :lat (:airport-from-lat row) :lon (:airport-from-lon row) :layover (:layover row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row)) :date-from (:date (get (->> % :itinerary :value) (dec idx))) :date-to (:date row)})(->> % :itinerary :value))))`
+@visited-cities: `(into [] (filter (fn [row] (clojure.string/blank? (:layover row)) ) (->> % :visited-cities-with-layover :value)))`
 @itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
 @carbon: `(apply + (map :carbon (->> % :itinerary :value)))`
@@ -2318,7 +2519,7 @@ description: My trips
             (map (fn [row]
               [:dl {:class "f6 lh-title mv2"}
                   [:dt {:class "dib gray"} (:city row) ", " (:country row)]
-                  [:dd {:class "dib ml1"} (:days row) " days"]
+                  [:dd {:class "dib ml1"} (:days row) " days; from " (:date-from row) " to " (:date-to row)]
                 ]
             )(->> % :visited-cities :value))
 ]
@@ -2381,7 +2582,7 @@ Kyiv, Ukraine       | Lviv, Ukraine       | 2019-04-26 | car    |        |
 Lviv, Ukraine       | Pylypets, Ukraine   | 2019-04-27 | car    |        | 
 Pylypets, Ukraine   | Lviv, Ukraine       | 2019-04-29 | car    |        | 
 Lviv, Ukraine       | Kyiv, Ukraine       | 2019-04-30 | car    |        | 
-KBP                 | IST                 | 2019-04-30 | flight | TK460  | true
+KBP                 | IST                 | 2019-04-30 | flight | TK460  | ✓
 IST                 | SFO                 | 2019-05-01 | flight | TK79   | 
 
 ### summary
@@ -2395,10 +2596,12 @@ type: work
 
 ### itinerary
 
-from | to   | date       | type   | data 
----- | ---- | ---------- | ------ | ----------------- 
-SFO  | SAN  | 2019-02-24 | flight | AS1956, A318/321 
-SAN  | SFO  | 2019-03-01 | flight | AS1969, A318/321 
+from                     | to                       | date       | type   | data              | layover
+------------------------ | ------------------------ | ---------- | ------ | ----------------- | ---------
+SFO                      | SAN                      | 2019-02-24 | flight | AS1956, A318/321  | ✓ 
+San Diego, United States | Temecula, United States  | 2019-02-24 | car    |                   | 
+Temecula, United States  | San Diego, United States | 2019-03-01 | car    |                   | 
+SAN                      | SFO                      | 2019-03-01 | flight | AS1969, A318/321  | ✓ 
 
 
 ### summary
@@ -2412,10 +2615,12 @@ type: friends
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | ---------------  
-SFO  | DEN | 2019-02-14 | flight | UA1013, 777-200 
-DEN  | SFO | 2019-02-18 | flight | UA571, 757-200 
+from                  | to                    | date       | type   | data           | layover 
+--------------------- | --------------------- | ---------- | ------ | -------------- | -------  
+SFO                   | DEN                   | 2019-02-14 | flight | UA1013, 777-200|  
+Denver, United States | Vail, United States   | 2019-02-15 | car    |                | 
+Vail, United States   | Denver, United States | 2019-02-18 | car    |                | 
+DEN                   | SFO                   | 2019-02-18 | flight | UA571, 757-200 | ✓
 
 ### summary
 
@@ -2428,13 +2633,15 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data                   | city-to  | layover 
----- | --- | ---------- | ------ | ---------------------- | -------- | -------- 
-SFO  | EWR | 2018-11-15 | flight | UA535, 757-200         | New York |  
-EWR  | EZE | 2018-11-17 | flight | UA979, 767-400         |          |  
-EZE  | MAD | 2018-12-23 | flight | IB6856, A340-600       |          |  
-MAD  | ORY | 2018-12-24 | flight | IB3436, A320 SHARKLETS |          | true 
-CDG  | OAK | 2019-01-05 | flight | DY7079, 787-9          |          |  
+from                    | to                      | date       | type   | data                   | layover 
+----------------------- | ----------------------- | ---------- | ------ | ---------------------- | ---------
+SFO                     | EWR                     | 2018-11-15 | flight | UA535, 757-200         | 
+Newark, United States   | New York, United States | 2018-11-16 | car    |                        | ✓
+New York, United States | Newark, United States   | 2018-11-17 | car    |                        | 
+EWR                     | EZE                     | 2018-11-17 | flight | UA979, 767-400         | ✓
+EZE                     | MAD                     | 2018-12-23 | flight | IB6856, A340-600       | 
+MAD                     | ORY                     | 2018-12-24 | flight | IB3436, A320 SHARKLETS | ✓ 
+CDG                     | OAK                     | 2019-01-05 | flight | DY7079, 787-9          | 
 
 
 ## Tijuana 2018 Last Trip
@@ -2443,10 +2650,12 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | -------------
-SFO  | SAN | 2018-10-12 | flight | UA361, 737-900  
-SAN  | SFO | 2018-11-15 | flight | UA334, 737-900  
+from                     | to                      | date       | type   | data           | layover 
+------------------------ | ----------------------- | ---------- | ------ | -------------- | ---------
+SFO                      | SAN                     | 2018-10-12 | flight | UA361, 737-900 | 
+San Diego, United States | Tijuana, Mexico         | 2018-10-12 | car    |                | ✓
+Tijuana, Mexico          | San Diego, United States| 2018-10-12 | car    |                | 
+SAN                      | SFO                     | 2018-10-15 | flight | UA334, 737-900 | ✓
 
 
 ## Mexico City and Tijuana 2018
@@ -2455,11 +2664,12 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | ---------------- 
-SFO  | MEX | 2018-10-05 | flight | UA412, A320  
-MEX  | TIJ | 2018-10-08 | flight | Y4813, A320  
-SAN  | SFO | 2018-10-09 | flight | UA662, 737-800  
+from            | to                       | date       | type   | data           | ✓ 
+--------------- | ------------------------ | ---------- | ------ | -------------- | --------
+SFO             | MEX                      | 2018-10-05 | flight | UA412, A320    | 
+MEX             | TIJ                      | 2018-10-08 | flight | Y4813, A320    | 
+Tijuana, Mexico | San Diego, United States | 2018-10-09 | car    |                | true
+SAN             | SFO                      | 2018-10-09 | flight | UA662, 737-800 | 
 
 
 ## Europe Summer 2018
@@ -2474,12 +2684,12 @@ SFO               | MUC               | 2018-08-10 | flight | LH459  |
 MUC               | KBP               | 2018-08-11 | flight | LH2546 |  
 KBP               | BCN               | 2018-08-17 | flight | PS991  |  
 BCN               | ATH               | 2018-08-24 | flight | VY8100 |  
-Athens, Greece    | Santorini, Greece | 2018-08-24 | boat   |        |  
-Santorini, Greece | Athens, Greece    | 2018-08-30 | boat   |        |  
+Athens, Greece    | Akrotiri, Greece  | 2018-08-24 | boat   |        | ✓
+Akrotiri, Greece  | Athens, Greece    | 2018-08-30 | boat   |        |  
 ATH               | ARN               | 2018-09-04 | flight | A3760  | 
-ARN               | CPH               | 2018-09-04 | flight | SK1423 | true 
+ARN               | CPH               | 2018-09-04 | flight | SK1423 | ✓ 
 CPH               | KEF               | 2018-09-05 | flight | WW903  |  
-KEF               | SFO               | 2018-09-05 | flight | WW161  | true 
+KEF               | SFO               | 2018-09-05 | flight | WW161  | ✓ 
 
 
 ## Ukraine First Trip in Years
@@ -2492,9 +2702,9 @@ from | to  | date       | type   | data             | layover
 ---- | --- | ---------- | ------ | ---------------- | -------- 
 SFO  | EWR | 2017-11-16 | flight | UA1796, 777-200  | 
 JFK  | MUC | 2017-11-17 | flight | LH411, A340-600  | 
-MUC  | KBP | 2017-11-18 | flight | LH2544, A320     | true
+MUC  | KBP | 2017-11-18 | flight | LH2544, A320     | ✓
 KBP  | FRA | 2017-11-27 | flight | LH1493, A321     | 
-FRA  | SFO | 2017-11-27 | flight | LH9052, 777-300  | true
+FRA  | SFO | 2017-11-27 | flight | LH9052, 777-300  | ✓
 
 
 ### summary
@@ -2572,12 +2782,14 @@ Add boat ride to Gili
 
 ### itinerary
 
-from | to  | date       | type   | data            | layover 
----- | --- | ---------- | ------ | --------------- | -------------- 
-SFO  | SIN | 2017-03-24 | flight | SQ1, 777-300    | 
-SIN  | DPS | 2017-03-25 | flight | SQ946, A330-300 | true
-DPS  | SIN | 2017-04-09 | flight | SQ943, A330-300 |  
-SIN  | SFO | 2017-04-09 | flight | SQ2, 777-300    | true
+from                | to                  | date       | type   | data            | layover 
+------------------- | ------------------- | ---------- | ------ | --------------- | -------------- 
+SFO                 | SIN                 | 2017-03-24 | flight | SQ1, 777-300    | 
+SIN                 | DPS                 | 2017-03-25 | flight | SQ946, A330-300 | ✓
+Denpasar, Indonesia | Gili, Indonesia     | 2017-03-26 | boat   |                 | 
+Gili, Indonesia     | Denpasar, Indonesia | 2017-04-07 | boat   |                 | 
+DPS                 | SIN                 | 2017-04-09 | flight | SQ943, A330-300 |  
+SIN                 | SFO                 | 2017-04-09 | flight | SQ2, 777-300    | ✓
 
 
 ## Hong Kong Second Trip
@@ -2625,7 +2837,7 @@ purpose: StrangeLoop conference
 from | to  | date       | type   | data            | layover
 ---- | --- | ---------- | ------ | --------------- | --------
 SFO  | DEN | 2015-09-23 | flight | UA1736, 737-900 | 
-DEN  | STL | 2015-09-23 | flight | UA3395, ERJ-145 |  true
+DEN  | STL | 2015-09-23 | flight | UA3395, ERJ-145 | ✓
 STL  | SFO | 2015-09-28 | flight | UA6421, ERJ-170 | 
 
 
@@ -2650,7 +2862,7 @@ purpose: Clojure/West conference
 from | to  | date       | type   | data 
 ---- | --- | ---------- | ------ | ---------------
 SFO  | PDX | 2015-04-18 | flight | UA464, A320  
-PDX  | SFO | 2015-04-22 | flight | UA995, 737-800  
+PDX  | SFO | 2015-04-22 | flight | UA995, 737-800 
 
 
 ## Las Vegas First Trip 2015
@@ -2660,9 +2872,9 @@ purpose: Microconf
 ### itinerary
 
 from | to  | date       | type   | data 
----- | --- | ---------- | ------ | ------------------- 
-SFO  | LAS | 2015-04-12 | flight | UA1662, 737-900  
-LAS  | SFO | 2015-04-15 | flight | UA1528, 737-900  
+---- | --- | ---------- | ------ | ---------------- 
+SFO  | LAS | 2015-04-12 | flight | UA1662, 737-900 
+LAS  | SFO | 2015-04-15 | flight | UA1528, 737-900 
 
 
 ## Provo 2015
@@ -2671,10 +2883,12 @@ purpose: React Week
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | ------
-OAK  | SLC | 2015-03-07 | flight | DL1082 
-SLC  | OAK | 2015-03-15 | flight | DL1082  
+from                          | to                            | date       | type   | data 
+----------------------------- | ----------------------------- | ---------- | ------ | ------
+OAK                           | SLC                           | 2015-03-07 | flight | DL1082 
+Salt Lake City, United States | Provo, United States          | 2015-03-07 | train  | 
+Provo, United States          | Salt Lake City, United States | 2015-03-15 | train  | 
+SLC                           | OAK                           | 2015-03-15 | flight | DL1082  
 
 
 ## Cancun and Playa del Carmen Second Time 2014
@@ -2683,11 +2897,13 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data            | layover 
----- | --- | ---------- | ------ | --------------- | --------
-SFO  | LAX | 2014-12-04 | flight | UA478, A319     | 
-LAX  | CUN | 2014-12-04 | flight | UA1276, 737-900 | true 
-CUN  | SFO | 2014-12-07 | flight | UA1118, 737-900 | 
+from                     | to                       | date       | type   | data            | layover 
+------------------------ | ------------------------ | ---------- | ------ | --------------- | --------
+SFO                      | LAX                      | 2014-12-04 | flight | UA478, A319     | 
+LAX                      | CUN                      | 2014-12-04 | flight | UA1276, 737-900 | ✓ 
+Cancun, Mexico           | Playa del Carmen, Mexico | 2014-12-04 | bus    |                 | 
+Playa del Carmen, Mexico | Cancun, Mexico           | 2014-12-07 | bus    |                 | 
+CUN                      | SFO                      | 2014-12-07 | flight | UA1118, 737-900 | ✓
 
 
 ### summary
@@ -2701,10 +2917,12 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | ------ 
-HRK  | SAW | 2014-01-26 | flight | PC751 
-SAW  | SKP | 2014-03-23 | flight | PC711  
+from              | to                | date       | type   | data 
+----------------- | ----------------- | ---------- | ------ | ------ 
+HRK               | SAW               | 2014-01-26 | flight | PC751 
+SAW               | SKP               | 2014-03-23 | flight | PC711  
+Skopje, Macedonia | Ohrid, Macedonia  | 2014-04-23 | bus    | 
+Ohrid, Macedonia  | Skopje, Macedonia | 2014-04-30 | bus    | 
 
 
 ## Washington DC First Trip 2013
@@ -2717,6 +2935,67 @@ from                         | to                           | date       | type
 ---------------------------- | -----------------------------| ---------- | ------
 New York, United States      | Washington DC, United States | 2013-11-13 | bus   
 Washington DC, United States | New York, United States      | 2013-11-17 | bus   
+
+
+## South America 2012-2013
+
+type: tourism  
+
+### itinerary
+
+from                      | to                        | date       | type   | data   | layover
+------------------------- | ------------------------- | ---------- | ------ | ------ | -----
+KBP                       | FRA                       | 2012-11-17 | flight | LH1493 | 
+FRA                       | GIG                       | 2012-11-17 | flight | DE6080 | ✓
+Rio de Janeiro, Brazil    | Sao Paulo, Brazil         | 2012-12-14 | bus    |        | 
+GRU                       | PTY                       | 2013-01-30 | flight | CM724  | 
+PTY                       | MEX                       | 2013-01-30 | flight | CM136  | 
+MEX                       | CUN                       | 2013-02-06 | flight | VOI712 | 
+Cancun, Mexico            | Playa del Carmen, Mexico  | 2013-02-06 | bus    |        | ✓
+Playa del Carmen, Mexico   | Cancun, Mexico           | 2013-05-04 | bus    |        | 
+CUN                       | MEX                       | 2013-05-04 | flight | 4O2317 | ✓
+MEX                       | GUA                       | 2013-05-04 | flight | 4O2912 | ✓
+Guatemala City, Guatemala | San Salvador, El Salvador | 2013-06-11 | bus    |        | 
+San Salvador, El Salvador | Tegucigalpa, Honduras     | 2013-06-22 | bus    |        | 
+Tegucigalpa, Honduras     | León, Honduras            | 2013-07-07 | bus    |        | 
+León, Honduras            | San Jose, Costa Rica      | 2013-07-21 | bus    |        | 
+San Jose, Costa Rica      | Panama City, Panama       | 2013-07-22 | bus    |        | 
+PTY                       | GYE                       | 2013-08-05 | flight | EQ505  | 
+GYE                       | UIO                       | 2013-08-05 | flight | EQ314  | ✓ 
+Quito, Ecuador            | Baños, Ecuador            | 2013-08-25 | bus    | DL2340 |  
+Baños, Ecuador            | Quito, Ecuador            | 2013-09-01 | bus    | DL2340 | 
+GRU                       | PTY                       | 2013-09-27 | flight | CM758  | 
+PTY                       | JFK                       | 2013-09-27 | flight | CM830  | ✓
+
+
+## Berlin 2012
+
+type: tourism  
+
+### summary
+
+October 14-Nov5
+
+### itinerary
+
+from                     | to                       | date       | type   | data   | layover
+------------------------ | ------------------------ | ---------- | ------ | ------ | -----
+KBP      | TXL           | 2012-10-14 | flight |  | 
+TXL      | KBP           | 2012-11-05 | flight |  | 
+
+## Balkans 2012
+
+type: tourism  
+
+### itinerary
+
+from                     | to                       | date       | type   | data   | layover
+------------------------ | ------------------------ | ---------- | ------ | ------ | -----
+Zagreb, Croatia      | Zadar, Croatia           | 2012-08-03 | bus |  | 
+Zadar, Croatia      | Split, Croatia           | 2012-08-06 | bus |  | 
+Split, Croatia      | Zagreb, Croatia           | 2012-08-14 | train |  | 
+Zagreb, Croatia      | Sarajevo, Bosnia           | 2012-08-20 | bus |  | 
+Sarajevo, Bosnia      | Podgorica, Montenegro           | 2012-09-03 | bus |  | 
 
 
 ## New York City First Trip 2012
@@ -2748,36 +3027,30 @@ purpose: Google Dev Conf
 
 ### itinerary
 
-from | to  | date       | type   | data  | layover
----- | --- | ---------- | ------ | ----- | --------
-BEG  | VIE | 2011-11-11 | flight | OS772 |   
-VIE  | TXL | 2011-11-11 | flight | OS291 | true 
-TXL  | VIE | 2011-11-20 | flight | OS272 |   
-VIE  | BEG | 2011-11-20 | flight | OS735 | true 
-
-
-### summary
-
-Add bus ride to Belgrade.
+from                  | to                    | date       | type   | data  | layover
+--------------------- | --------------------- | ---------- | ------ | ----- | --------
+Podgorica, Montenegro | Belgrade, Serbia      | 2011-11-11 | bus    |       | 
+BEG                   | VIE                   | 2011-11-11 | flight | OS772 | ✓
+VIE                   | TXL                   | 2011-11-11 | flight | OS291 | ✓ 
+TXL                   | VIE                   | 2011-11-20 | flight | OS272 |   
+VIE                   | BEG                   | 2011-11-20 | flight | OS735 | ✓ 
+Belgrade, Serbia      | Podgorica, Montenegro | 2011-11-20 | bus    |       | ✓
 
 
 ## Munich and Prague 2011
 
 type: tourism  
 
-### summary
-
-Add bus ride to Belgrade.
-
-
 ### itinerary
 
-from                   | to                     | date       | type   | data   | layover     
+from                   | to                     | date       | type   | data   | layover 
 ---------------------- | ---------------------- | ---------- | ------ | ------ | ---------
-BEG                    | FMM                    | 2011-08-23 | flight | W64105 |   
+Podgorica, Montenegro  | Belgrade, Serbia       | 2011-08-22  | bus   |        | ✓
+BEG                    | FMM                    | 2011-08-23 | flight | W64105 | ✓
 Munich, Germany        | Prague, Czech Republic | 2011-08-24 | bus    |        | 
 Prague, Czech Republic | Munich, Germany        | 2011-08-27 | bus    |        | 
-FMM                    | BEG                    | 2011-08-30 | flight | W64106 |   
+FMM                    | BEG                    | 2011-08-30 | flight | W64106 | ✓
+Belgrade, Serbia       | Podgorica, Montenegro  | 2011-08-30 | bus    |        | ✓
 
 
 # quotes

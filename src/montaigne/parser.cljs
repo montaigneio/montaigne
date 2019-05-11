@@ -371,8 +371,7 @@
   (debug "eval-attr" (:name ent))
   (debug "eval-attr-with-data" (:name data))
   (let [code-to-eval 
-          (str "(let [% " 
-              (prn-str (remove-code-attrs (dissoc ent :attrs))) 
+          (str "(let [% " (prn-str (remove-code-attrs (dissoc ent :attrs))) 
             "]" code-value ")")]
         (:value (eval-safe code-to-eval))))
 
@@ -381,8 +380,7 @@
   (debug "eval-nested-attr" row)
   (debug "eval-nested-attr-with-data" (:name data))
   (let [code-to-eval 
-          (str "(let [% " 
-               (prn-str row) 
+          (str "(let [% " (prn-str row) 
                " %prev " (prn-str prev-row)
                " %% " (prn-str (remove-code-attrs (dissoc ent :attrs)))
                "]" code-value ")")]
@@ -442,7 +440,9 @@
       ; name of the variable will be `%prop-name`
       (str "(def %" (:name collection-attr) " " (:value collection-attr) ")")
       (let [ents (map #(dissoc % :attrs) (:entities collection))]
-        (str "(let [% '" (prn-str ents) "]" (:value collection-attr) ")"))
+        (str "(let [% '" (prn-str ents)  " "
+                   "%coll " (prn-str (remove-code-attrs (dissoc collection :attrs))) "]" 
+             (:value collection-attr) ")"))
   ))
 
 ; TODO here we need to update collection attributes
@@ -501,7 +501,7 @@
           :entities entities_}
         collection (evaluate-collection-attributes collection_)]
         (debug "evaluated collection" name)
-        (debug "evaluated collection attrs" collection-attrs)
+        ; (debug "evaluated collection attrs" collection-attrs)
         collection))
 
 
@@ -515,9 +515,7 @@
         content (->> data-collection :content second :content)
         collection-attrs (map transform-collection-attr (get-collection-attributes content))
         data-collection (evaluate-collection name content collection-attrs {})]
-      (into [] (:attrs data-collection))
-      
-  ))
+      (into [] (:attrs data-collection))))
 
 
 (defn evaluate [parsed-output]
@@ -548,12 +546,8 @@
       (fn [collection-or-page]
         (if (= "page" (:type collection-or-page))
           (evaluate-page-attributes collection-or-page records data)
-          collection-or-page
-        )
-      )
-      records
-    )      
-    ))
+          collection-or-page))
+      records)))
 
 (defn mkdir-safe [dir]
   (try

@@ -54,7 +54,8 @@
         (inc (date-core/in-days (date-core/interval dd1 dd2)))))))
 
 (defn get-year [s]
-  (.getYear (str-to-date s)))
+  (->> s str-to-date .getYear)
+  )
 
 (defn html [hiccup-str]
   (serialize hiccup-str))
