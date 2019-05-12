@@ -35,6 +35,8 @@ description: Personal site, journal, wiki
             [:a.link.f6.b.mb1 {:href "/readings"} "Readings"]]
           [:li.mb3
             [:a.link.f6.b.mb1 {:href "/poems"} "Poems"]]
+          [:li.mb3
+            [:a.link.f6.b.mb1 {:href "/haiku"} "Haiku"]]
           [:li.mb3  
             [:a.link.f6.b.mb1 {:href "/trips"} "Trips"]]
           [:li.mb3  
@@ -92,16 +94,16 @@ description: My poems
           (fn [entity]
             [:li.mb3
               [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
-                [:span (->> entity :title :value)]
+                [:span (->> entity :name)]
               ]
               [:div.mt1.mb0.mh0
                 (if (not (nil? (->> entity :date :value)))
-                  [:small.f7.ml0.mb0.mr1.gray "written on "(->> entity :date :value) " "])
+                  [:small.f7.ml0.mb0.mr0.gray "written on "(->> entity :date :value) " "])
                 (if (not (nil? (->> entity :locations :value)))
-                  [:small.f7.ml0.mb0.mr1.gray "in " (->> entity :locations :value)])
+                  [:small.f7.ml0.mb0.mr0.gray "in " (->> entity :locations :value)])
               ]
             ])
-          (reverse %))]
+          (reverse (sort-by (fn [ent] (->> ent :date :value)) %)))]
       ]
     ]])
 ```
@@ -132,29 +134,24 @@ description: My poems
         ]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f4.athelas (->> % :title :value)]
-        [:header
-          [:div.pv2
-            [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Date:"]
-              [:dd {:class "dib ml1"} (->> % :date :value)]
-            ]
-            [:dl {:class "f6 lh-title mv2"}
-              [:dt {:class "dib gray"} "Locations:"]
-              [:dd {:class "dib ml1"} (->> % :locations :value)]
-            ]
-          ]]
+        [:h1.lh-title.f4.athelas (->> % :name)]
         (if (not (nil? (->> % :poem :value)))
           [:section
             [:article.lh-copy.measure
               (->> % :poem :value)]])
+        [:footer {:class "mt4 cf lh-copy measure f6"}
+          [:p.i.fr
+            [:span.i {:itemprop "locationCreated"} (->> % :locations :value)]
+            [:span "&nbsp;&nbsp;"]
+            [:span.i {:itemprop "datePublished"} (->> % :date :value)]
+          ]
+        ]
       ]
     ]])
 ```
 
 ## A Little Prayer
 
-title: A Little Prayer  
 description: A modern prayer  
 date: 2018-01-29
 lastmod: 2018-02-23
@@ -212,6 +209,625 @@ pray for yourself
 it all depends on your dear  
 ability to discover sense.  
 
+
+## Farewell
+
+description: A short farewell  
+date: 2018-02-21
+lastmod: 2018-03-14
+locations: San Francisco
+
+### poem
+
+Hey, why did you do it that way?  
+Why did you have need to betray?  
+You wanted out, and you wanted to be free  
+Why not just ask, why needed you to flee?  
+
+Why did you blame me for all the things?  
+Why did you cut your own wings?  
+Why didn’t you just stand by me?  
+Why did you kill a kid in me?  
+
+
+You wanted drugs, and sex, and love,  
+You wanted all those things above  
+And what about trust my dear?  
+It is indeed is super rare.
+
+You hide your wishes by the lie  
+And no, no, no - you can’t deny  
+You didn’t give a single try  
+You made me cry, you made me cry.  
+
+How can you be so ruthless, dear?  
+How did forget you all that fear?  
+That was denying you to live  
+I stood by you, I was your peer.  
+
+I trust you made correct decision, 
+You liberated self, I wish you well  
+I will not be sad, and I will not dwell  
+The life will not stop for me as well.  
+
+Enjoy, my dear, your new freedom.  
+Enjoy it, cause I paid the price.  
+Avoid the sadness and the boredom.  
+I’ve paid for it exactly twice.  
+
+Of course, of course, you are not a devil,  
+But you did hit me in the middle of the heart,  
+Of course, that wasn’t purely evil  
+But you did tear myself apart.  
+
+There is not much left to say,  
+All I can do is pray, pray, pray.  
+Pray for my heart, my strength, my life,  
+Of course, because I’ve lost my wife.
+
+
+## Reminder
+
+description: A short reminder
+date: 2018-12-23
+lastmod: 2018-12-24
+locations: Buenos Aires-Paris
+
+### poem
+
+Neither a rich person,  
+nor a poor.
+
+Neither an artist,  
+nor an engineer.
+
+Neither a mother of a child,  
+nor a single man.
+
+Neither a senior adult,  
+nor a teenager.
+
+Neither a party girl,  
+nor a bookworm.
+
+Neither a people person,  
+nor a hermited introvert.
+
+Neither a successful business owner,  
+nor a homeless hippie.
+
+Neither a professor,  
+nor a thug.
+
+Neither a casanova,  
+nor a virgin.
+
+Neither a monk,  
+nor a city lover.
+
+Neither a globe trotter,  
+nor a villager.
+
+Neither a President,  
+nor a cleaner.
+
+No one really knows.
+
+
+## The City
+
+description: The City of Anger and the City of Love
+date: 2017-04-16
+lastmod: 2018-01-30
+locations: San Francisco
+
+### poem
+
+In the City of Anger  
+I’ll build City of Love,  
+I’ll never surrender  
+And I’ll build my enclave.
+
+Among all that despair,  
+Among hatred and fear  
+I’ll do all repairs,  
+And I’ll plant a new tree.
+
+I’ll nourish respect,  
+I’ll escape all anxiety  
+And with my core intact  
+I’ll build new reality.
+
+I’ll grow people of peace  
+From the seeds of love,  
+And I’ll ban all injustice  
+From this godly ashram.
+
+And that City of Anger  
+is, of course, being me,  
+And that City of Love  
+is the one I want to be.
+
+
+## Trust
+
+description: On trust  
+date: 2018-10-01  
+lastmod: 2018-10-02
+locations: San Francisco
+
+### poem
+
+Why don’t you trust me?  
+Why is your default assumption betrayal?  
+If someone betrayed you doesn’t mean you should stop trusting the world or people.  
+Distrust blocks power and possibility connection and closeness.  
+It’s a border that should be crossed.  
+It builds the wall which should be broken later.  
+It all requires energy that we could spend elsewhere.  
+Why do we start from there?
+
+Why can’t you pick another default?
+
+When I see that you don’t trust me, I start questioning my trust in you.  
+I become suspicious.  
+I start questioning your decision-making and your values.  
+If betraying someone is so easy in your mind, I really start to worry that you can do it.
+
+And it drives us further away.
+
+Stop doing it.  
+Why are you so angry?  
+I thought that pain will make you kind and expose to love.  
+Why do you bite?  
+What did I do to you?
+
+I don’t want to play this catchup game gain.  
+I don’t want to prove my intentions.  
+It is boring. And words don’t mean a lot in those conversations.  
+Actions are much more important.
+
+Please change your defaults. I beg you.
+
+All this anger. I’m getting scared.  
+I know the reasons for it, of course.  
+I know those are just emotions.  
+And that they are temporary.  
+But they still have an impact on me.  
+I heard you wanted me to suffer  
+just because you felt in danger.
+
+This worries me. You instinct reaction was to hurt me,  
+But the source of your pain had nothing to do with me.  
+It was all inside you and your past.
+
+I’m afraid. I can see this fire off in the future when I’m not ready.  
+I see how you could act immediately under the emotions.  
+How you would hit me in my weakest spot.
+
+This escalates quickly.  
+Trust breeds trust.  
+Distrust breeds distrust.  
+It’s hard to build anything valuable on such foundation.  
+I’ve been there.  
+I don’t want to be afraid to speak my mind.  
+I don’t want to censor myself to prevent your emotions and  
+Actions that follow from that.
+
+I want safety. I want to know that it is safe for me to speak.  
+That my words will not cause you to act and make me suffer.
+
+I want to talk to you the same way I talk to myself.  
+That is my ultimate goal. That is what I’m looking for.  
+This is ultimate intimacy.
+
+
+## Truth
+
+description: Catching Truth  
+date: 2018-04-30
+lastmod: 2018-10-30
+locations: Berlin
+
+## poem
+
+Foolish me.  
+I thought I knew a thing.  
+Of course that arrogance comes with age and ego.
+
+Foolish me.  
+I thought I knew what life is.  
+Of course, I didn’t.  
+How could I?  
+Living in a head  
+Would not provide an answer.  
+The same is right for living in a world.  
+The Truth is always in the balance.
+
+It’s not here, and it’s not there.  
+It hides every time you try to grasp it.  
+It’s like a quark,  
+It’s opposite of what you just learned.  
+It jumps around the corner,  
+It hides from you,  
+And you always try to seek it.  
+It’s a phantom,  
+It’s a ghost that can’t bee seen.  
+The moment you grab it evaporates.  
+And you need to start from scratch.
+
+The Truth can’t be described,  
+It can’t be said in words.  
+It’s bigger than that.  
+It’s like a God, or better like water  
+That you want to take with your bare hands.  
+You feel it, you are on the grasp of it,  
+And then it’s gone.  
+It might become ice or become a cloud.  
+It will be the source of life for flower or a tree,  
+for fox or for a bee.
+
+But you would never be able to grasp the whole complexity of this.  
+How can water do this?  
+It will always be a speechless miracle.  
+Water can be calm or powerful,  
+The same is true for the Truth.  
+It holds every thing.  
+It holds polarities.  
+It contains Universe.  
+Sadness and happiness.  
+Joy and sorrow.  
+The Truth even contains falseness and lie.
+
+Catching the Truth is like catching a bird by the tail.
+
+
+## Where are you?
+
+description: How to find strength
+date: 2018-05-01
+lastmod: 2018-05-01
+locations: Berlin-San Francisco
+
+### poem
+
+Where are you Neil?  
+Where are you Vaclav?  
+If you couldn’t enlighten everyone then  
+Who would do it now?
+
+Who is even concerned nowadays with humanity?  
+Professors, presidents, directors.  
+They have no vision and no wisdom.  
+They do not seek knowledge  
+And do not love people.  
+They do not enjoy life  
+And don’t believe everyone should either.
+
+Who would guide us?  
+We have your books and we have memories.  
+But we are weak and often distracted.  
+What is the source for our strength?  
+How do we start reading again?  
+Instead of repressing our anxieties and fears  
+with alcohol and media?
+
+How did you find the strength?  
+What brought your love?  
+How do we find unity?  
+How do we find motivation?
+
+We are good only for consumption these days.  
+It sucks everything out of us.  
+It dumbs us and we are too weak and lazy to resist.
+
+Please, send us your strength.  
+How did you go against ignorance and systems?  
+Where did you get that energy?  
+Who feeded your dreams?  
+We don’t have any of them anymore.  
+Weak, dreamless, anxious, isolated creatures.  
+We only have vague memories of the great heroes.
+
+We are in pain.  
+Maybe this will unite us?  
+Maybe our pain will create collective love?  
+And love would give us energy.  
+And with energy we will seek wisdom.
+
+
+## Women
+
+description: About women
+date: 2018-09-10
+lastmod: 2018-09-29
+locations: San Francisco 
+
+### poem
+
+Woman,  
+Why did you do that?  
+I’ve been by your side all my life.
+
+I saw your tears.  
+I wanted to protect you from men.
+
+How stupid was I.  
+I despised men and adored you.
+
+First as a mother.  
+As a friend,  
+As a partner,  
+As a lover.
+
+But every time you betrayed me, woman.  
+You didn’t need my protection.  
+You didn’t care about me or value me.  
+You betrayed me and hurt me every single time.  
+And when you came back it was all too late.  
+Part of me was dead.
+
+As a mother you abandoned me.  
+I needed your protection in those rare moments.  
+But you didn’t care.  
+As a friend and lover you always went somewhere else.  
+You thought that I’m unbreakable and that you’ll always be able to return.
+
+Woman, why can’t you see?  
+I have feelings. As any other man.  
+It’s you who made me tough and emotionally inaccessible.  
+I became tough not because of men, but because of you.  
+You forced me to close my heart more and more with each year.  
+You blamed masculine nature for inaccessibility. But wasn’t you the one with whom I grew up?  
+The one I went to school with and spend my adolescence and first adult years.
+
+You were the mother.  
+You were the friend.  
+Your were the partner.  
+You were the lover.
+
+There are no one to blame for that.  
+Not a mystical nature of men.  
+We didn’t grow up on trees.  
+We were abandoned and forced to close our hearts.  
+You numbed us.
+
+And only deep understanding of life itself can help to revitalize me.
+
+Woman, I know what life is. I’ll revive my heart and show you real love.  
+Love that comes from knowing what is pain. The love that is non-judgmental and unconditional.  
+Woman, you’ll see. Past is the fuel for the love. The one who was really hurt can’t hurt no one.
+
+Woman, you are like Mother Nature.  
+Loving and deep and encompassing.  
+But you are destructive force too.  
+You are a hurricane, you are plague, you are tsunami.  
+You give life but you can take it too.
+
+This is my pledge. I finally see the duality of life. I see the need for both sexes.  
+I see the duality of each sex. I see all of that inside myself.
+
+
+# haiku
+
+description: My haiku
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %coll)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %coll)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+                [:span (->> entity :name)]
+              ]
+              [:div.lh-copy
+                (->> entity :poem :value)
+              ]
+            ])
+          (reverse (sort-by (fn [ent] (->> ent :date :value)) %)))]
+      ]
+    ]])
+```
+
+@id: `(montaigne.fns/slug (:name %))`  
+
+### @template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (->> % :name)]
+        (if (not (nil? (->> % :poem :value)))
+          [:section
+            [:article.lh-copy.measure
+              (->> % :poem :value)]])
+        [:footer {:class "mt4 cf lh-copy measure f6"}
+          [:p.i.fr
+            [:span.i {:itemprop "locationCreated"} (->> % :locations :value)]
+            [:span "&nbsp;&nbsp;"]
+            [:span.i {:itemprop "datePublished"} (->> % :date :value)]
+          ]
+        ]
+      ]
+    ]])
+```
+
+## Phone
+
+date: 2018-05-01
+locations: Frankfurt
+
+### poem
+
+Phone.  
+News.  
+Anxious and foolish.
+
+
+## Question
+
+date: 2018-05-01
+locations: Frankfurt
+
+### poem
+
+Going to the homecountry.  
+Not telling anyone.  
+Guilty or an adult?
+
+
+## Food photo
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Date.  
+Restaurant.  
+Food photo.
+
+
+## Instagram
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Yoga, meditation.  
+Selfie.  
+Instagram.
+
+
+## Memory
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Parties with cocaine.  
+Sex with alcohol.  
+No one wants to remember.
+
+
+## Skype
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Skype.  
+Mom and dad.  
+Complaints.
+
+
+# Society
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Traditional boring villages.
+Drunken liberal cities.
+No one is happy.
+
+
+# Swear
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Dressy beautiful people.  
+Swear, swear, swear.  
+Damaged broken hearts.
+
+
+# Tesla
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Tesla.  
+Bitcoin.  
+Loneliness.
+
+
+# Tinder
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Lonely.  
+Tinder.  
+Swipe.
+
+
+# Youtube
+
+date: 2018-04-30
+locations: Berlin
+
+### poem
+
+Alone.  
+Thoughts.  
+Youtube.
 
 # readings
 
@@ -2125,6 +2741,28 @@ started    | finished   | locations
 Good idea for a pocket book. Just a collection of jokes for an easy weekend read.
 
 
+## A Man Without a Country
+
+title: A Man Without a Country  
+authors: @{Kurt Vonnegut}
+isbn: 978-0-8129-7736-3  
+year: 2005
+pages: 142  
+rating: 4  
+tags: #{novel}
+reviewdate: 2019-04-06
+
+### readings
+
+started    | finished   | locations
+---------- | ---------- | --------------
+2018-07-15 | 2018-07-15 | San Francisco, Los Angeles 
+
+### review
+
+My first book from Vonnegut. I might read more of his novels now. I like the style.
+
+
 ## Gratitude by Sacks
 
 title: Gratitude  
@@ -2169,28 +2807,6 @@ started    | finished   | locations
 Six months later don't remember anything. 
 I think it is a book that restates common knowledge.
 Nothing revolutionary.
-
-
-## A Man Without a Country
-
-title: A Man Without a Country  
-authors: @{Kurt Vonnegut}
-isbn: 978-0-8129-7736-3  
-year: 2005
-pages: 142  
-rating: 4  
-tags: #{novel}
-reviewdate: 2019-04-06
-
-### readings
-
-started    | finished   | locations
----------- | ---------- | --------------
-2018-07-15 | 2018-07-15 | San Francisco, Los Angeles 
-
-### review
-
-My first book from Vonnegut. I might read more of his novels now. I like the style.
 
 
 ## Anarchy in the Ukr
@@ -3058,10 +3674,10 @@ type: tourism
 
 ### itinerary
 
-from | to  | date       | type   | data 
----- | --- | ---------- | ------ | -------------- 
-TGD  | BUD | 2011-12-28 | flight | MA495, 737-600   
-BUD  | KBP | 2011-12-29 | flight | MA110, 737-800  
+from | to  | date       | type   | data           | layover
+---- | --- | ---------- | ------ | -------------- | --------
+TGD  | BUD | 2011-12-28 | flight | MA495, 737-600 |  
+BUD  | KBP | 2011-12-29 | flight | MA110, 737-800 | ✓
 
 
 ## Berlin First Trip 2011
