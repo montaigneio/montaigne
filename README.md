@@ -16,6 +16,7 @@ It comes with document format, format parser and CLI tool to generate web site f
  - [ ] move from collection/entity to entity/children. Collections are basically just entities with few more predefined props
  - [ ] when we parse people, places and tags we need to store them as top level index with arrays of pathes to sources. Actually we only need it for places in order to batch them
  - [ ] make executable
+ - [ ] validate that collection/entity names are globally unique. Render pages without namespacing
  
 ## Ideas
 
@@ -24,7 +25,6 @@ It comes with document format, format parser and CLI tool to generate web site f
  - collect all errors and print at the end
  - support for reference types `&Name`( or maybe &Name or maybe `Some Name`)
  - we can allow users to define validate functions that will be called on parse. Like validate that end date is bigger than start.
- - validate that collection/entity names are globally unique
  - pass args so all hardcoded string can be customized
  - multiple files support
  - markdown inside multiline attributes might also have code that we can evaulate.
