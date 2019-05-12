@@ -68,11 +68,11 @@ description: My poems
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}])
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -86,7 +86,7 @@ description: My poems
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f3.athelas (:name %)]
+        [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]
@@ -167,54 +167,45 @@ of bigotry and desire
 we follow leaders  
 we do not admire.  
 
-
 We follow people  
 we didn’t elect  
 they abuse our brothers  
 that we cannot protect.  
-
 
 We do not pray  
 since there is no one to pray to  
 we do not obey  
 since there are no rules too.  
 
-
 But please, do say a little prayer  
 make a small did  
 shed a little tear  
 you’ll be happier a bit.  
-
 
 Please do avoid distractions  
 and all angry news  
 do not you live in abstractions  
 and your anxiety will be reduced.  
 
-
 Do not try to impress others  
 you’ll only lose yourself  
 and if you do not do that dear  
 there would be no one left.  
-
 
 Please always seek the Truth  
 be the best person you can  
 and after each mistake  
 stand up and be a Man.  
 
-
 Do not follow trends  
 they will come and go  
 try to make new friends  
 with them, you’ll grow.  
 
-
 When using your mind  
 don’t forget about heart  
 try being kind  
 and not hit people hard.  
-
 
 Pray, pray, pray dear  
 pray for yourself  
@@ -235,11 +226,11 @@ description: Books I've read
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}])
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -253,7 +244,7 @@ description: Books I've read
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f3.athelas (:name %)]
+        [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]
@@ -2301,6 +2292,37 @@ I've read all of it except the last chapter in 2018, but for some reason didn't 
 
 description: My trips  
 
+### cities
+
+```clojure
+  (let [cities (into [] (flatten (map (fn [trip] (->> trip :visited-cities :value)) %)))]
+      cities)
+```
+
+### tripssummary
+
+```clojure
+  (into [] 
+    (map 
+      (fn [[year trips]] 
+        {:year year 
+         :trips (count trips) 
+         :cities (into [] (map :cities trips))
+         :distance (apply + (map :distance trips))
+         :days (apply + (map :days trips)) })
+      (group-by 
+        (fn [trip](->> trip :year)) 
+          (into [] 
+            (map 
+              (fn [trip] 
+                {:year (->> trip :year :value) 
+                 :distance (->> trip :distance :value)
+                 :days (->> trip :days :value)
+                 :cities (->> trip :visited-cities :value)}) 
+            %))
+    )))
+```
+
 ### template
 
 ```clojure
@@ -2310,11 +2332,11 @@ description: My trips
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}]) 
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}]) 
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]
       [:script {:src "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js"}]
       [:link {:rel "stylesheet" :type "text/css" :href "https://api.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css"}]
@@ -2332,6 +2354,7 @@ description: My trips
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:div (str (->> %coll :cities :value))]
         [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
@@ -2361,53 +2384,45 @@ description: My trips
         });
         map.addControl(new mapboxgl.FullscreenControl());
         map.on('load', function() {"
-          (apply str (map-indexed 
-            (fn [idx entity]
-              (str
-              "\nmap.addLayer(
-                    {
-                      'id': '" 
-                      idx
-                      "',
-                      'type': 'circle',
-                      'source': {
-                        'type': 'geojson',
-                        'data': {
-                            'type': 'FeatureCollection',
-                            'features': ["
-                            (clojure.string/join ", " 
-                              (map 
-                              (fn [city]
-                                (if (and 
-                                  (not (nil? (:lon city)))
-                                  (not (nil? (:lat city)))
-                                  )
-                                (str "{
-                                    'type': 'Feature',
-                                    'properties': {
-                                      'description':'"  (:city city) "'
-                                    },
-                                    'geometry': {
-                                      'type': 'Point',
-                                      'coordinates': ["
-                                        (:lon city)
-                                        ","
-                                        (:lat city)
-                                      "]
-                                    }
-                                  }"))
-                              ) (->> entity :visited-cities :value)))
-                              
-                            "]}},
-                      'paint': {
-                          'circle-radius': 6,
-                          'circle-color': '#ffa3d7'
-                      },
-                      'filter': ['==', '$type', 'Point'],
-                  });"
-                )
-            )
-          %))
+          "\nmap.addLayer(
+                {
+                  'id': 'places',
+                  'type': 'circle',
+                  'source': {
+                    'type': 'geojson',
+                    'data': {
+                        'type': 'FeatureCollection',
+                        'features': ["
+                        (clojure.string/join ", " 
+                          (remove nil? (map 
+                            (fn [city]
+                              (if (and 
+                                (not (nil? (:lon city)))
+                                (not (nil? (:lat city)))
+                                )
+                              (str "{
+                                  'type': 'Feature',
+                                  'properties': {
+                                    'description':'"  (:city city) "'
+                                  },
+                                  'geometry': {
+                                    'type': 'Point',
+                                    'coordinates': ["
+                                      (:lon city)
+                                      ","
+                                      (:lat city)
+                                    "]
+                                  }
+                                }"))
+                            ) (->> %coll :cities :value))))
+                          
+                        "]}},
+                  'paint': {
+                      'circle-radius': 6,
+                      'circle-color': '#ffa3d7'
+                  },
+                  'filter': ['==', '$type', 'Point'],
+              });"
           
         "
         
@@ -2447,7 +2462,7 @@ description: My trips
 @id: `(montaigne.fns/slug (:name %))`  
 @itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %airports)))`
 @itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %airports)))`
-@itinerary.country-from: `(or (->> % :airport-from :country) (last (clojure.string/split (:from %) "," )))`
+@itinerary.country-from: `(or (->> % :airport-from :country) (clojure.string/trim (last (clojure.string/split (:from %) "," ))))`
 @itinerary.city-from: `(or (->> % :airport-from :city) (first (clojure.string/split (:from %) ",")))`
 @itinerary.country-to: `(->> % :airport-to :country)`
 @itinerary.city-to: `(->> % :airport-to :city)`
@@ -2983,6 +2998,7 @@ from                     | to                       | date       | type   | data
 KBP      | TXL           | 2012-10-14 | flight |  | 
 TXL      | KBP           | 2012-11-05 | flight |  | 
 
+
 ## Balkans 2012
 
 type: tourism  
@@ -3066,11 +3082,11 @@ description: My collection of quotes
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}])
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -3210,11 +3226,11 @@ description: What am I'm doing now
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}])
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -3228,7 +3244,7 @@ description: What am I'm doing now
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f3.athelas (:name %)]
+        [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]
@@ -3337,11 +3353,11 @@ description: Log of my activities
       [:meta {:charset "UTF-8"}]
       [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
       [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
-      [:title (:name %)]
+      [:title (:name %coll)]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
       [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
-      (if (not (nil? (->> % :description :value)))
-        [:meta {:name "description" :content (->> % :description :value)}])
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
       [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
     [:body
       [:header {:class "ph3 ph5-ns pt1 dt"}
@@ -3355,7 +3371,7 @@ description: Log of my activities
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:h1.lh-title.f3.athelas (:name %)]
+        [:h1.lh-title.f3.athelas (:name %coll)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]

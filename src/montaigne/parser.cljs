@@ -441,7 +441,8 @@
       (str "(def %" (:name collection-attr) " " (:value collection-attr) ")")
       (let [ents (map #(dissoc % :attrs) (:entities collection))]
         (str "(let [% '" (prn-str ents)  " "
-                   "%coll " (prn-str (remove-code-attrs (dissoc collection :attrs))) "]" 
+             "%coll " (prn-str (remove-code-attrs (dissoc collection :attrs :entity-def-attrs :entities))) 
+             "]" 
              (:value collection-attr) ")"))
   ))
 
@@ -456,7 +457,7 @@
                 code-to-eval (build-collection-attr-eval-code collection collection-attr)
                 attr-val (:value (eval-safe code-to-eval))
                 new-attr {:name attr-name :value attr-val}]
-                  (println "evaluated collection attr")
+                  ; (println "evaluated collection attr")
                   (assoc collection attr-name new-attr :attrs (concat (:attrs collection) [new-attr])))
           ; put back original attribute
           (assoc collection :attrs (concat (:attrs collection) [collection-attr]))
