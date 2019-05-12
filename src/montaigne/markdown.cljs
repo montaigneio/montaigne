@@ -1,5 +1,6 @@
 (ns montaigne.markdown
-    (:require [instaparse.core :as insta :refer-macros [defparser]]
+    (:require [markdown.core :refer [md->html]]
+              [instaparse.core :as insta :refer-macros [defparser]]
               ["@thi.ng/hiccup" :as hiccup :refer [serialize]]))
 
 (defn to-hiccup
@@ -72,12 +73,22 @@
 
 (def markdown-to-html (comp output-html parse-md))
 
+; (defn to-html
+;   "Parses markup into HTML."
+;   [markup]
+;   (try
+;     (markdown-to-html (str markup "\n\n"))
+;     (catch js/Object e
+;         (println "failed to parse markdown" e)
+;         (println markup)
+;         markup)))
+
 (defn to-html
   "Parses markup into HTML."
   [markup]
   (try
-    (markdown-to-html (str markup "\n\n"))
+    (markdown.core/md->html (str markup))
     (catch js/Object e
-        (println "failed to parse markdown" e)
-        (println markup)
-        markup)))
+      (println "failed to parse markdown" e)
+      (println markup)
+      markup)))
