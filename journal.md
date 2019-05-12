@@ -32,6 +32,8 @@ description: Personal site, journal, wiki
         [:h1.lh-title.f3.athelas (:name %)]
         [:ul {:class "ph0 pv4 mt0 list measure"}
           [:li.mb3
+            [:a.link.f6.b.mb1 {:href "/writings"} "Writings"]]
+          [:li.mb3
             [:a.link.f6.b.mb1 {:href "/readings"} "Readings"]]
           [:li.mb3
             [:a.link.f6.b.mb1 {:href "/poems"} "Poems"]]
@@ -55,9 +57,226 @@ description: Personal site, journal, wiki
 
 # data
 
-author: `"Anton Podviaznikov"`
-airports: `(:airports (montaigne.fns/http-get-json "https://ohgodhelp.us/js/airports.json"))`
-flags: `(montaigne.fns/http-get-json "https://raw.githubusercontent.com/matiassingers/emoji-flags/master/data.json")`
+author: `"Anton Podviaznikov"`  
+airports: `(:airports (montaigne.fns/http-get-json "https://ohgodhelp.us/js/airports.json"))`  
+flags: `(montaigne.fns/http-get-json "https://raw.githubusercontent.com/matiassingers/emoji-flags/master/data.json")`  
+
+# writings
+
+description: My essays
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %coll)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %coll)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+                [:span (->> entity :name)]
+              ]
+              [:div.mt1.mb0.mh0
+                (if (not (nil? (->> entity :date :value)))
+                  [:small.f7.ml0.mb0.mr0.gray "written on "(->> entity :date :value) " "])
+                (if (not (nil? (->> entity :locations :value)))
+                  [:small.f7.ml0.mb0.mr0.gray "in " (->> entity :locations :value)])
+              ]
+            ])
+          (reverse (sort-by (fn [ent] (->> ent :date :value)) %)))]
+      ]
+    ]])
+```
+
+@id: `(montaigne.fns/slug (:name %))`  
+
+### @template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (->> % :name)]
+        (if (not (nil? (->> % :content :value)))
+          [:section
+            [:article.lh-copy.measure
+              (->> % :content :value)]])
+        [:footer {:class "mt4 cf lh-copy measure f6"}
+          [:p.i.fr
+            [:span.i {:itemprop "locationCreated"} (->> % :locations :value)]
+            [:span "&nbsp;&nbsp;"]
+            [:span.i {:itemprop "datePublished"} (->> % :date :value)]
+          ]
+        ]
+      ]
+    ]])
+```
+
+## Words
+
+description: Personal story on how words can be misused  
+date: 2018-12-21  
+lastmod: 2018-12-21  
+tags: Ukrainian, words, language, personal
+locations: Buenos Aires  
+
+### content
+
+I like words. I usually pay attention to what other people are saying.
+Sometimes it would be _easier_ if I didn't.
+But easier doesn't mean better of course.
+
+I know three different languages. And I know bits from few more.
+I like to reflect on the nature of words.
+
+I had a personal example of language misuse that haunted me for at least a year.
+
+Once my ex-partner called me an _evil_ person. 
+It was said in clear mind and repeated a lot of times during different occurrences afterwards.
+
+That shocked me profoundly. I did know what _evil_ means.
+I started to question myself a lot. Don't I know something about myself?
+Am I lying to myself? Do other people see something in me that I can't see?
+It was a lot of soul-searching.
+I started to pay attention to all the references of _good_ and _evil_ in the literature.
+
+I grew up with these concepts. They were everywhere: fairy tails, cartoons, myths, films.
+I shivered every time I remembered this accusation. 
+It was the opposite of what I believed in and valued.
+
+Wikipedia gives this definition of _evil_:
+
+> Evil, in a general sense, is the opposite or absence of good. It can be an extremely broad concept, though in everyday usage is often used more narrowly to denote profound wickedness.
+
+For me, the simplest definition of _evil_ is "premeditated act of doing something wrong."
+
+And I was reading through definitions and reflecting time and time again.
+One day I confronted my ex-partner and explained what _evil_ means according to other people.
+I asked if knowing this definition her accusation still holds true.
+She switched it to another term. Which ironically was also incorrect, but that is for another story.
+
+I was a bit relieved after this. But I still didn't understand how did that happen in the first place.
+Why was I called _that_ initially? What was the thing person _really_ wanted to say?
+
+In the last year, I believe I found answers to both of these questions.
+
+The problem was that all that communication happened in the Ukrainian language.
+
+In Ukrainian, the noun "evil" is "зло". And the adjective "evil" is "злий".
+So I was called _злий_ meaning _evil person_. However, the problem that _angry_ in Ukrainian
+is also _злий_. Ukrainian language simply doesn't have a separate word for _angry_.
+So _feeling angry_ in Ukrainian is _being evil_. Those are two different things!
+
+Ukrainian language doesn't have a separate word for one of the emotions or feelings
+(however we define it nowadays).
+
+What is even more disturbing that "злий" word (meaning angry) has a very negative spin to it in my native language.
+When you have something that has negative connotation you want to get rid of it and dissociate yourself from it.
+Which is the wrong way to view anger altogether. 
+It has its own function and is quite important. 
+And if you reflect on your anger you would understand a lot about yourself.
+
+Anyway, it was an Aha moment when I realized that all that happened just because Ukrainian language lacked one word in it.
+
+Two lessons that I learned from this situation. 
+
+Listen to people, but make sure that you and they understand some basic words in the same way. 
+A lot of miscommunication happens because people understand things differently.
+Read common definitions. That is precisely why we have vocabularies - to establish common meanings.
+
+Cross check words from different languages. Cross check definitions. 
+Some words are extremely outdated. We can create new words if needed too. 
+Without past baggage.
+An environment in which we operate matters. 
+Culture and language in which we are surrounded set defaults and context.
+
+
+## Slavic Hospitality
+
+description: Explaining Slavic Hospitality  
+date: 2018-08-12  
+lastmod: 2018-12-13  
+tags: generalization, Slavic, hospitality
+places: Kyiv, Ukraine, New York City, Montenegro
+locations: Kyiv
+
+### content
+
+One of my favorite restaurants in the New York City is a place close to East Village that 
+serves Balkan food. It is called _Kafana_.
+
+I've spent 1.5 years living and working in Montenegro, traveled to most of the countries 
+in the region multiple times. That region is my second home.
+That is why _Kafana_ is a place I always try to attend while in NYC.
+
+I like reading their menu, I love hearing Serbian or Croatian language at that place.
+
+During one of my previous visits, I finally became aware of the following phenomena.
+
+I was sitting in _Kafana_ and observing new guests coming.
+Owner - middle-aged man from Balkans - would be very grumpy, not smiling to his foreign guests.
+You'll get the vibe that they are not welcomed, and he actually doesn't care if they are here or not.
+Or you might think that he is in a bad mood today.
+
+But then suddenly came a group of people who he knew. Everything changed, he was welcoming, laughing,
+spending time with them at their table, sharing news, etc.
+He transformed in the most welcoming and happy person who really wants to feed these people and talk to them.
+
+
+At that moment I realized - this is just generalization - that is how Slavic hospitality looks like.
+You are grumpy and unwelcoming and uncaring towards strangers, and you are the most welcoming person 
+towards _people you know_.
+
+Since I became aware of this idea, it became more comfortable for me to travel to Eastern Europe myself.
+I see the same thing happening in Ukraine over and over again.
+As I said, my explanation is just a generalization, this thing happens not in all the cases.
+From my Ukrainian experience, I can say that maybe in 50% of coffee shops I might experience
+grumpiness, but this number shrinks rapidly every year.
+People in the coffee shops and restaurants are becoming more and more welcoming and smiling. 
+And this is the change I definitely welcome.
+
 
 # poems
 
@@ -705,11 +924,11 @@ description: Розмови з людиною
 
 ## Ne Vtikai
 
-title: Не втікай
-description: Про віру
-date: 2018-03-25
-lastmod: 2018-09-29
-locations: San Francisco
+title: Не втікай  
+description: Про віру  
+date: 2018-03-25  
+lastmod: 2018-09-29  
+locations: San Francisco  
 
 ### poem
 
@@ -749,7 +968,7 @@ locations: San Francisco
 Тому що ми - живі,  
 Ми - люди. Живі люди.
 
-Ми можемо сміятись,   
+Ми можемо сміятись,  
 Але ми сумуємо.  
 Ми можемо виглядати сильними і дорослими,  
 Але ми слабкі, беззахисні, ображені діти.
@@ -764,11 +983,11 @@ locations: San Francisco
 
 ## My
 
-title: Ми
-description: Про нас
-date: 2018-03-26
-lastmod: 2018-04-23
-locations: San Francisco
+title: Ми  
+description: Про нас  
+date: 2018-03-26  
+lastmod: 2018-04-23  
+locations: San Francisco  
 
 ### poem
 
@@ -819,11 +1038,11 @@ locations: San Francisco
 
 ## Liudyno vir
 
-title: Людино, вір
-description: Про віру
-date: 2018-03-26
-lastmod: 2018-04-23
-locations: San Francisco
+title: Людино, вір  
+description: Про віру  
+date: 2018-03-26  
+lastmod: 2018-04-23  
+locations: San Francisco  
 
 ### poem
 
@@ -865,11 +1084,11 @@ locations: San Francisco
 
 ## Vrazlyvist
 
-title: Вразливість
-description: Про вразливість
-date: 2018-04-22
-lastmod: 2018-04-23
-locations: Kyiv-Lviv
+title: Вразливість  
+description: Про вразливість  
+date: 2018-04-22  
+lastmod: 2018-04-23  
+locations: Kyiv-Lviv  
 
 ### poem
 
@@ -913,11 +1132,11 @@ locations: Kyiv-Lviv
 
 ## Ty
 
-title: Ти
-description: Ти і слова, слова і ти
-date: 2019-01-05
-lastmod: 2019-02-01
-locations: Paris, San Francisco
+title: Ти  
+description: Ти і слова, слова і ти  
+date: 2019-01-05  
+lastmod: 2019-02-01  
+locations: Paris, San Francisco  
 
 ### poem
 
@@ -1145,7 +1364,7 @@ Mom and dad.
 Complaints.
 
 
-# Society
+## Society
 
 date: 2018-04-30
 locations: Berlin
@@ -1157,7 +1376,7 @@ Drunken liberal cities.
 No one is happy.
 
 
-# Swear
+## Swear
 
 date: 2018-04-30
 locations: Berlin
@@ -1169,7 +1388,7 @@ Swear, swear, swear.
 Damaged broken hearts.
 
 
-# Tesla
+## Tesla
 
 date: 2018-04-30
 locations: Berlin
@@ -1181,7 +1400,7 @@ Bitcoin.
 Loneliness.
 
 
-# Tinder
+## Tinder
 
 date: 2018-04-30
 locations: Berlin
@@ -1193,7 +1412,7 @@ Tinder.
 Swipe.
 
 
-# Youtube
+## Youtube
 
 date: 2018-04-30
 locations: Berlin
