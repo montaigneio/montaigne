@@ -37,6 +37,8 @@ description: Personal site, journal, wiki
             [:a.link.f6.b.mb1 {:href "/poems"} "Poems"]]
           [:li.mb3
             [:a.link.f6.b.mb1 {:href "/haiku"} "Haiku"]]
+          [:li.mb3
+            [:a.link.f6.b.mb1 {:href "/talks"} "Розмови"]]
           [:li.mb3  
             [:a.link.f6.b.mb1 {:href "/trips"} "Trips"]]
           [:li.mb3  
@@ -606,6 +608,379 @@ You give life but you can take it too.
 
 This is my pledge. I finally see the duality of life. I see the need for both sexes.  
 I see the duality of each sex. I see all of that inside myself.
+
+
+# talks
+
+description: Розмови з людиною
+
+### template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %coll)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> %coll :description :value)))
+        [:meta {:name "description" :content (->> %coll :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+        [:div {:class "dtc v-mid ph3"}
+          [:h1 {:class "mt0 mb0 baskerville fw1 f4"} "Anton Podviaznikov"]
+          [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f3.athelas (:name %coll)]
+        [:ul {:class "ph0 pv4 mt0 list measure"}
+        (map 
+          (fn [entity]
+            [:li.mb3
+              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+                [:span (->> entity :title :value)]
+              ]
+              [:div.mt1.mb0.mh0
+                (if (not (nil? (->> entity :date :value)))
+                  [:small.f7.ml0.mb0.mr0.gray "written on "(->> entity :date :value) " "])
+                (if (not (nil? (->> entity :locations :value)))
+                  [:small.f7.ml0.mb0.mr0.gray "in " (->> entity :locations :value)])
+              ]
+            ])
+          (reverse (sort-by (fn [ent] (->> ent :date :value)) %)))]
+      ]
+    ]])
+```
+
+@id: `(montaigne.fns/slug (:name %))`  
+
+### @template
+
+```clojure
+(montaigne.fns/html 
+ [:html
+    [:head
+      [:meta {:charset "UTF-8"}]
+      [:meta {:width "device-width, initial-scale=1.0, user-scalable=no" :name "viewport"}]
+      [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge"}]
+      [:title (:name %)]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/favicon.png" :type "image/png"}]
+      [:link {:rel "icon" :role "shortcut icon" :href "https://podviaznikov.com/img/logo.svg" :type "image/svg+xml"}]
+      (if (not (nil? (->> % :description :value)))
+        [:meta {:name "description" :content (->> % :description :value)}])
+      [:link {:rel "stylesheet" :type "text/css" :href "https://npmcdn.com/tachyons@4.11.1/css/tachyons.min.css"}]]
+    [:body
+      [:header {:class "ph3 ph5-ns pt1 dt"}
+        [:div {:class "dtc v-mid pt0"}
+          [:a.link {:href "/"}
+            [:img {:width "44px" :height "44px" :src "https:/podviaznikov.com/img/logo.svg"}
+          ]
+        ]]
+      ]
+      [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
+        [:h1.lh-title.f4.athelas (->> % :title :value)]
+        (if (not (nil? (->> % :poem :value)))
+          [:section
+            [:article.lh-copy.measure
+              (->> % :poem :value)]])
+        [:footer {:class "mt4 cf lh-copy measure f6"}
+          [:p.i.fr
+            [:span.i {:itemprop "locationCreated"} (->> % :locations :value)]
+            [:span "&nbsp;&nbsp;"]
+            [:span.i {:itemprop "datePublished"} (->> % :date :value)]
+          ]
+        ]
+      ]
+    ]])
+```
+
+## Ne Vtikai
+
+title: Не втікай
+description: Про віру
+date: 2018-03-25
+lastmod: 2018-09-29
+locations: San Francisco
+
+### poem
+
+Не втікай,  
+Я теж боюсь.  
+Не біжи,  
+Я теж соромлюсь.
+
+Зупинись. Подивись.
+
+В твоєму страсі я бачу свій страх.  
+В твоєму обличчі я бачу себе.  
+В твоїх проблемах я бачу свої проблеми.  
+В твоєму соромі я бачу свій сором.  
+В твоєму болі я бачу свій біль.
+
+Не біжи,  
+Я теж боюсь.  
+Зупинись. Подивись.
+
+Я хочу обняти тебе.  
+Я хочу щоб ти обняла мене.  
+Я хочу багато сказати тобі.  
+Але я соромлюсь себе.  
+І боюсь не сподобатись тобі.  
+Я боюсь не бути тим, ким ти мене бачиш.  
+Я боюсь бути не гідним тебе.  
+Мені страшно, так само як і тобі.
+
+Мені болить, що тобі болить.  
+В твоїх очах мої очі.  
+В твоїй сумній усмішці - я.  
+Твоя ображена дитина - це також я.
+
+Вдвох не так страшно - повір мені.  
+Ми не ідеальні, у нас багато проблем,  
+Тому що ми - живі,  
+Ми - люди. Живі люди.
+
+Ми можемо сміятись,   
+Але ми сумуємо.  
+Ми можемо виглядати сильними і дорослими,  
+Але ми слабкі, беззахисні, ображені діти.
+
+Не біжи. Благаю, не поспішай.  
+Ми завжди це встигнемо.  
+Якщо є 1 відсоток шансу, то треба пробувати.  
+Це коштує всього болю та всіх сліз.
+
+Ми далеко, але не поспішай, зупинись.
+
+
+## My
+
+title: Ми
+description: Про нас
+date: 2018-03-26
+lastmod: 2018-04-23
+locations: San Francisco
+
+### poem
+
+Ти не гірше. 
+Ти не краще.  
+Навіщо ці порівняння?  
+Ми всі рівні.  
+Ми всі брати.  
+Ми всі сестри.
+
+Чому ми такі жорстокі?  
+Де поділась наша людяність?  
+Ти думаєш справа у світі?  
+У справедливості?
+
+Але так було завджи,  
+І так буде завжди.  
+І люди були людьми в часи голокосту та воєн.  
+Чому ми не можемо так?
+
+Ми можемо.  
+Ми нащадки справжніх людей.  
+Ми їх продовження.  
+І хтось буде продовженням нас.
+
+Ми в цьому разом.  
+Ми ланка єдиного ланцюгу.  
+Ми поєднуємо покоління.
+
+Без них не було минулого.  
+Без нас не буде майбутнього.
+
+Чому ми жаліємось?  
+Про що нам жалітись?  
+Якщо вони змогли, то зможемо і ми.  
+Чи не задля цього нам треба жити?
+
+Хіба усмішка дитини,  
+Хіба сльоза друга  
+Не варті наших зусиль?  
+Хіба вони не варті подолання нашого страху?
+
+Ми маленькі частинки людства та всесвіту  
+Але ми є їх невідємними частинами  
+Без нас нічого не буде.  
+Наша хоробрість, наша любов врятують все.
+
+
+## Liudyno vir
+
+title: Людино, вір
+description: Про віру
+date: 2018-03-26
+lastmod: 2018-04-23
+locations: San Francisco
+
+### poem
+
+Людино, вір.  
+Щастя в тобі.  
+Ніхто не знає,  
+ніхто не вміє.  
+Всім болить.
+
+Ти - це він.  
+Ти - це вона.  
+Ти - такий як всі.  
+Всі - як ти.
+
+Людино, посміхнись.  
+Ми всі божевільні.  
+Ми всі біжемо,  
+але не вміємо зупинятись.
+
+Людино, відкрийся.  
+Ти - це мить.  
+Більше нічого не буде.  
+Ти прийшла нізвідки, і підеш в нікуди.  
+Ти - ніщо, і ти - все.  
+Тебе ніколи не було,  
+І ти була завжди.  
+Тому що ми однакові.
+
+Ми однакові,  
+В болю.  
+В помилках.  
+В божевіллі.
+
+Людино, відкрийся.  
+Розслабся, люби.  
+Людино, оживи,  
+і живи.
+
+
+## Vrazlyvist
+
+title: Вразливість
+description: Про вразливість
+date: 2018-04-22
+lastmod: 2018-04-23
+locations: Kyiv-Lviv
+
+### poem
+
+Будь вразливим.  
+Виглядати сильним може кожен.  
+Але сила розділяє нас.  
+Будь вразливим.  
+Це об’єднує.
+
+У всіх є проблеми,  
+Страхи, недоліки,  
+Дитячі травми,  
+Образи, трагедії та помилки дорослого життя.
+
+Сила ізолює тебе.  
+Залишає тебе наодинці з усім цим.  
+Будь вразливим.  
+Тобі буде легше.
+
+Показуй свою слабкість людям.  
+Показуй свіх біль. Показуй свої сльози.  
+Цe змінить усе.  
+Прийде легкісь та теплота.
+
+Ми розуміємо один одного  
+Не через досягнення.  
+Ми розуміємо один одного  
+Через страхи та біль.  
+Ділись цим  
+І все відкриється.  
+З’являться усмішки добра  
+Та сльози легкості.
+
+Будь вразливим.  
+Це і є бути людиною.  
+Ми не машини, ми не роботи.  
+Ми зламані діти  
+Зі шрамами від дорослого життя.  
+Але в цьому наша чарівність, наша людяність.
+
+
+## Ty
+
+title: Ти
+description: Ти і слова, слова і ти
+date: 2019-01-05
+lastmod: 2019-02-01
+locations: Paris, San Francisco
+
+### poem
+
+Ти не знаєш що слово значить  
+Але використовуєш його все одно  
+Ти не знаєш що слово ранить  
+Опускає людину на дно 
+
+Ти не думаєш про наслідки  
+Для тебе слова, як і дії, пусті  
+Ти не віриш що інші страждають  
+Ти не знаєш що серця крихкі 
+
+Ти говориш великими фразами  
+Ти думаєш що розумніша за всіх  
+Як же сильно ти помиляєшся  
+Ти несеш страждання для них 
+
+---
+
+Ти не вмієш творити любов  
+Хоча багато про це говориш  
+Ти не можеш прийняти себе  
+Тому іншу людину довбиш 
+
+Ти не можеш знайти спокій  
+Бо ти обманула себе  
+Лише насолода без цінностей  
+Ніколи не звільнить тебе 
+
+Ти не вмієш вибачатись  
+Тому що ти не любиш себе  
+А поки себе не полюбиш  
+Не зможуть любити тебе 
+
+Ти не вмієш співчувати  
+Тому що ти заблокувала біль  
+Перестань себе аналізувати  
+І любов прийде звідусіль 
+
+---
+
+Пробач себе  
+Позбудься жалю  
+Позбудься відчуття вини  
+Люби себе  
+Тебе пробачать  
+І зможеш далі ти іти 
+
+Борися з егом - ти звичайна  
+Не розумніша ти, повір  
+Повіриш, зможеш ти збагнути  
+І жити знову як колись 
+
+Слова не варті нічого  
+Вчинки визначають все  
+Слова можуть вбити  
+Вчинки зцілити тебе 
+
+Забудь що ти хотіла сказати  
+Не варто це витрати сил  
+Зроби що повинна зробити   
+Відчуй любові в серці прилив 
 
 
 # haiku
