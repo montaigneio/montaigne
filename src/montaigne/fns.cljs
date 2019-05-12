@@ -44,18 +44,16 @@
        (not (nil? d1))
        (not (nil? d2))
        (not (= "" d1))
-       (not (= "" d2))
-       )
+       (not (= "" d2)))
     (let [dd1 (str-to-date d1)
           dd2 (str-to-date d2)]
       (if (and
            (not (nil? dd1))
            (not (nil? dd2)))
-        (inc (date-core/in-days (date-core/interval dd1 dd2)))))))
+        (date-core/in-days (date-core/interval dd1 dd2))))))
 
 (defn get-year [s]
-  (->> s str-to-date .getYear)
-  )
+  (->> s str-to-date .getYear))
 
 (defn html [hiccup-str]
   (serialize hiccup-str))

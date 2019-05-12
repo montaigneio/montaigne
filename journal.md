@@ -53,7 +53,7 @@ description: Personal site, journal, wiki
 
 author: `"Anton Podviaznikov"`
 airports: `(:airports (montaigne.fns/http-get-json "https://ohgodhelp.us/js/airports.json"))`
-
+flags: `(montaigne.fns/http-get-json "https://raw.githubusercontent.com/matiassingers/emoji-flags/master/data.json")`
 
 # poems
 
@@ -2303,24 +2303,26 @@ description: My trips
 
 ```clojure
   (into [] 
-    (map 
-      (fn [[year trips]] 
-        {:year year 
-         :trips (count trips) 
-         :cities (into [] (map :cities trips))
-         :distance (apply + (map :distance trips))
-         :days (apply + (map :days trips)) })
-      (group-by 
-        (fn [trip](->> trip :year)) 
-          (into [] 
-            (map 
-              (fn [trip] 
-                {:year (->> trip :year :value) 
-                 :distance (->> trip :distance :value)
-                 :days (->> trip :days :value)
-                 :cities (->> trip :visited-cities :value)}) 
-            %))
-    )))
+    (sort-by :year
+      (map 
+        (fn [[year trips]] {
+          :year year 
+          :trips (count trips) 
+          :cities (into [] (flatten (map :cities trips)))
+          :countries (into #{} (flatten (map (fn [city]{:country (:country city) :flag (:country-flag city)}) (into [] (flatten (map :cities trips))))))
+          :distance (apply + (map :distance trips))
+          :days (apply + (map :days trips)) })
+        (group-by 
+          (fn [trip](->> trip :year)) 
+            (into [] 
+              (map 
+                (fn [trip] 
+                  {:year (->> trip :year :value) 
+                   :distance (->> trip :distance :value)
+                   :days (->> trip :days :value)
+                   :cities (into [] (->> trip :visited-cities :value))}) 
+              %))
+      ))))
 ```
 
 ### template
@@ -2354,8 +2356,33 @@ description: My trips
           [:h2 {:class "gray mt1 mb0 fw4 f6"} "observer; no answers, only questions"]]
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
-        [:div (str (->> %coll :cities :value))]
         [:h1.lh-title.f3.athelas (:name %coll)]
+        [:article.lh-copy.measure
+          [:table {:class "f6 w-100 mw8 center" :cellspacing "0"}
+            [:thead
+              [:tr
+                [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "year"]
+                [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "trips"]
+                [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "days"]
+                [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "countries"]]
+            ]
+            [:tbody {:class "lh-copy"}
+              (map
+                (fn [row]
+                  [:tr
+                    [:td.nowrap (->> row :year)]
+                    [:td.nowrap (->> row :trips)]
+                    [:td.nowrap (->> row :days)]
+                    [:td.nowrap 
+                      (map 
+                        (fn [country]
+                          [:span {:title (:country country)} (:flag country)])
+                        (:countries row))]
+                    ])
+                (->> %coll :tripssummary :value)
+                )]]]
+
+
         [:ul {:class "ph0 pv4 mt0 list measure"}
         (map 
           (fn [entity]
@@ -2463,6 +2490,7 @@ description: My trips
 @itinerary.airport-from: `(first (filter (fn [row] (= (:from %) (:IATA row))) (->> %airports)))`
 @itinerary.airport-to: `(first (filter (fn [row] (= (:to %) (:IATA row))) (->> %airports)))`
 @itinerary.country-from: `(or (->> % :airport-from :country) (clojure.string/trim (last (clojure.string/split (:from %) "," ))))`
+@itinerary.country-from-flag: `(->> (filter (fn [flag] (= (:name flag) (:country-from %)) ) %flags) first :emoji)`
 @itinerary.city-from: `(or (->> % :airport-from :city) (first (clojure.string/split (:from %) ",")))`
 @itinerary.country-to: `(->> % :airport-to :country)`
 @itinerary.city-to: `(->> % :airport-to :city)`
@@ -2471,7 +2499,7 @@ description: My trips
 @itinerary.airport-to-lon: `(->> % :airport-to :lon)`
 @itinerary.airport-to-lat: `(->> % :airport-to :lat)`
 @itinerary.distance: `(montaigne.fns/calc-distance (:airport-from-lat %) (:airport-from-lon %) (:airport-to-lat %) (:airport-to-lon %))`
-@visited-cities-with-layover: `(into [] (drop 1 (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :lat (:airport-from-lat row) :lon (:airport-from-lon row) :layover (:layover row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row)) :date-from (:date (get (->> % :itinerary :value) (dec idx))) :date-to (:date row)})(->> % :itinerary :value))))`
+@visited-cities-with-layover: `(into [] (drop 1 (map-indexed (fn [idx row] {:city (:city-from row) :country (:country-from row) :country-flag (:country-from-flag row) :lat (:airport-from-lat row) :lon (:airport-from-lon row) :layover (:layover row) :days (montaigne.fns/duration-in-days (:date (get (->> % :itinerary :value) (dec idx))) (:date row)) :date-from (:date (get (->> % :itinerary :value) (dec idx))) :date-to (:date row)})(->> % :itinerary :value))))`
 @visited-cities: `(into [] (filter (fn [row] (clojure.string/blank? (:layover row)) ) (->> % :visited-cities-with-layover :value)))`
 @itinerary.carbon: `(montaigne.fns/calc-carbon (:distance %))`
 @distance: `(apply + (map :distance (->> % :itinerary :value)))`
@@ -2554,8 +2582,7 @@ description: My trips
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "carbon"]
                   [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "data"]
 
-                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "layover"]
-]
+                  [:th {:class "fw6 bb b--black-20 tl pb3 pr3 bg-white"} "layover"]]
               ]
               [:tbody {:class "lh-copy"}
                 (map
@@ -3138,7 +3165,7 @@ description: My collection of quotes
       ]
       [:main {:class "ph3 pb3 pt2 ph5-ns pb5-ns pt2-ns"}
         [:h1.lh-title.f4.athelas (:name %)]
-        [:blockquote {:class "athelas ml0 mt0 pl4 black-90 bl bw2 b--blue"}
+        [:blockquote {:class "athelas ml0 mt0 pl4 black-90 bl bw2 b--blue measure"}
           [:p {:class "f5 f4-m f3-l lh-copy measure mt0"}
             (->> % :quote :value)
           ]
@@ -3334,10 +3361,9 @@ location: @{San Francisco}
 It has been almost 5 years since I moved to San Francisco. 
 It’s the longest stretch of time I’ve spent in a single city outside of my home country.
 
-I write some poetry as therapeutic exercise.
+I write some poetry as therapeutic exercise. 
 I write some longer essays that might look like serious things, but they are not. 
-I read books. Travel a bit. 
-Trying to find people and causes I can support.
+I read books. Travel a bit. Trying to find people and causes I can support.
 
 
 # activities
