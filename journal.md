@@ -106,7 +106,7 @@ description: My essays
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} 
                 [:span (->> entity :name)]
               ]
               [:div.mt1.mb0.mh0
@@ -2371,7 +2371,7 @@ description: My poems
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} 
                 [:span (->> entity :name)]
               ]
               [:div.mt1.mb0.mh0
@@ -2922,7 +2922,7 @@ description: Розмови з людиною
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} 
                 [:span (->> entity :title :value)]
               ]
               [:div.mt1.mb0.mh0
@@ -3295,7 +3295,7 @@ description: My haiku
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} 
                 [:span (->> entity :name)]
               ]
               [:div.lh-copy
@@ -3480,6 +3480,7 @@ Alone.
 Thoughts.  
 Youtube.
 
+
 # readings
 
 description: Books I've read
@@ -3516,7 +3517,7 @@ description: Books I've read
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} 
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} 
                 [:span (->> entity :title :value)]
                 [:span " by "]
                 [:span (clojure.string/join ", " (->> entity :authors :value))]
@@ -5654,7 +5655,7 @@ description: My trips
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr0 "from " (->> entity :started :value) " to " (->> entity :finished :value)]
                 [:span.f7.ml0.mb0.mr0 "; days " (->> entity :days :value)]
@@ -6399,7 +6400,7 @@ description: My collection of quotes
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]])
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} (:name entity)]])
           %)]
       ]
     ]])
@@ -6543,7 +6544,7 @@ description: What am I'm doing now
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr1 (->> entity :location :value first) ",&nbsp;" (->> entity :date :value)]
               ]
@@ -6669,7 +6670,7 @@ description: Log of my activities
         (map 
           (fn [entity]
             [:li.mb3
-              [:a.link.f6.b.mb1 {:href (->> entity :id :value)} (:name entity)]
+              [:a.link.f6.b.mb1 {:href (str "/" (->> entity :id :value))} (:name entity)]
               [:div.mt1.mb0.mh0
                 [:span.f7.ml0.mb0.mr1 "from " (->> entity :start :value) " to " (->> entity :end :value)]
                 [:span.f7.ml0.mb0.mr1 "activities " (->> entity :activities-count :value)]
@@ -7054,13 +7055,13 @@ end: 2019-05-11
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
 dance      |  ✓  |     |     |     |     |     |    
-football   |  ✓  |     |     |     |     |     |    
-reading    |  ✓  |  ✓  |     |     |     |     |    
-spanish    |     |     |     |     |     |     |    
+football   |  ✓  |     |     |     |  ✓  |     |    
+reading    |  ✓  |  ✓  |     |  ✓  |  ✓  |  ✓  |  ✓ 
+spanish    |     |     |     |     |  ✓  |     |    
 pushups    |  ✓  |  ✓  |     |     |     |     |    
 edu event  |     |     |     |     |     |     |    
-ent event  |     |     |     |     |     |     |    
-cul event  |     |     |     |     |     |     |    
+ent event  |     |     |     |     |     |  ✓  |    
+cul event  |     |     |     |     |     |  ✓  |    
 cycling    |     |     |     |     |     |     |    
 tennis     |     |     |     |     |     |     |    
 ping-pong  |     |     |     |     |     |     |    
@@ -7069,7 +7070,7 @@ ping-pong  |     |     |     |     |     |     |
 
 Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
 -----------|-----|-----|-----|-----|-----|-----|-----
-no alcohol |  ✓  |  ✓  |  ✓  |     |     |     |    
+no alcohol |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓  |  ✓ 
 no coffee  |     |     |     |     |     |     |    
 no sugar   |     |     |     |     |     |     |    
 
@@ -7077,7 +7078,37 @@ no sugar   |     |     |     |     |     |     |
 ## week 11
 
 start: 2019-05-12  
-end: 2019-05-16  
+end: 2019-05-18  
+
+### activities
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+dance      |     |     |     |     |     |     |    
+football   |     |     |     |     |     |     |    
+reading    |  ✓  |     |     |     |     |     |    
+spanish    |     |     |     |     |     |     |    
+pushups    |     |     |     |     |     |     |    
+edu event  |     |     |     |     |     |     |    
+ent event  |     |     |     |     |     |     |    
+cul event  |  ✓  |     |     |     |     |     |    
+cycling    |     |     |     |     |     |     |    
+tennis     |     |     |     |     |     |     |    
+ping-pong  |     |     |     |     |     |     |    
+
+### intake
+
+Activity   | Sun | Mon | Tue | Wed | Thu | Fri | Sat
+-----------|-----|-----|-----|-----|-----|-----|-----
+no alcohol |  ✓  |     |     |     |     |     |    
+no coffee  |     |     |     |     |     |     |    
+no sugar   |     |     |     |     |     |     |    
+
+
+## week 12
+
+start: 2019-05-19  
+end: 2019-05-25  
 
 ### activities
 

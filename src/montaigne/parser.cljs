@@ -576,9 +576,9 @@
           (doall
             (map
               (fn [entity]
-                  (println (str "public/" (:name collection) "/" (->> entity :id :value) "/"))
-                  (mkdir-safe (str "public/" (:name collection) "/" (->> entity :id :value) "/"))
-                  (spit (str "public/" (:name collection) "/" (->> entity :id :value) "/index.html") (->> entity :template :value)))
+                  (println (str "public/" (->> entity :id :value) "/"))
+                  (mkdir-safe (str "public/" (->> entity :id :value) "/"))
+                  (spit (str "public/" (->> entity :id :value) "/index.html") (->> entity :template :value)))
               (:entities collection))))
       collections
       )))
